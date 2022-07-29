@@ -36,19 +36,22 @@ The code is in the [app](/app/) directory. See the README there for setup direct
     * https://deno.land/std@0.150.0/dotenv
   * [x] Use source maps everywhere...
   * [x] Figure out DenoAuth
+  * [x] Design the Database
+* Day 3 - (August 5th 2022)
   * [ ] Config schema validation
   * [ ] Define our Models...
     * User
     * Social Profile
     * Spot List
     * Spot
-    * Spot Comments
-  * [ ] Show a map on the home page
   * [ ] Allow users to login and logout
+  * [ ] Show a map on the home page
 
 # Stretch Features
 * Social Features
   * Comments on lists
   * Favoriting / staring lists
   * Posting pictures of food / events at the spots would be pretty cool, similar to Yelp or Amazon reviews
-
+  * Lists can have a header / background image
+  * User profile that shows all the lists they've created
+  * Lists can be upvoted

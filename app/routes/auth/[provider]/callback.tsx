@@ -10,6 +10,8 @@ export const handler: Handlers = {
     if (provider) {
       const url = new URL(request.url);
       const userProfile = await provider.code.processAuth(url);
+      // TODO: insert / update in DB
+      // TODO: issue a signed cookie
       return Response.json(userProfile);
     }
     // TODO: show error message instead of instant redirect
