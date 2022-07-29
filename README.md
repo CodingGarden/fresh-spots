@@ -15,6 +15,12 @@
 * Auth
   * [DenoAuth](https://www.denoauth.org/docs)
 
+The code is in the [app](/app/) directory. See the README there for setup directions.
+
+---
+
+## TODO
+
 * Day 1
   * [x] Upgrade Deno
   * [x] Generate Fresh Project
@@ -25,4 +31,22 @@
   * [x] Create a users table
   * [x] At least 1 route that returns data from DB
 * Day 2
-  * TBD - July 29th 2022
+  * [x] Update the README
+  * [ ] use dotenv from std library
+    * https://deno.land/std@0.150.0/dotenv
+  * [ ] Figure out DenoAuth
+  * [ ] Define our Models...
+    * User
+    * Social Profile
+    * Spot List
+    * Spot
+    * Spot Comments
+  * [ ] Show a map on the home page
+  * [ ] Allow users to login and logout
+
+# Stretch Features
+* Social Features
+  * Comments on lists
+  * Favoriting / staring lists
+  * Posting pictures of food / events at the spots would be pretty cool, similar to Yelp or Amazon reviews
+
