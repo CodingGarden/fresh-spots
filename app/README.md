@@ -12,7 +12,9 @@ Copy the `.env.sample` file into `.env`:
 cp .env.sample .env
 ```
 
-Update the values accordingly (if using Docker, the values can stay as is). 
+Update the values accordingly (if using Docker, the values can stay as is).
+
+Discord client id and secret can be acquired [here](https://discord.com/developers/applications).
 
 ### Database
 
