@@ -1,6 +1,13 @@
-import { PostgresOptions } from "https://deno.land/x/denodb@v1.0.39/mod.ts";
+import { PostgresOptions } from "denodb";
 
 export default interface Config {
+  base_url: string;
   environment: string;
   db: PostgresOptions;
+  oauth: {
+    discord: {
+      client_id: string;
+      client_secret: string;
+    }
+  }
 }

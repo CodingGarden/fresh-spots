@@ -2,8 +2,8 @@
 import { h } from "preact";
 import { Handlers, PageProps } from "$fresh/server.ts";
 import { tw } from "@twind";
-import Counter from "../islands/Counter.tsx";
-import User from "../models/User.ts";
+import Counter from "@/islands/Counter.tsx";
+import User from "@/models/User.ts";
 
 export const handler: Handlers<User[]> = {
   async GET(_, ctx) {

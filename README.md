@@ -32,9 +32,11 @@ The code is in the [app](/app/) directory. See the README there for setup direct
   * [x] At least 1 route that returns data from DB
 * Day 2
   * [x] Update the README
-  * [ ] use dotenv from std library
+  * [x] use dotenv from std library
     * https://deno.land/std@0.150.0/dotenv
-  * [ ] Figure out DenoAuth
+  * [x] Use source maps everywhere...
+  * [x] Figure out DenoAuth
+  * [ ] Config schema validation
   * [ ] Define our Models...
     * User
     * Social Profile

@@ -1,6 +1,6 @@
 import { HandlerContext } from "$fresh/server.ts";
 
-import User from '../../models/User.ts';
+import User from '@/models/User.ts';
 
 class JsonResponse extends Response {
   // deno-lint-ignore ban-types
