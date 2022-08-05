@@ -10,7 +10,7 @@ import manifest from "./fresh.gen.ts";
 import { config, setup } from "@twind";
 import { virtualSheet } from "twind/sheets";
 
-import connect from './utils/db.ts';
+import connect from "./utils/db.ts";
 
 const sheet = virtualSheet();
 sheet.reset();

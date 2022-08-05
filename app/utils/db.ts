@@ -1,6 +1,6 @@
-import { Database, PostgresConnector } from 'denodb';
+import { Database, PostgresConnector } from "denodb";
 import config from "./config.ts";
-import models from '@/models/index.ts';
+import models from "@/models/index.ts";
 
 const connector = new PostgresConnector(config.db);
 
@@ -10,6 +10,7 @@ db.link(models);
 
 export default () => {
   db.sync({
-    drop: config.environment === 'development',
+    // TODO: enable this when there is a model change...
+    // drop: config.environment === 'development',
   });
 };

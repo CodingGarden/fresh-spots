@@ -1,6 +1,6 @@
 import { Handlers } from "$fresh/server.ts";
 
-import config from "@/utils/config.ts"
+import config from "@/utils/config.ts";
 import oauth from "@/utils/oauth.ts";
 
 export const handler: Handlers = {

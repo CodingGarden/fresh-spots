@@ -1,7 +1,7 @@
-import { DataTypes, Model } from 'denodb';
+import { DataTypes, Model } from "denodb";
 
 export default class User extends Model {
-  static table = 'user';
+  static table = "user";
   static timestamps = true;
   static fields = {
     id: {

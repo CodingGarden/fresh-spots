@@ -1,0 +1,13 @@
+enum EnvironmentVariableNames {
+  BASE_URL = "BASE_URL",
+  DENO_ENV = "DENO_ENV",
+  DB_NAME = "DB_NAME",
+  DB_HOST = "DB_HOST",
+  DB_USERNAME = "DB_USERNAME",
+  DB_PASSWORD = "DB_PASSWORD",
+  DB_PORT = "DB_PORT",
+  DISCORD_CLIENT_ID = "DISCORD_CLIENT_ID",
+  DISCORD_CLIENT_SECRET = "DISCORD_CLIENT_SECRET",
+}
+
+export default EnvironmentVariableNames;

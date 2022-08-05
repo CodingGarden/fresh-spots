@@ -1,35 +1,36 @@
 import * as mod from "https://deno.land/std@0.150.0/dotenv/mod.ts";
 
+import EnvironmentVariableNames from "../constants/EnvironmentVariableNames.ts";
+
 await mod.config({
   export: true,
 });
 
-import Config from "@/interfaces/Config.ts";
+import { Config, ConfigSchema } from "@/schemas/Config.ts";
 
-const config: Config = {
+const envConfig: Config = {
   // TODO: update to use parameterized port
-  base_url: Deno.env.get('BASE_URL') || 'http://localhost:8000',
-  environment: Deno.env.get('DENO_ENV') || '',
+  base_url: Deno.env.get(EnvironmentVariableNames.BASE_URL) ||
+    "http://localhost:8000",
+  environment: Deno.env.get(EnvironmentVariableNames.DENO_ENV) || "",
   db: {
-    database: Deno.env.get('DB_NAME') || '',
-    host: Deno.env.get('DB_HOST') || '',
-    username: Deno.env.get('DB_USERNAME') || '',
-    password: Deno.env.get('DB_PASSWORD') || '',
-    port: Number(Deno.env.get('DB_PORT') || 5432),
+    database: Deno.env.get(EnvironmentVariableNames.DB_NAME) || "",
+    host: Deno.env.get(EnvironmentVariableNames.DB_HOST) || "",
+    username: Deno.env.get(EnvironmentVariableNames.DB_USERNAME) || "",
+    password: Deno.env.get(EnvironmentVariableNames.DB_PASSWORD) || "",
+    port: Number(Deno.env.get(EnvironmentVariableNames.DB_PORT) || 5432),
   },
   // TODO: make sure these variables are set... (is a schema validator)
   oauth: {
     discord: {
-      client_id: Deno.env.get('DISCORD_CLIENT_ID') || '',
-      client_secret: Deno.env.get('DISCORD_CLIENT_SECRET') || '',
-    }
-  }
+      client_id: Deno.env.get(EnvironmentVariableNames.DISCORD_CLIENT_ID) || "",
+      client_secret:
+        Deno.env.get(EnvironmentVariableNames.DISCORD_CLIENT_SECRET) || "",
+    },
+  },
 };
 
-Object.entries(config.db).forEach(([name, value]) => {
-  if (!value) {
-    throw new Error('Missing db config value: ' + name);
-  }
-});
+// TODO: maybe... cleanup the error that is logged
+const config = ConfigSchema.parse(envConfig);
 
 export default config;

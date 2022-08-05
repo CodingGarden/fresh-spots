@@ -1,6 +1,6 @@
 import { HandlerContext } from "$fresh/server.ts";
 
-import User from '@/models/User.ts';
+import User from "@/models/User.ts";
 
 class JsonResponse extends Response {
   // deno-lint-ignore ban-types
@@ -18,7 +18,10 @@ class JsonResponse extends Response {
   }
 }
 
-export const handler = async (_req: Request, _ctx: HandlerContext): Promise<Response> => {
+export const handler = async (
+  _req: Request,
+  _ctx: HandlerContext,
+): Promise<Response> => {
   const user = await User.create({});
   return new JsonResponse(user);
 };
