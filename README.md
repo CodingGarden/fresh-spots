@@ -48,10 +48,10 @@ The code is in the [app](/app/) directory. See the README there for setup direct
   * [ ] Show a map on the home page
 
 # Stretch Features
-* Social Features
-  * Comments on lists
-  * Favoriting / staring lists
-  * Posting pictures of food / events at the spots would be pretty cool, similar to Yelp or Amazon reviews
-  * Lists can have a header / background image
-  * User profile that shows all the lists they've created
-  * Lists can be upvoted
+
+* Comments on lists
+* Favoriting / staring lists
+* Posting pictures of food / events at the spots
+* Lists can have a header / background image
+* User profile that shows all the lists they've created
+* Lists can be upvoted
