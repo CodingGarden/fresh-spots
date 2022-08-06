@@ -10,6 +10,7 @@
     "twind": "https://esm.sh/twind@0.16.17",
     "twind/": "https://esm.sh/twind@0.16.17/",
     "denodb": "https://deno.land/x/denodb@v1.0.39/mod.ts",
-    "denodb/deps": "https://deno.land/x/denodb@v1.0.39/deps.ts"
+    "denodb/deps": "https://deno.land/x/denodb@v1.0.39/deps.ts",
+    "preact-leaflet-ts": "https://esm.sh/preact-leaflet-ts@0.1.8"
   }
 }
