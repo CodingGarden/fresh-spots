@@ -12,6 +12,7 @@ const models = [
   Spot,
 ];
 
+// TODO: FK relationships attempt to create every run... fix that
 Relationships.belongsTo(
   SocialProfile,
   User,

@@ -9,7 +9,8 @@ import * as $3 from "./routes/auth/[provider]/callback.tsx";
 import * as $4 from "./routes/auth/[provider]/index.tsx";
 import * as $5 from "./routes/index.tsx";
 import * as $$0 from "./islands/Counter.tsx";
-import * as $$1 from "./islands/Users.tsx";
+import * as $$1 from "./islands/FreshMap.tsx";
+import * as $$2 from "./islands/Users.tsx";
 
 const manifest = {
   routes: {
@@ -22,7 +23,8 @@ const manifest = {
   },
   islands: {
     "./islands/Counter.tsx": $$0,
-    "./islands/Users.tsx": $$1,
+    "./islands/FreshMap.tsx": $$1,
+    "./islands/Users.tsx": $$2,
   },
   baseUrl: import.meta.url,
 };
