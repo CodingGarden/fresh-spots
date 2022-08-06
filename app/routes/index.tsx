@@ -4,6 +4,7 @@ import { Handlers, PageProps } from "$fresh/server.ts";
 import { tw } from "@twind";
 
 import FreshMap from "../islands/FreshMap.tsx";
+import Map from "../islands/Map.tsx";
 
 export default function Home() {
   return (
@@ -15,7 +16,8 @@ export default function Home() {
         Login With Discord
       </a> */
       }
-      <FreshMap />
+      {/* <FreshMap /> */}
+      <Map />
     </div>
   );
 }
