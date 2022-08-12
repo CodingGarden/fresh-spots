@@ -11,16 +11,16 @@ const mapElements = `
 export default function FreshMap() {
   const div = useRef(null);
   useEffect(() => {
-    console.log('USE EFFECT IS RUNNING...');
+    console.log("USE EFFECT IS RUNNING...");
     // @ts-ignore
     div.current.innerHTML = mapElements;
-    const leafletScript = document.createElement('script');
+    const leafletScript = document.createElement("script");
     leafletScript.src = "https://unpkg.com/leaflet@1.8.0/dist/leaflet.js";
     document.body.appendChild(leafletScript);
-    leafletScript.addEventListener('load', () => {
+    leafletScript.addEventListener("load", () => {
       // @ts-ignore
       console.log(L);
-      const script = document.createElement('script');
+      const script = document.createElement("script");
       const textNode = document.createTextNode(`
       var map = L.map('map').setView([51.505, -0.09], 13);
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {

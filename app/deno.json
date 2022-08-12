@@ -1,5 +1,6 @@
 {
   "tasks": {
+    "migrate": "deno run --allow-read --allow-env --allow-net ./db/migrate.ts",
     "start": "deno run --allow-env -A --watch=static/,routes/ dev.ts",
     "flint": "deno fmt && deno lint"
   },

@@ -1,5 +1,3 @@
-// TODO: figure out how to use this type with zod
-// import { PostgresOptions } from "denodb";
 import { z } from "zod";
 
 import EnvironmentVariableNames from "../constants/EnvironmentVariableNames.ts";
@@ -19,6 +17,7 @@ export const ConfigSchema = z.object({
     1,
     getErrorMessage(EnvironmentVariableNames.DENO_ENV),
   ),
+  db_uri: z.string(),
   db: z.object({
     host: z.string().min(1, getErrorMessage(EnvironmentVariableNames.DB_HOST)),
     username: z.string().min(

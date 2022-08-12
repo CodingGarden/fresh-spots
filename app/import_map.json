@@ -9,7 +9,8 @@
     "zod": "https://deno.land/x/zod/mod.ts",
     "twind": "https://esm.sh/twind@0.16.17",
     "twind/": "https://esm.sh/twind@0.16.17/",
-    "denodb": "https://deno.land/x/denodb@v1.0.39/mod.ts",
-    "denodb/deps": "https://deno.land/x/denodb@v1.0.39/deps.ts"
+    "kysely": "https://cdn.jsdelivr.net/npm/kysely/dist/esm/index.js",
+    "postgres": "https://deno.land/x/postgres@v0.16.1/mod.ts",
+    "path": "https://deno.land/std@0.152.0/path/mod.ts"
   }
 }

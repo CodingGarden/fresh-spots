@@ -20,6 +20,7 @@ const envConfig: Config = {
     password: Deno.env.get(EnvironmentVariableNames.DB_PASSWORD) || "",
     port: Number(Deno.env.get(EnvironmentVariableNames.DB_PORT) || 5432),
   },
+  db_uri: "",
   // TODO: make sure these variables are set... (is a schema validator)
   oauth: {
     discord: {
@@ -29,6 +30,9 @@ const envConfig: Config = {
     },
   },
 };
+
+envConfig.db_uri =
+  `postgres://${envConfig.db.username}:${envConfig.db.password}@${envConfig.db.host}:${envConfig.db.port}/${envConfig.db.database}`;
 
 // TODO: maybe... cleanup the error that is logged
 const config = ConfigSchema.parse(envConfig);

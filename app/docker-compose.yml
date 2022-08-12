@@ -2,7 +2,7 @@ version: '3.1'
 
 services:
   db:
-    image: postgres
+    image: postgis/postgis
     restart: always
     volumes:
       - ./db-data:/var/lib/postgresql/data
@@ -12,3 +12,10 @@ services:
       - POSTGRES_DB=${DB_NAME}
     ports:
       - ${DB_PORT}:5432
+  adminer:
+    depends_on:
+      - db
+    image: adminer
+    restart: always
+    ports:
+      - 8090:8080

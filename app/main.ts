@@ -10,13 +10,9 @@ import manifest from "./fresh.gen.ts";
 import { config, setup } from "@twind";
 import { virtualSheet } from "twind/sheets";
 
-import connect from "./utils/db.ts";
-
 const sheet = virtualSheet();
 sheet.reset();
 setup({ ...config, sheet });
-
-connect();
 
 function render(ctx: RenderContext, render: InnerRenderFunction) {
   const snapshot = ctx.state.get("twind") as unknown[] | null;

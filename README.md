@@ -10,8 +10,8 @@
 
 * Backend Framework
   * [Deno + Fresh](https://fresh.deno.dev/)
-* ORM
-  * [DenoDB](https://eveningkid.com/denodb-docs/)
+* Database Access
+  * [Kysely](https://koskimas.github.io/kysely/)
 * Auth
   * [DenoAuth](https://www.denoauth.org/docs)
 
@@ -54,16 +54,17 @@ The code is in the [app](/app/) directory. See the README there for setup direct
     * [ ] have external SPA that gets loaded into an island dynamically
       * [ ] maybe a pr to fresh? client side only code
 * [ ] Day 4 - August 12th
-  * [ ] Do we nuke this project?
-    * Reasons
-      * [ ] outdated / unmaintained libs (denodb, denoauth)
-      * [ ] pure client side JS hard to accomplish
-    * Alternatives
-      * (use next.js or nuxt.js or sveltekit)
-      * SPEED RUN
-        * NO TYPESCRIPT
-        * PROBABLY VUE
-        * PROBABLY MONGODB
+  * [x] Setup Kysely Connection
+  * [x] Setup DB Models with Kysely
+  * [x] Setup DB migrations... with Kysely
+  
+* [ ] Day 5 - August 19th
+  * [ ] Replace DenoAuth with DenoGrant
+  * [ ] Login
+    * [ ] Issue a Cookie
+      * Make sure cookie is signed
+    * [ ] Figure out sessions
+  * [ ] Get a Proper map on the page
 
 # Stretch Features
 
