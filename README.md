@@ -38,14 +38,32 @@ The code is in the [app](/app/) directory. See the README there for setup direct
   * [x] Figure out DenoAuth
   * [x] Design the Database
 * Day 3 - (August 5th 2022)
-  * [ ] Config schema validation
-  * [ ] Define our Models...
+  * [x] Config schema validation
+  * [x] Define our Models...
     * User
     * Social Profile
     * Spot List
     * Spot
   * [ ] Allow users to login and logout
+    * [ ] Login
+      * [x] If we have not seen a user before, insert
+      * [x] If we have seen a user before, update
+      * [ ] Issue a cookie
   * [ ] Show a map on the home page
+    * [x] with hacks
+    * [ ] have external SPA that gets loaded into an island dynamically
+      * [ ] maybe a pr to fresh? client side only code
+* [ ] Day 4 - August 12th
+  * [ ] Do we nuke this project?
+    * Reasons
+      * [ ] outdated / unmaintained libs (denodb, denoauth)
+      * [ ] pure client side JS hard to accomplish
+    * Alternatives
+      * (use next.js or nuxt.js or sveltekit)
+      * SPEED RUN
+        * NO TYPESCRIPT
+        * PROBABLY VUE
+        * PROBABLY MONGODB
 
 # Stretch Features
 
