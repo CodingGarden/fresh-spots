@@ -1,14 +1,17 @@
 import { Handlers } from "$fresh/server.ts";
 
 import config from "@/utils/config.ts";
-import oauth from "@/utils/oauth.ts";
+import denoGrant, { ProvidersMap } from "@/utils/denoGrant.ts";
 
 export const handler: Handlers = {
   GET(_, ctx) {
-    const provider = oauth.get(ctx.params.provider.toLowerCase());
+    const providerString = ctx.params.provider.toLowerCase();
+    const provider = ProvidersMap.get(providerString);
     if (provider) {
-      const location = provider.code.createLink();
-      return Response.redirect(location);
+      const authorizationUrl = denoGrant.getAuthorizationUri(provider);
+      if (authorizationUrl) {
+        return Response.redirect(authorizationUrl);
+      }
     }
     // TODO: show error message instead of instant redirect
     return Response.redirect(config.base_url);

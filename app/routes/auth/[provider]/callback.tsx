@@ -1,16 +1,36 @@
 import { Handlers } from "$fresh/server.ts";
-import { URL } from "https://deno.land/std@0.106.0/node/url.ts";
+import { Providers } from "deno_grant";
 
 import config from "@/utils/config.ts";
-import oauth from "@/utils/oauth.ts";
+import denoGrant from "@/utils/denoGrant.ts";
+
+// TODO: refactor this when we have more than 1 provider
+async function upsertDiscordProfile(accessToken: string) {
+  const profile = await denoGrant.getProfile(Providers.discord, accessToken);
+  // TODO: insert / update profile and user in DB
+  return Response.json(profile);
+}
 
 export const handler: Handlers = {
   async GET(request, ctx) {
     const providerType = ctx.params.provider.toLowerCase();
-    const provider = oauth.get(providerType);
-    if (provider) {
-      // TODO: use kysely
-      const url = new URL(request.url);
+    switch (providerType) {
+      case Providers.discord: {
+        const tokens = await denoGrant.getToken(Providers.discord, request.url);
+        if (tokens) {
+          return upsertDiscordProfile(tokens.accessToken)
+        }
+      }
+    }
+    // TODO: show error message instead of instant redirect
+    return Response.redirect(config.base_url);
+  },
+};
+
+
+// if (provider) {
+    //   // TODO: use kysely
+    //   const url = new URL(request.url);
       //   await db.insertInto("social_profile")
       // .values({
       //   username: "",
@@ -53,8 +73,3 @@ export const handler: Handlers = {
       // }
       // TODO: issue a signed cookie
       // return Response.json(socialProfile);
-    }
-    // TODO: show error message instead of instant redirect
-    return Response.redirect(config.base_url);
-  },
-};

@@ -74,7 +74,11 @@ export async function up(db: FreshDb): Promise<void> {
   await createTableWithDefaults(db.schema, "spot")
     .addColumn("name", "varchar(255)", (col) => col.notNull())
     .addColumn("description", "varchar(1000)")
-    .addColumn("location", sql`public.geography(Point, 4326)`, (col) => col.notNull())
+    .addColumn(
+      "location",
+      sql`public.geography(Point, 4326)`,
+      (col) => col.notNull(),
+    )
     .addColumn("user_id", "integer", (col) => col.notNull())
     .addColumn("list_id", "uuid", (col) => col.notNull())
     .addForeignKeyConstraint(
