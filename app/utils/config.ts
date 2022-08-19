@@ -2,9 +2,12 @@ import * as mod from "https://deno.land/std@0.150.0/dotenv/mod.ts";
 
 import EnvironmentVariableNames from "../constants/EnvironmentVariableNames.ts";
 
-await mod.config({
-  export: true,
-});
+if (Deno.env.get(EnvironmentVariableNames.DENO_ENV) !== 'production') {
+  await mod.config({
+    export: true,
+  });
+}
+
 
 import { Config, ConfigSchema } from "@/schemas/Config.ts";
 
