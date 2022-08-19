@@ -1,6 +1,6 @@
 {
   "imports": {
-    "$fresh/": "https://deno.land/x/fresh@1.0.1/",
+    "$fresh/": "https://deno.land/x/fresh@1.0.2/",
     "preact": "https://esm.sh/preact@10.8.2",
     "preact/": "https://esm.sh/preact@10.8.2/",
     "preact-render-to-string": "https://esm.sh/preact-render-to-string@5.2.0?deps=preact@10.8.2",
@@ -12,6 +12,8 @@
     "kysely": "https://cdn.jsdelivr.net/npm/kysely/dist/esm/index.js",
     "postgres": "https://deno.land/x/postgres@v0.16.1/mod.ts",
     "path": "https://deno.land/std@0.152.0/path/mod.ts",
-    "deno_grant": "https://deno.land/x/deno_grant@v0.3.0/mod.ts"
+    "deno_grant": "https://deno.land/x/deno_grant@v0.3.0/mod.ts",
+    "leaflet": "https://esm.sh/v90/@types/leaflet@1.7.11/index.d.ts",
+    "preact-leaflet-ts": "https://esm.sh/preact-leaflet-ts@0.1.8"
   }
 }
