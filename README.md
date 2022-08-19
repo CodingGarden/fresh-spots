@@ -61,9 +61,9 @@ The code is in the [app](/app/) directory. See the README there for setup direct
 * [ ] Day 5 - August 19th
   * [ ] Replace DenoAuth with DenoGrant
   * [ ] Login
+    * [ ] Figure out sessions
     * [ ] Issue a Cookie
       * Make sure cookie is signed
-    * [ ] Figure out sessions
   * [ ] Get a Proper map on the page
 
 # Stretch Features
