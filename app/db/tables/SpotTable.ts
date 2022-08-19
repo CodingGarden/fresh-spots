@@ -7,6 +7,7 @@ export interface SpotTable extends BaseTable {
   list_id: number;
   user_id: number;
   description: string;
+  // TODO: use point type...
   latitude: number;
   longitude: number;
 }

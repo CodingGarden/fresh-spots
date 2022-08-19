@@ -51,20 +51,34 @@ The code is in the [app](/app/) directory. See the README there for setup direct
       * [ ] Issue a cookie
   * [ ] Show a map on the home page
     * [x] with hacks
-    * [ ] have external SPA that gets loaded into an island dynamically
-      * [ ] maybe a pr to fresh? client side only code
-* [ ] Day 4 - August 12th
+* [x] Day 4 - August 12th
   * [x] Setup Kysely Connection
   * [x] Setup DB Models with Kysely
   * [x] Setup DB migrations... with Kysely
   
 * [ ] Day 5 - August 19th
-  * [ ] Replace DenoAuth with DenoGrant
+  * [x] Replace DenoAuth with DenoGrant
+  * [x] Get a Proper map on the page
+  * [ ] Goals
+    * Landing Page
+    * Discord Sign In
+    * Spot List creation page
   * [ ] Login
+    * [ ] Upsert user into db
     * [ ] Figure out sessions
     * [ ] Issue a Cookie
       * Make sure cookie is signed
-  * [ ] Get a Proper map on the page
+  * [ ] Design Flows and Layout
+    * [ ] Landing Page
+      * Description of the App
+      * Recently updated lists
+      * Popular lists
+    * [ ] Navbar
+      * [ ] Signup / Sign In
+      * [ ] User State
+    * [ ] Spot List Edit Page
+    * [ ] Spot List Page
+    * [ ] "Private / Logged In" Profile Page
 
 # Stretch Features
 

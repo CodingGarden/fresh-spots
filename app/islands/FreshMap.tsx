@@ -33,6 +33,7 @@ export default function FreshMap() {
         zoom={5}
       >
         <TileLayer
+          // create acount when we deploy...
           url="https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png"
           attribution="© OpenStreetMap"
           maxZoom="19"

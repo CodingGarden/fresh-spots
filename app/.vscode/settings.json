@@ -1,4 +1,9 @@
 {
   "deno.enable": true,
-  "eslint.enable": false
+  "eslint.enable": false,
+  "cSpell.words": [
+    "kysely",
+    "preact",
+    "twind"
+  ]
 }
