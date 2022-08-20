@@ -64,17 +64,15 @@ The code is in the [app](/app/) directory. See the README there for setup direct
     * Discord Sign In
     * Spot List creation page
   * [ ] Login
-    * [ ] Upsert user into db
+    * [x] Upsert user into db
+    * [x] Issue a Cookie
+      * [x] Make sure cookie is signed
     * [ ] Figure out sessions
-    * [ ] Issue a Cookie
-      * Make sure cookie is signed
   * [ ] Design Flows and Layout
-    * [ ] Landing Page
+    * [x] Landing Page
       * Description of the App
-      * Recently updated lists
-      * Popular lists
-    * [ ] Navbar
-      * [ ] Signup / Sign In
+      * [x] Signup / Sign In
+    * [x] Navbar
       * [ ] User State
     * [ ] Spot List Edit Page
     * [ ] Spot List Page

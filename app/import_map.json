@@ -9,11 +9,16 @@
     "zod": "https://deno.land/x/zod/mod.ts",
     "twind": "https://esm.sh/twind@0.16.17",
     "twind/": "https://esm.sh/twind@0.16.17/",
-    "kysely": "https://cdn.jsdelivr.net/npm/kysely/dist/esm/index.js",
+    "kysely": "https://cdn.jsdelivr.net/npm/kysely@0.21.3/dist/esm/index.js",
     "postgres": "https://deno.land/x/postgres@v0.16.1/mod.ts",
     "path": "https://deno.land/std@0.152.0/path/mod.ts",
+    "dotenv": "https://deno.land/std@0.150.0/dotenv/mod.ts",
     "deno_grant": "https://deno.land/x/deno_grant@v0.3.0/mod.ts",
+    "deno_grant/": "https://deno.land/x/deno_grant@v0.3.0/src/",
     "leaflet": "https://esm.sh/v90/@types/leaflet@1.7.11/index.d.ts",
-    "preact-leaflet-ts": "https://esm.sh/preact-leaflet-ts@0.1.8"
+    "preact-leaflet-ts": "https://esm.sh/preact-leaflet-ts@0.1.8",
+    "cookie": "https://deno.land/std@0.148.0/http/cookie.ts",
+    "request_cookie_store": "https://deno.land/x/request_cookie_store@v0.6.0-pre.3/index.ts",
+    "signed_cookie_store": "https://deno.land/x/signed_cookie_store@v0.3.0-pre.8/index.ts"
   }
 }

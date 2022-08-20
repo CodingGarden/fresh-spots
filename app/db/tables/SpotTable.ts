@@ -1,7 +1,7 @@
-import { Generated, Selectable } from "kysely";
+import { Generated } from "kysely";
 import BaseTable from "./BaseTable.ts";
 
-export interface SpotTable extends BaseTable {
+export default interface SpotTable extends BaseTable {
   id: Generated<number>;
   name: string;
   list_id: number;
@@ -11,6 +11,3 @@ export interface SpotTable extends BaseTable {
   latitude: number;
   longitude: number;
 }
-
-type Spots = Selectable<SpotTable>;
-export default Spots;

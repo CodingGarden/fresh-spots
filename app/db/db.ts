@@ -9,16 +9,16 @@ import {
 
 import config from "@/utils/config.ts";
 
-import Users from "@/db/tables/UserTable.ts";
-import SocialProfiles from "@/db/tables/SocialProfileTable.ts";
-import SpotLists from "@/db/tables/SpotListTable.ts";
-import Spots from "@/db/tables/SpotTable.ts";
+import UserTable from "@/db/tables/UserTable.ts";
+import SocialProfileTable from "@/db/tables/SocialProfileTable.ts";
+import SpotListTable from "@/db/tables/SpotListTable.ts";
+import SpotTable from "@/db/tables/SpotTable.ts";
 
 export interface DbSchema {
-  user: Users;
-  social_profile: SocialProfiles;
-  spot_lists: SpotLists;
-  spots: Spots;
+  user: UserTable;
+  social_profile: SocialProfileTable;
+  spot_lists: SpotListTable;
+  spots: SpotTable;
 }
 
 class Db {
@@ -33,6 +33,7 @@ class Db {
 
   static #initDb() {
     return new Kysely<DbSchema>({
+      log: ["query", "error"],
       dialect: {
         createAdapter() {
           return new PostgresAdapter();

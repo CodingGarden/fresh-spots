@@ -1,6 +1,6 @@
 /** @jsx h */
- /** @jsxFrag Fragment */
-import { h, Fragment } from "preact";
+/** @jsxFrag Fragment */
+import { Fragment, h } from "preact";
 import { useEffect, useRef, useState } from "preact/hooks";
 import { tw } from "@twind";
 import { Head, IS_BROWSER } from "$fresh/runtime.ts";
@@ -16,7 +16,9 @@ if (IS_BROWSER) {
 }
 
 export default function FreshMap() {
-  const [currentCenter, setCurrentCenter] = useState<LatLngExpression | undefined>([39.742043, -104.991531]);
+  const [currentCenter, setCurrentCenter] = useState<
+    LatLngExpression | undefined
+  >([39.742043, -104.991531]);
 
   return (
     <>
