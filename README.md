@@ -55,28 +55,31 @@ The code is in the [app](/app/) directory. See the README there for setup direct
   * [x] Setup Kysely Connection
   * [x] Setup DB Models with Kysely
   * [x] Setup DB migrations... with Kysely
-  
-* [ ] Day 5 - August 19th
+* [x] Day 5 - August 19th
   * [x] Replace DenoAuth with DenoGrant
   * [x] Get a Proper map on the page
-  * [ ] Goals
-    * Landing Page
-    * Discord Sign In
+  * [x] Goals
+    * [x] Landing Page
+    * [x] Discord Sign In
     * Spot List creation page
-  * [ ] Login
+  * [x] Login
     * [x] Upsert user into db
     * [x] Issue a Cookie
       * [x] Make sure cookie is signed
-    * [ ] Figure out sessions
-  * [ ] Design Flows and Layout
+  * [x] Design Flows and Layout
     * [x] Landing Page
       * Description of the App
       * [x] Signup / Sign In
     * [x] Navbar
-      * [ ] User State
-    * [ ] Spot List Edit Page
-    * [ ] Spot List Page
-    * [ ] "Private / Logged In" Profile Page
+* [ ] Day 6 - August 26th
+  * [ ] Finish / Clean UP TODOS
+  * [ ] Login
+    * [ ] Figure out sessions
+  * [ ] Navbar
+    * [ ] User State
+  * [ ] Spot List Edit Page
+  * [ ] Spot List Page
+  * [ ] "Private / Logged In" Profile Page
 
 # Stretch Features
 
