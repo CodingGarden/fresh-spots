@@ -12,8 +12,8 @@
   * [Deno + Fresh](https://fresh.deno.dev/)
 * Database Access
   * [Kysely](https://koskimas.github.io/kysely/)
-* Auth
-  * [DenoAuth](https://www.denoauth.org/docs)
+* OAuth 2
+  * [DenoGrant](https://github.com/w3cj/deno_grant)
 
 The code is in the [app](/app/) directory. See the README there for setup directions.
 
@@ -58,15 +58,13 @@ The code is in the [app](/app/) directory. See the README there for setup direct
 * [x] Day 5 - August 19th
   * [x] Replace DenoAuth with DenoGrant
   * [x] Get a Proper map on the page
-  * [x] Goals
-    * [x] Landing Page
-    * [x] Discord Sign In
-    * Spot List creation page
   * [x] Login
     * [x] Upsert user into db
     * [x] Issue a Cookie
       * [x] Make sure cookie is signed
   * [x] Design Flows and Layout
+    * [x] Color Pallette
+      * https://coolors.co/56bc58-202030-ff8811-9649cb-a52422
     * [x] Landing Page
       * Description of the App
       * [x] Signup / Sign In
@@ -89,3 +87,8 @@ The code is in the [app](/app/) directory. See the README there for setup direct
 * Lists can have a header / background image
 * User profile that shows all the lists they've created
 * Lists can be upvoted
+
+# AI Images
+* Created by NGriffin_uk
+  * https://labs.openai.com/s/Fc0tSwrtXy1MtX4jVM3HGZof
+  * https://labs.openai.com/s/wM8r9YbnQAHEKQwl9hTNnN05
