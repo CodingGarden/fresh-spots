@@ -1,7 +1,13 @@
-import { Generated } from "kysely";
-import BaseTable from "./BaseTable.ts";
+import * as z from "zod";
 
-export default interface UserTable extends BaseTable {
-  id: Generated<number>;
-  display_name: string;
-}
+import { generatedNumber, timestamps } from "../zod-utils.ts";
+
+const UserTable = z.object({
+  id: generatedNumber(),
+  display_name: z.string(),
+  ...timestamps(),
+});
+
+type UserTable = z.infer<typeof UserTable>;
+
+export default UserTable;

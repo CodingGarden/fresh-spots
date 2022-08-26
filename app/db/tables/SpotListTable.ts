@@ -1,11 +1,17 @@
-import BaseTable from "./BaseTable.ts";
+import * as z from "zod";
 
-// TODO: use zod!
-export default interface SpotListTable extends BaseTable {
-  id: string; // TODO: uuid... maybe have some sort of checker for that...
-  name: string;
-  description: string;
-  public: boolean;
-  published: boolean;
-  user_id: number;
-}
+import { generatedNumber, timestamps } from "../zod-utils.ts";
+
+const SpotListTable = z.object({
+  id: generatedNumber(),
+  name: z.string(),
+  description: z.string(),
+  public: z.boolean(),
+  published: z.boolean(),
+  user_id: z.number(),
+  ...timestamps(),
+});
+
+type SpotListTable = z.infer<typeof SpotListTable>;
+
+export default SpotListTable;

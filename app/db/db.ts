@@ -14,6 +14,7 @@ import SocialProfileTable from "@/db/tables/SocialProfileTable.ts";
 import SpotListTable from "@/db/tables/SpotListTable.ts";
 import SpotTable from "@/db/tables/SpotTable.ts";
 
+// TODO: create separate zod validators for insert / update...
 export interface DbSchema {
   user: UserTable;
   social_profile: SocialProfileTable;

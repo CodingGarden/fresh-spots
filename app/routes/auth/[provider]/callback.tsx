@@ -21,7 +21,7 @@ async function upsertDiscordProfile(request: Request, accessToken: string) {
     .selectFrom("social_profile")
     .select([
       "provider_id",
-      "user_id"
+      "user_id",
     ])
     .where("provider_id", "=", profile.id)
     .executeTakeFirst();
@@ -32,6 +32,7 @@ async function upsertDiscordProfile(request: Request, accessToken: string) {
       .set({
         username: profile.username,
         avatar_url: getDiscordAvatar(profile),
+        updated_at: new Date(),
       })
       .where("provider_id", "=", profile.id)
       .execute();
