@@ -8,7 +8,7 @@ const SpotTable = z.object({
   list_id: z.number(),
   user_id: z.number(),
   description: z.string(),
-  // TODO: z.use(),point type...
+  // TODO: use point type...
   latitude: z.number(),
   longitude: z.number(),
   ...timestamps(),

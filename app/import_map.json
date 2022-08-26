@@ -7,6 +7,7 @@
     "@twind": "./utils/twind.ts",
     "@/": "./",
     "zod": "https://deno.land/x/zod/mod.ts",
+    "flags": "https://deno.land/std@0.119.0/flags/mod.ts",
     "twind": "https://esm.sh/twind@0.16.17",
     "twind/": "https://esm.sh/twind@0.16.17/",
     "kysely": "https://cdn.jsdelivr.net/npm/kysely@0.21.3/dist/esm/index.js",

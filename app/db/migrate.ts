@@ -1,4 +1,5 @@
 import { join } from "path";
+import { parse } from "flags";
 
 import { FileMigrationProvider, Migration, Migrator } from "kysely";
 import db from "./db.ts";
@@ -45,15 +46,29 @@ const migrator = new Migrator({
   provider: new DenoFileMigrationProvider(),
 });
 
-// TODO: accept command line arg for up / down
+const flags = parse(Deno.args, {
+  boolean: ["up", "down"],
+});
 
-// const { error, results } = await migrator.migrateDown();
-// console.log(error);
-// console.log(results);
+if (!flags.up && !flags.down) {
+  throw new Error("up or down flag missing");
+}
 
-const { error, results } = await migrator.migrateToLatest();
-if (error) {
-  console.error(error);
-} else {
+if (flags.up && flags.down) {
+  throw new Error("Can only migrate up or down... not both");
+}
+
+if (flags.up) {
+  const { error, results } = await migrator.migrateToLatest();
+  if (error) {
+    console.error(error);
+  } else {
+    console.log(results);
+  }  
+}
+
+if (flags.down) {
+  const { error, results } = await migrator.migrateDown();
+  console.log(error);
   console.log(results);
 }
