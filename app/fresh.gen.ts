@@ -2,16 +2,18 @@
 // This file SHOULD be checked into source version control.
 // This file is automatically updated during development when running `dev.ts`.
 
-import * as $0 from "./routes/auth/[provider]/callback.tsx";
-import * as $1 from "./routes/auth/[provider]/index.tsx";
-import * as $2 from "./routes/index.tsx";
+import * as $0 from "./routes/_404.tsx";
+import * as $1 from "./routes/auth/[provider]/callback.tsx";
+import * as $2 from "./routes/auth/[provider]/index.tsx";
+import * as $3 from "./routes/index.tsx";
 import * as $$0 from "./islands/FreshMap.tsx";
 
 const manifest = {
   routes: {
-    "./routes/auth/[provider]/callback.tsx": $0,
-    "./routes/auth/[provider]/index.tsx": $1,
-    "./routes/index.tsx": $2,
+    "./routes/_404.tsx": $0,
+    "./routes/auth/[provider]/callback.tsx": $1,
+    "./routes/auth/[provider]/index.tsx": $2,
+    "./routes/index.tsx": $3,
   },
   islands: {
     "./islands/FreshMap.tsx": $$0,
