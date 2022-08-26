@@ -1,4 +1,4 @@
-import * as path from "path";
+import { join } from "path";
 
 import { FileMigrationProvider, Migration, Migrator } from "kysely";
 import db from "./db.ts";
@@ -17,10 +17,7 @@ class DenoFileMigrationProvider extends FileMigrationProvider {
         },
       },
       path: {
-        join(...path) {
-          // TODO: windows / cross platform friendly path combine
-          return path.join("/");
-        },
+        join,
       },
       migrationFolder: "./db/migrations",
     });
