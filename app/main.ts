@@ -8,9 +8,9 @@ import { InnerRenderFunction, RenderContext, start } from "$fresh/server.ts";
 import manifest from "./fresh.gen.ts";
 
 import { config, setup } from "@twind";
-import { virtualSheet } from "twind/sheets";
+import { twsheets } from "@/deps.ts";
 
-const sheet = virtualSheet();
+const sheet = twsheets.virtualSheet();
 sheet.reset();
 setup({ ...config, sheet });
 

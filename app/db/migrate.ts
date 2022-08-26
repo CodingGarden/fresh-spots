@@ -1,8 +1,9 @@
 import { join } from "path";
-import { parse } from "flags";
+import { flags, kysely } from "@/deps.ts";
 
-import { FileMigrationProvider, Migration, Migrator } from "kysely";
 import db from "./db.ts";
+
+const { FileMigrationProvider, Migrator } = kysely;
 
 class DenoFileMigrationProvider extends FileMigrationProvider {
   folder: string;
@@ -25,8 +26,8 @@ class DenoFileMigrationProvider extends FileMigrationProvider {
     this.folder = "./db/migrations";
   }
 
-  async getMigrations(): Promise<Record<string, Migration>> {
-    const migrations: Record<string, Migration> = {};
+  async getMigrations(): Promise<Record<string, kysely.Migration>> {
+    const migrations: Record<string, kysely.Migration> = {};
     const files = await Deno.readDir(this.folder);
 
     // ASSUMES ALL FILES ARE MIGRATION FILES...
@@ -46,19 +47,19 @@ const migrator = new Migrator({
   provider: new DenoFileMigrationProvider(),
 });
 
-const flags = parse(Deno.args, {
+const args = flags.parse(Deno.args, {
   boolean: ["up", "down"],
 });
 
-if (!flags.up && !flags.down) {
+if (!args.up && !args.down) {
   throw new Error("up or down flag missing");
 }
 
-if (flags.up && flags.down) {
+if (args.up && args.down) {
   throw new Error("Can only migrate up or down... not both");
 }
 
-if (flags.up) {
+if (args.up) {
   const { error, results } = await migrator.migrateToLatest();
   if (error) {
     console.error(error);
@@ -67,7 +68,7 @@ if (flags.up) {
   }  
 }
 
-if (flags.down) {
+if (args.down) {
   const { error, results } = await migrator.migrateDown();
   console.log(error);
   console.log(results);

@@ -1,22 +1,23 @@
 // THANK YOU Omar2205! Code from here: https://gist.github.com/omar2205/cd42feccf25cff845b50ec2397eba18f
 // TODO: Use a library or extract this to a reusable library instead
 
-import { Client } from "postgres";
-import {
+import { kysely, postgres } from "@/deps.ts";
+
+const {
+  Client
+} = postgres;
+
+const {
   CompiledQuery,
-  DatabaseConnection,
-  Driver,
-  QueryResult,
-  TransactionSettings,
-} from "kysely";
+} = kysely;
 
 type QueryArguments = unknown[] | Record<string, unknown>;
 
-export default class PostgresDriver implements Driver {
+export default class PostgresDriver implements kysely.Driver {
   readonly #connectionMutex = new ConnectionMutex();
 
-  #client?: Client;
-  #connection?: DatabaseConnection;
+  #client?: postgres.Client;
+  #connection?: kysely.DatabaseConnection;
 
   db_conn_info: string; // db_conn_info postgres uri. Change to postgres connection info
 
@@ -26,27 +27,28 @@ export default class PostgresDriver implements Driver {
 
   init(): Promise<void> {
     this.#client = new Client(this.db_conn_info);
+    // @ts-ignore: fix missing streamtype
     this.#connection = new PgConnection(this.#client);
     return Promise.resolve();
   }
 
-  async acquireConnection(): Promise<DatabaseConnection> {
+  async acquireConnection(): Promise<kysely.DatabaseConnection> {
     await this.#connectionMutex.lock();
     return this.#connection!;
   }
 
   async beginTransaction(
-    connection: DatabaseConnection,
-    _settings: TransactionSettings,
+    connection: kysely.DatabaseConnection,
+    _settings: kysely.TransactionSettings,
   ): Promise<void> {
     await connection.executeQuery(CompiledQuery.raw("begin"));
   }
 
-  async commitTransaction(connection: DatabaseConnection): Promise<void> {
+  async commitTransaction(connection: kysely.DatabaseConnection): Promise<void> {
     await connection.executeQuery(CompiledQuery.raw("commit"));
   }
 
-  async rollbackTransaction(connection: DatabaseConnection): Promise<void> {
+  async rollbackTransaction(connection: kysely.DatabaseConnection): Promise<void> {
     await connection.executeQuery(CompiledQuery.raw("rollback"));
   }
 
@@ -61,14 +63,15 @@ export default class PostgresDriver implements Driver {
   }
 }
 
-class PgConnection implements DatabaseConnection {
-  readonly #db: Client;
+// @ts-ignore: fix missing streamtype
+class PgConnection implements kysely.DatabaseConnection {
+  readonly #db: postgres.Client;
 
-  constructor(c: Client) {
+  constructor(c: postgres.Client) {
     this.#db = c;
   }
 
-  async executeQuery<R>(compiledQuery: CompiledQuery): Promise<QueryResult<R>> {
+  async executeQuery<R>(compiledQuery: kysely.CompiledQuery): Promise<QueryResult<R>> {
     const { sql, parameters } = compiledQuery;
     const { rows } = await this.#db.queryObject(
       sql,

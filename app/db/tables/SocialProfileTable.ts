@@ -1,4 +1,4 @@
-import * as z from "zod";
+import { z } from "@/deps.ts";
 
 import ProviderType from "@/constants/ProviderType.ts";
 import { generatedNumber, timestamps } from "../zod-utils.ts";

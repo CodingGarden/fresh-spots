@@ -1,8 +1,7 @@
-import { ColumnType } from "kysely";
-import * as z from "zod";
+import { z, kysely } from "@/deps.ts";
 
 export const generatedNumber = (): z.ZodType<
-  ColumnType<number, never, never>
+  kysely.ColumnType<number, never, never>
 > =>
   z.lazy(() =>
     z.object({
@@ -13,7 +12,7 @@ export const generatedNumber = (): z.ZodType<
   );
 
 export const DateType = (): z.ZodType<
-  ColumnType<Date, Date | string | undefined, Date | string>
+  kysely.ColumnType<Date, Date | string | undefined, Date | string>
 > =>
   // @ts-ignore: can't figure out another way for now...
   z.lazy(() =>
