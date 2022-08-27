@@ -1,26 +1,5 @@
-import { ColumnDefinitionBuilder, Kysely, sql } from "kysely";
-
-import { DbSchema } from "@/db/db.ts";
-import ProviderType from "@/constants/ProviderType.ts";
-
-type FreshDb = Kysely<DbSchema>;
-
-function createTableWithDefaults<T extends string>(
-  schema: FreshDb["schema"],
-  tableName: T,
-  hasId = true,
-) {
-  const notNullNow = (col: ColumnDefinitionBuilder) =>
-    col.notNull().defaultTo(sql`NOW()`);
-  const schemaWithDates = schema
-    .createTable(tableName)
-    .addColumn("created_at", "timestamptz", notNullNow)
-    .addColumn("updated_at", "timestamptz", notNullNow);
-  if (hasId) {
-    return schemaWithDates.addColumn("id", "serial", (col) => col.primaryKey());
-  }
-  return schemaWithDates;
-}
+import { sql } from "kysely";
+import { createTableWithDefaults, SourcesDb } from '../migrate-utils.ts'
 
 export async function up(db: FreshDb): Promise<void> {
   await sql`CREATE EXTENSION IF NOT EXISTS postgis`.execute(db);

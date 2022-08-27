@@ -1,50 +1,27 @@
-import { join } from "path";
-import { parse } from "flags";
+import { MigrationResult, Migrator } from 'kysely'
 
-import { FileMigrationProvider, Migration, Migrator } from "kysely";
-import db from "./db.ts";
-
-class DenoFileMigrationProvider extends FileMigrationProvider {
-  folder: string;
-  constructor() {
-    super({
-      fs: {
-        readdir(path) {
-          console.log("calling readdir", path);
-
-          return Promise.resolve(
-            [...Deno.readDirSync(path)].map((file) => file.name),
-          );
-        },
-      },
-      path: {
-        join,
-      },
-      migrationFolder: "./db/migrations",
-    });
-    this.folder = "./db/migrations";
-  }
-
-  async getMigrations(): Promise<Record<string, Migration>> {
-    const migrations: Record<string, Migration> = {};
-    const files = await Deno.readDir(this.folder);
-
-    // ASSUMES ALL FILES ARE MIGRATION FILES...
-    for await (const file of files) {
-      // MORE ASSUMPTIONS..
-      migrations[file.name] = await import(
-        ["./migrations", file.name].join("/")
-      );
-    }
-
-    return migrations;
-  }
-}
+import { DenoFileMigrationProvider } from './migrate-utils.ts'
+import db from '@/db/db.ts'
 
 const migrator = new Migrator({
   db,
   provider: new DenoFileMigrationProvider(),
 });
+
+function logMigrationResults(results?: MigrationResult[], error?: Error) {
+  results?.forEach((res) => {
+    if (res.status === 'Success') {
+      console.log(`[Migrations] ✅ ${res.migrationName} was executed successfully`)
+    } else {
+      console.log(`[Migrations] ✅ ${res.migrationName} failed to execute`)
+    }
+  })
+
+  if (error) {
+    console.log(`[Migrations] Failed to migrate`)
+    throw new Error(error.message)
+  }
+}
 
 const flags = parse(Deno.args, {
   boolean: ["up", "down"],
@@ -64,7 +41,7 @@ if (flags.up) {
     console.error(error);
   } else {
     console.log(results);
-  }  
+  }
 }
 
 if (flags.down) {
