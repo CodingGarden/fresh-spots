@@ -37,7 +37,7 @@ export async function up(db: FreshDb): Promise<void> {
         .notNull()
         .primaryKey()
         .unique()
-        .defaultTo(sql`gen_random_uuid()`))
+        .defaultTo(kysely.sql`gen_random_uuid()`))
     .addColumn("name", "varchar(255)", (col) => col.notNull())
     .addColumn("description", "varchar(1000)")
     .addColumn("public", "boolean", (col) => col.notNull().defaultTo(false))
@@ -57,7 +57,7 @@ export async function up(db: FreshDb): Promise<void> {
     .addColumn("description", "varchar(1000)")
     .addColumn(
       "location",
-      sql`public.geography(Point, 4326)`,
+      kysely.sql`public.geography(Point, 4326)`,
       (col) => col.notNull(),
     )
     .addColumn("user_id", "integer", (col) => col.notNull())
