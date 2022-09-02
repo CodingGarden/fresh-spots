@@ -69,15 +69,17 @@ The code is in the [app](/app/) directory. See the README there for setup direct
       * Description of the App
       * [x] Signup / Sign In
     * [x] Navbar
-* [ ] Day 6 - August 26th
-  * [ ] Finish / Clean UP TODOS
+* [x] Day 6 - August 26th
+  * [x] Work on TODOS
+* [ ] Day 7 - September 2nd
+  * [ ] Finish creating deps.ts
   * [ ] Login
-    * [ ] Figure out sessions
+    * [ ] Setup cookie session
   * [ ] Navbar
     * [ ] User State
-  * [ ] Spot List Edit Page
-  * [ ] Spot List Page
   * [ ] "Private / Logged In" Profile Page
+  * [ ] Spot List Create Page
+  * [ ] Spot List Page
 
 # Stretch Features
 
