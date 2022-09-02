@@ -1,9 +1,11 @@
-import { sql } from "kysely";
-import { createTableWithDefaults, SourcesDb } from '../migrate-utils.ts'
+import { kysely } from '@/deps.ts';
+import { createTableWithDefaults, FreshDb } from '../migrate-utils.ts'
+import ProviderType from '@/constants/ProviderType.ts'
+
 
 export async function up(db: FreshDb): Promise<void> {
-  await sql`CREATE EXTENSION IF NOT EXISTS postgis`.execute(db);
-  await sql`CREATE EXTENSION IF NOT EXISTS postgis_topology`.execute(db);
+  await kysely.sql`CREATE EXTENSION IF NOT EXISTS postgis`.execute(db);
+  await kysely.sql`CREATE EXTENSION IF NOT EXISTS postgis_topology`.execute(db);
 
   await createTableWithDefaults(db.schema, "user")
     .addColumn("display_name", "varchar(100)", (col) => col.notNull())
@@ -15,7 +17,7 @@ export async function up(db: FreshDb): Promise<void> {
     .execute();
 
   await createTableWithDefaults(db.schema, "social_profile")
-    .addColumn("provider_type", sql`provider_type`, (col) => col.notNull())
+    .addColumn("provider_type", kysely.sql`provider_type`, (col) => col.notNull())
     .addColumn("provider_id", "varchar(50)", (col) => col.notNull())
     .addColumn("username", "varchar(255)", (col) => col.notNull())
     .addColumn("avatar_url", "varchar(2083)")

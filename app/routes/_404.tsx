@@ -1,7 +1,7 @@
 /** @jsx h */
 import { h } from "preact";
 import { UnknownPageProps } from "$fresh/server.ts";
-import { tw } from "twind";
+import { tw } from "@twind";
 
 import Layout from "../components/Layout.tsx";
 

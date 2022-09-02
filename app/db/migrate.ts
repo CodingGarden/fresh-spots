@@ -1,14 +1,14 @@
-import { MigrationResult, Migrator } from 'kysely'
+import { kysely, flags } from '@/deps.ts';
 
 import { DenoFileMigrationProvider } from './migrate-utils.ts'
 import db from '@/db/db.ts'
 
-const migrator = new Migrator({
+const migrator = new kysely.Migrator({
   db,
   provider: new DenoFileMigrationProvider(),
 });
 
-function logMigrationResults(results?: MigrationResult[], error?: Error) {
+function logMigrationResults(results?: kysely.MigrationResult[], error?: Error) {
   results?.forEach((res) => {
     if (res.status === 'Success') {
       console.log(`[Migrations] ✅ ${res.migrationName} was executed successfully`)
@@ -23,7 +23,7 @@ function logMigrationResults(results?: MigrationResult[], error?: Error) {
   }
 }
 
-const flags = parse(Deno.args, {
+const flags = flags.parse(Deno.args, {
   boolean: ["up", "down"],
 });
 
