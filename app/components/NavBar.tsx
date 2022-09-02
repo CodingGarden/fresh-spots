@@ -1,11 +1,16 @@
 /** @jsx h */
-import { h } from "preact";
+import { FunctionalComponent, h } from "preact";
 import { tw } from "@twind";
 
-const NavBar = () => {
+import PropsWithUser from "@/schemas/PropsWithUser.ts";
+import UserAvatarButton from "../islands/UserAvatarButton.tsx";
+
+const NavBar: FunctionalComponent<PropsWithUser> = ({ user }) => {
   {/* TODO: setup tailwind config with theme colors */}
   return (
-    <nav class={tw`bg-[#56BC58] border-gray-200 px-2 sm:px-4 py-2.5`}>
+    <nav
+      class={tw`bg-[#56BC58] border-gray-200 px-2 sm:px-4 py-2.5 flex justify-between`}
+    >
       <div
         class={tw`container flex flex-wrap justify-between items-center mx-auto`}
       >
@@ -56,6 +61,7 @@ const NavBar = () => {
           </span>
         </a>
       </div>
+      {user && <UserAvatarButton user={user} />}
     </nav>
   );
 };

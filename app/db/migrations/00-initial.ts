@@ -1,4 +1,4 @@
-import { kysely } from '@/deps.ts';
+import { kysely } from "@/deps.ts";
 
 const { sql } = kysely;
 

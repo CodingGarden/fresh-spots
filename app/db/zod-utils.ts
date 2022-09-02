@@ -1,4 +1,4 @@
-import { z, kysely } from "@/deps.ts";
+import { kysely, z } from "@/deps.ts";
 
 export const generatedNumber = (): z.ZodType<
   kysely.ColumnType<number, never, never>

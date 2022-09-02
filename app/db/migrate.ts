@@ -65,7 +65,7 @@ if (args.up) {
     console.error(error);
   } else {
     console.log(results);
-  }  
+  }
 }
 
 if (args.down) {
