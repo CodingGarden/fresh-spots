@@ -1,11 +1,13 @@
 import PostgresDriver from "../db/PostgresDriver.ts";
 
-import {
+import { kysely } from "@/deps.ts";
+
+const {
   Kysely,
   PostgresAdapter,
   PostgresIntrospector,
   PostgresQueryCompiler,
-} from "kysely";
+} = kysely;
 
 import config from "@/utils/config.ts";
 

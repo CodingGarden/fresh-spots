@@ -1,16 +1,18 @@
-import { ColumnDefinitionBuilder, Kysely, sql } from "kysely";
+import { kysely } from '@/deps.ts';
+
+const { sql } = kysely;
 
 import { DbSchema } from "@/db/db.ts";
 import ProviderType from "@/constants/ProviderType.ts";
 
-type FreshDb = Kysely<DbSchema>;
+type FreshDb = kysely.Kysely<DbSchema>;
 
 function createTableWithDefaults<T extends string>(
   schema: FreshDb["schema"],
   tableName: T,
   hasId = true,
 ) {
-  const notNullNow = (col: ColumnDefinitionBuilder) =>
+  const notNullNow = (col: kysely.ColumnDefinitionBuilder) =>
     col.notNull().defaultTo(sql`NOW()`);
   const schemaWithDates = schema
     .createTable(tableName)

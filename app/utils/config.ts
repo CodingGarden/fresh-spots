@@ -23,7 +23,6 @@ const envConfig: Config = {
     port: Number(Deno.env.get(EnvironmentVariableNames.DB_PORT) || 5432),
   },
   db_uri: "",
-  // TODO: make sure these variables are set... (is a schema validator)
   oauth: {
     discord: {
       client_id: Deno.env.get(EnvironmentVariableNames.DISCORD_CLIENT_ID) || "",

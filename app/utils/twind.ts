@@ -1,7 +1,7 @@
 import { IS_BROWSER } from "$fresh/runtime.ts";
-import { Configuration, setup } from "twind";
-export * from "twind";
-export const config: Configuration = {
+import { twind } from "@/deps.ts";
+export const { setup, tw } = twind;
+export const config: twind.Configuration = {
   darkMode: "class",
   mode: "silent",
 };
