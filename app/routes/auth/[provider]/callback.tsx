@@ -1,9 +1,7 @@
 import { Handlers } from "$fresh/server.ts";
-import { setCookie } from "cookie";
 import { Providers } from "deno_grant";
 import DiscordProfile from "deno_grant/interfaces/profiles/DiscordProfile.ts";
-import { RequestCookieStore } from "request_cookie_store";
-import { SignedCookieStore } from "signed_cookie_store";
+import { squishyCookies } from "@/deps.ts";
 
 import db from "@/db/db.ts";
 import ProviderType from "@/constants/ProviderType.ts";
@@ -73,39 +71,30 @@ async function upsertDiscordProfile(request: Request, accessToken: string) {
       id = result.user.id.toString();
     }
   }
-  const resp = new Response("", {
-    status: 302,
-    headers: {
-      Location: config.base_url,
-    },
-  });
   if (id) {
-    const requestStore = new RequestCookieStore(request);
     const secret = "keyboard_cat";
-    const keyPromise = SignedCookieStore.deriveCryptoKey({ secret });
-    const cookieStore = new SignedCookieStore(requestStore, await keyPromise, {
-      keyring: [await keyPromise],
-    });
-    await cookieStore.set({
-      name: "id",
-      value: id,
-      path: "/",
-      httpOnly: true,
-      sameSite: "strict",
-      // TODO: get these values to actually set...
-      // TODO: maybe combine this with setCookie
-      // @ts-ignore
-      secure: config.environment === "production",
-      maxAge: 60 * 60 * 24,
-    });
-    console.log(requestStore.headers);
-    requestStore.headers.forEach(([key, value]) => {
-      if (key === "Set-Cookie") {
-        resp.headers.append(key, value);
-      }
+    const { cookie } = await squishyCookies.createSignedCookie(
+      "id",
+      id,
+      secret,
+      {
+        path: "/",
+        httpOnly: true,
+        // TODO: why can't we set the cookie after a redirect?
+        // sameSite: "Strict",
+        secure: config.environment === "production",
+        maxAge: 60 * 60 * 24,
+      },
+    );
+    return new Response("", {
+      status: 302,
+      headers: {
+        Location: config.base_url,
+        "set-cookie": cookie,
+      },
     });
   }
-  return resp;
+  return Response.redirect(config.base_url);
 }
 
 export const handler: Handlers = {

@@ -4,7 +4,7 @@
 import { kysely, postgres } from "@/deps.ts";
 
 const {
-  Client
+  Client,
 } = postgres;
 
 const {
@@ -44,11 +44,15 @@ export default class PostgresDriver implements kysely.Driver {
     await connection.executeQuery(CompiledQuery.raw("begin"));
   }
 
-  async commitTransaction(connection: kysely.DatabaseConnection): Promise<void> {
+  async commitTransaction(
+    connection: kysely.DatabaseConnection,
+  ): Promise<void> {
     await connection.executeQuery(CompiledQuery.raw("commit"));
   }
 
-  async rollbackTransaction(connection: kysely.DatabaseConnection): Promise<void> {
+  async rollbackTransaction(
+    connection: kysely.DatabaseConnection,
+  ): Promise<void> {
     await connection.executeQuery(CompiledQuery.raw("rollback"));
   }
 
@@ -71,7 +75,9 @@ class PgConnection implements kysely.DatabaseConnection {
     this.#db = c;
   }
 
-  async executeQuery<R>(compiledQuery: kysely.CompiledQuery): Promise<QueryResult<R>> {
+  async executeQuery<R>(
+    compiledQuery: kysely.CompiledQuery,
+  ): Promise<QueryResult<R>> {
     const { sql, parameters } = compiledQuery;
     const { rows } = await this.#db.queryObject(
       sql,

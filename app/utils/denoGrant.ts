@@ -3,7 +3,7 @@ import DenoGrant, { Providers } from "deno_grant";
 import config from "./config.ts";
 
 const denoGrant = new DenoGrant({
-  base_uri: "http://localhost:8000",
+  base_uri: config.base_url,
   strategies: [{
     provider: Providers.discord,
     client_id: config.oauth.discord.client_id,

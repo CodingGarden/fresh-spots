@@ -2,7 +2,6 @@ import { kysely } from '@/deps.ts';
 import { createTableWithDefaults, FreshDb } from '../migrate-utils.ts'
 import ProviderType from '@/constants/ProviderType.ts'
 
-
 export async function up(db: FreshDb): Promise<void> {
   await kysely.sql`CREATE EXTENSION IF NOT EXISTS postgis`.execute(db);
   await kysely.sql`CREATE EXTENSION IF NOT EXISTS postgis_topology`.execute(db);
