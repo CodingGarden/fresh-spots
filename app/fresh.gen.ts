@@ -7,10 +7,12 @@ import * as $0 from "./routes/_404.tsx";
 import * as $1 from "./routes/_middleware.ts";
 import * as $2 from "./routes/auth/[provider]/callback.tsx";
 import * as $3 from "./routes/auth/[provider]/index.tsx";
-import * as $4 from "./routes/index.tsx";
-import * as $5 from "./routes/logout.ts";
+import * as $4 from "./routes/dashboard/index.tsx";
+import * as $5 from "./routes/index.tsx";
+import * as $6 from "./routes/logout.ts";
 import * as $$0 from "./islands/FreshMap.tsx";
-import * as $$1 from "./islands/UserAvatarButton.tsx";
+import * as $$1 from "./islands/Sidebar.tsx";
+import * as $$2 from "./islands/UserAvatarButton.tsx";
 
 const manifest = {
   routes: {
@@ -18,12 +20,14 @@ const manifest = {
     "./routes/_middleware.ts": $1,
     "./routes/auth/[provider]/callback.tsx": $2,
     "./routes/auth/[provider]/index.tsx": $3,
-    "./routes/index.tsx": $4,
-    "./routes/logout.ts": $5,
+    "./routes/dashboard/index.tsx": $4,
+    "./routes/index.tsx": $5,
+    "./routes/logout.ts": $6,
   },
   islands: {
     "./islands/FreshMap.tsx": $$0,
-    "./islands/UserAvatarButton.tsx": $$1,
+    "./islands/Sidebar.tsx": $$1,
+    "./islands/UserAvatarButton.tsx": $$2,
   },
   baseUrl: import.meta.url,
   config,

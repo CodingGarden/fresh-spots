@@ -5,9 +5,9 @@ import PropsWithUser from "@/schemas/PropsWithUser.ts";
 
 const Layout: FunctionalComponent<PropsWithUser> = ({ children, user }) => {
   return (
-    <div class="w-screen h-screen overflow-hidden bg-[#202030] text-white">
+    <div class="w-screen h-screen overflow-hidden bg-primary-bg text-white flex flex-col">
       <NavBar user={user} />
-      <main class="px-2 sm:px-4 h-[90%] overflow-auto">
+      <main class="overflow-auto flex-grow-1">
         {children}
       </main>
     </div>

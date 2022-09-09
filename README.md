@@ -78,15 +78,24 @@ The code is in the [app](/app/) directory. See the README there for setup direct
     * [x] User State
 * [ ] Day 8 - September 9th
   * [x] Update fresh
-  * [ ] Fix login drop down on Chrome
-  * [ ] Finish creating deps.ts
+  * [x] Fix login drop down on Chrome
   * [ ] "Private / Logged In" Profile Page
+    * [x] Show map on homepage
   * [ ] Spot List Create Page
+    * [x] Initial page
+    * [ ] Center Map on users location
+    * [ ] Places Search / API
   * [ ] Spot List Page
+  * [ ] Use signals for user data
+  * [ ] Finish creating deps.ts
   * [ ] Colors / Theme / twind setup
+    * [ ] Actually use flowbite
 
 # Stretch Features
 
+* Onboarding
+  * Set default starting location
+* IP geolocation - IN APP
 * Comments on lists
 * Favoriting / staring lists
 * Posting pictures of food / events at the spots

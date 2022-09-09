@@ -1,18 +1,12 @@
 import { UnknownPageProps } from "$fresh/server.ts";
-import Layout from "../components/Layout.tsx";
+import Layout from "@/components/Layout.tsx";
+import Alert from "@/components/Alert.tsx";
 
 export default function NotFoundPage({ url }: UnknownPageProps) {
   const message = url.searchParams.get("message");
   return (
     <Layout>
-      <div
-        class="m-4 p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
-        role="alert"
-      >
-        <span class="font-medium">
-          {message || `404 not found: ${url.pathname}`}
-        </span>
-      </div>
+      <Alert message={message || `404 not found: ${url.pathname}`} />
     </Layout>
   );
 }

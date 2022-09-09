@@ -14,6 +14,8 @@ const UserAvatarButton: FunctionComponent<PropsWithUser> = ({ user }) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const buttonRef = useRef(null);
   useEffect(() => {
+    // TODO: click button to close...
+    // TODO: open button on hover...
     const blurListener = () => {
       setShowDropdown(false);
     };
@@ -35,13 +37,11 @@ const UserAvatarButton: FunctionComponent<PropsWithUser> = ({ user }) => {
   if (!user) return null;
   const socialProfile = getSocialProfile(user);
   return (
-    <div ref={buttonRef} tabIndex={1}>
+    <div class="relative" ref={buttonRef} tabIndex={1}>
       <button
         id="dropdownDefault"
         data-dropdown-toggle="dropdown"
-        class={tw(
-          "text-white focus:ring-[#202030] font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center flex justify-center items-center gap-2",
-        )}
+        class="text-white focus:ring-[#202030] font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center flex justify-center items-center gap-2"
         type="button"
       >
         <div>
@@ -49,10 +49,9 @@ const UserAvatarButton: FunctionComponent<PropsWithUser> = ({ user }) => {
         </div>
         <div>
           <div
-            class={tw(
-              "inline-flex overflow-hidden relative justify-center items-center w-10 h-10 bg-gray-100 rounded-full dark:bg-gray-600",
-            )}
+            class="inline-flex overflow-hidden relative justify-center items-center w-10 h-10 bg-gray-100 rounded-full dark:bg-gray-600"
           >
+            {/* TODO: fix padding on image */}
             {socialProfile
               ? (
                 <img
@@ -63,7 +62,7 @@ const UserAvatarButton: FunctionComponent<PropsWithUser> = ({ user }) => {
               )
               : (
                 <span
-                  class={tw("font-medium text-gray-600 dark:text-gray-300")}
+                  class="font-medium text-gray-600 dark:text-gray-300"
                 >
                   {user.display_name[0].toUpperCase()}
                 </span>
@@ -71,7 +70,7 @@ const UserAvatarButton: FunctionComponent<PropsWithUser> = ({ user }) => {
           </div>
         </div>
         <svg
-          class={tw`ml-2 w-4 h-4 transition transition-transform ${showDropdown ? 'rotate-180' : ''}`}
+          class={`ml-2 w-4 h-4 transition transition-transform ${showDropdown ? 'rotate-180' : ''}`}
           aria-hidden="true"
           fill="none"
           stroke="currentColor"
@@ -89,9 +88,7 @@ const UserAvatarButton: FunctionComponent<PropsWithUser> = ({ user }) => {
       </button>
       <div
         id="dropdown"
-        class={tw(
-          `${showDropdown ? '' : 'hidden'} absolute mt-2 right-4 z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700`,
-        )}
+        class={`${showDropdown ? '' : 'hidden'} absolute mt-2 right-4 z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700`}
       >
         <ul
           class={tw("py-1 text-sm text-gray-700 dark:text-gray-200")}

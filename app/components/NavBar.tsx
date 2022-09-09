@@ -6,7 +6,7 @@ const NavBar: FunctionalComponent<PropsWithUser> = ({ user }) => {
   {/* TODO: setup tailwind config with theme colors */}
   return (
     <nav
-      class="bg-[#56BC58] border-gray-200 px-2 sm:px-4 py-2.5 flex justify-between"
+      class="relative bg-[#56BC58] border-gray-200 px-2 sm:px-4 py-2.5 flex justify-between"
     >
       <div
         class="container flex flex-wrap justify-between items-center mx-auto"
