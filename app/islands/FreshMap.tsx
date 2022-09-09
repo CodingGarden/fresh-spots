@@ -29,7 +29,9 @@ effect(() => {
       map.value?.flyTo(event.latlng, 15, {
         duration: 1,
       });
-      localStorage.setItem('places', JSON.stringify(places.value));
+      if (localStorage) {
+        localStorage.setItem('places', JSON.stringify(places.value));
+      }
     });
   }
 });
