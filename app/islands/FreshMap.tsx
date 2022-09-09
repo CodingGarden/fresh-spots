@@ -1,8 +1,4 @@
-/** @jsx h */
-/** @jsxFrag Fragment */
-import { Fragment, h } from "preact";
 import { useEffect, useRef, useState } from "preact/hooks";
-import { tw } from "@twind";
 import { Head, IS_BROWSER } from "$fresh/runtime.ts";
 import { LatLngExpression } from "leaflet";
 
@@ -30,7 +26,7 @@ export default function FreshMap() {
         <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"></script>
       </Head>
       <Map
-        class={tw`w-full h-full`}
+        class="w-full h-full"
         center={currentCenter}
         zoom={5}
       >

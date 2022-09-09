@@ -1,8 +1,6 @@
-/** @jsx h */
-/** @jsxFrag Fragment */
-import { Fragment, FunctionComponent, h } from "preact";
+import { FunctionComponent } from "preact";
 import { useState, useEffect, useRef } from "preact/hooks";
-import { tw } from "@twind";
+import { tw } from "twind";
 
 import PropsWithUser from "@/schemas/PropsWithUser.ts";
 import { UserWithSocialProfiles } from "@/db/tables/CombinedTables.ts";
@@ -58,7 +56,7 @@ const UserAvatarButton: FunctionComponent<PropsWithUser> = ({ user }) => {
             {socialProfile
               ? (
                 <img
-                  class={tw`w-10 h-10 p-1 rounded`}
+                  class="w-10 h-10 p-1 rounded"
                   src={socialProfile.avatar_url}
                   alt={socialProfile.username}
                 />

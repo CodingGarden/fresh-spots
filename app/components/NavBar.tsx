@@ -1,7 +1,4 @@
-/** @jsx h */
-import { FunctionalComponent, h } from "preact";
-import { tw } from "@twind";
-
+import { FunctionalComponent } from "preact";
 import PropsWithUser from "@/schemas/PropsWithUser.ts";
 import UserAvatarButton from "../islands/UserAvatarButton.tsx";
 
@@ -9,14 +6,14 @@ const NavBar: FunctionalComponent<PropsWithUser> = ({ user }) => {
   {/* TODO: setup tailwind config with theme colors */}
   return (
     <nav
-      class={tw`bg-[#56BC58] border-gray-200 px-2 sm:px-4 py-2.5 flex justify-between`}
+      class="bg-[#56BC58] border-gray-200 px-2 sm:px-4 py-2.5 flex justify-between"
     >
       <div
-        class={tw`container flex flex-wrap justify-between items-center mx-auto`}
+        class="container flex flex-wrap justify-between items-center mx-auto"
       >
-        <a href="/" class={tw`flex items-center`}>
+        <a href="/" class="flex items-center">
           <svg
-            class={tw`mr-3 h-6 sm:h-9`}
+            class="mr-3 h-6 sm:h-9"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 32 41.53"
           >
@@ -55,7 +52,7 @@ const NavBar: FunctionalComponent<PropsWithUser> = ({ user }) => {
             </g>
           </svg>
           <span
-            class={tw`self-center text-xl font-semibold whitespace-nowrap`}
+            class="self-center text-xl font-semibold whitespace-nowrap"
           >
             FRESH SPOTS
           </span>

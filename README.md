@@ -77,10 +77,13 @@ The code is in the [app](/app/) directory. See the README there for setup direct
   * [x] Navbar
     * [x] User State
 * [ ] Day 8 - September 9th
+  * [x] Update fresh
+  * [ ] Fix login drop down on Chrome
   * [ ] Finish creating deps.ts
   * [ ] "Private / Logged In" Profile Page
   * [ ] Spot List Create Page
   * [ ] Spot List Page
+  * [ ] Colors / Theme / twind setup
 
 # Stretch Features
 
