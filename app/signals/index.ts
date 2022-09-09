@@ -1,10 +1,14 @@
+import { IS_BROWSER } from "$fresh/runtime.ts";
 import { signal } from "@preact/signals";
 import { LatLngExpression, Map as LMap } from "leaflet";
 
-export const places = signal<LatLngExpression[]>(
-  (localStorage && localStorage.getItem("places"))
-    ? JSON.parse(localStorage ? localStorage.getItem("places") || '{}' : "{}")
-    : [],
-);
+function getInitialValue() {
+  if (IS_BROWSER) {
+    return JSON.parse(localStorage.getItem("places") || '[]');
+  }
+  return [];
+}
+
+export const places = signal<LatLngExpression[]>(getInitialValue());
 
 export const map = signal<LMap | null>(null);

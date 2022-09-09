@@ -29,7 +29,7 @@ effect(() => {
       map.value?.flyTo(event.latlng, 15, {
         duration: 1,
       });
-      if (localStorage) {
+      if (IS_BROWSER) {
         localStorage.setItem('places', JSON.stringify(places.value));
       }
     });
