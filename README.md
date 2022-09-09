@@ -71,12 +71,13 @@ The code is in the [app](/app/) directory. See the README there for setup direct
     * [x] Navbar
 * [x] Day 6 - August 26th
   * [x] Work on TODOS
-* [ ] Day 7 - September 2nd
+* [x] Day 7 - September 2nd
+  * [x] Login
+    * [x] Setup cookie session
+  * [x] Navbar
+    * [x] User State
+* [ ] Day 8 - September 9th
   * [ ] Finish creating deps.ts
-  * [ ] Login
-    * [ ] Setup cookie session
-  * [ ] Navbar
-    * [ ] User State
   * [ ] "Private / Logged In" Profile Page
   * [ ] Spot List Create Page
   * [ ] Spot List Page
