@@ -1,65 +1,41 @@
-import { join } from "path";
-import { flags, kysely } from "@/deps.ts";
+import { kysely, flags } from '@/deps.ts';
 
-import db from "./db.ts";
+import { DenoFileMigrationProvider } from './migrate-utils.ts'
+import db from '@/db/db.ts'
 
-const { FileMigrationProvider, Migrator } = kysely;
-
-class DenoFileMigrationProvider extends FileMigrationProvider {
-  folder: string;
-  constructor() {
-    super({
-      fs: {
-        readdir(path) {
-          console.log("calling readdir", path);
-
-          return Promise.resolve(
-            [...Deno.readDirSync(path)].map((file) => file.name),
-          );
-        },
-      },
-      path: {
-        join,
-      },
-      migrationFolder: "./db/migrations",
-    });
-    this.folder = "./db/migrations";
-  }
-
-  async getMigrations(): Promise<Record<string, kysely.Migration>> {
-    const migrations: Record<string, kysely.Migration> = {};
-    const files = await Deno.readDir(this.folder);
-
-    // ASSUMES ALL FILES ARE MIGRATION FILES...
-    for await (const file of files) {
-      // MORE ASSUMPTIONS..
-      migrations[file.name] = await import(
-        ["./migrations", file.name].join("/")
-      );
-    }
-
-    return migrations;
-  }
-}
-
-const migrator = new Migrator({
+const migrator = new kysely.Migrator({
   db,
   provider: new DenoFileMigrationProvider(),
 });
 
-const args = flags.parse(Deno.args, {
+function logMigrationResults(results?: kysely.MigrationResult[], error?: Error) {
+  results?.forEach((res) => {
+    if (res.status === 'Success') {
+      console.log(`[Migrations] ✅ ${res.migrationName} was executed successfully`)
+    } else {
+      console.log(`[Migrations] ✅ ${res.migrationName} failed to execute`)
+    }
+  })
+
+  if (error) {
+    console.log(`[Migrations] Failed to migrate`)
+    throw new Error(error.message)
+  }
+}
+
+const flags = flags.parse(Deno.args, {
   boolean: ["up", "down"],
 });
 
-if (!args.up && !args.down) {
+if (!flags.up && !flags.down) {
   throw new Error("up or down flag missing");
 }
 
-if (args.up && args.down) {
+if (flags.up && flags.down) {
   throw new Error("Can only migrate up or down... not both");
 }
 
-if (args.up) {
+if (flags.up) {
   const { error, results } = await migrator.migrateToLatest();
   if (error) {
     console.error(error);
@@ -68,7 +44,7 @@ if (args.up) {
   }
 }
 
-if (args.down) {
+if (flags.down) {
   const { error, results } = await migrator.migrateDown();
   console.log(error);
   console.log(results);

@@ -1,32 +1,10 @@
-import { kysely } from "@/deps.ts";
-
-const { sql } = kysely;
-
-import { DbSchema } from "@/db/db.ts";
-import ProviderType from "@/constants/ProviderType.ts";
-
-type FreshDb = kysely.Kysely<DbSchema>;
-
-function createTableWithDefaults<T extends string>(
-  schema: FreshDb["schema"],
-  tableName: T,
-  hasId = true,
-) {
-  const notNullNow = (col: kysely.ColumnDefinitionBuilder) =>
-    col.notNull().defaultTo(sql`NOW()`);
-  const schemaWithDates = schema
-    .createTable(tableName)
-    .addColumn("created_at", "timestamptz", notNullNow)
-    .addColumn("updated_at", "timestamptz", notNullNow);
-  if (hasId) {
-    return schemaWithDates.addColumn("id", "serial", (col) => col.primaryKey());
-  }
-  return schemaWithDates;
-}
+import { kysely } from '@/deps.ts';
+import { createTableWithDefaults, FreshDb } from '../migrate-utils.ts'
+import ProviderType from '@/constants/ProviderType.ts'
 
 export async function up(db: FreshDb): Promise<void> {
-  await sql`CREATE EXTENSION IF NOT EXISTS postgis`.execute(db);
-  await sql`CREATE EXTENSION IF NOT EXISTS postgis_topology`.execute(db);
+  await kysely.sql`CREATE EXTENSION IF NOT EXISTS postgis`.execute(db);
+  await kysely.sql`CREATE EXTENSION IF NOT EXISTS postgis_topology`.execute(db);
 
   await createTableWithDefaults(db.schema, "user")
     .addColumn("display_name", "varchar(100)", (col) => col.notNull())
@@ -38,7 +16,7 @@ export async function up(db: FreshDb): Promise<void> {
     .execute();
 
   await createTableWithDefaults(db.schema, "social_profile")
-    .addColumn("provider_type", sql`provider_type`, (col) => col.notNull())
+    .addColumn("provider_type", kysely.sql`provider_type`, (col) => col.notNull())
     .addColumn("provider_id", "varchar(50)", (col) => col.notNull())
     .addColumn("username", "varchar(255)", (col) => col.notNull())
     .addColumn("avatar_url", "varchar(2083)")
@@ -58,7 +36,7 @@ export async function up(db: FreshDb): Promise<void> {
         .notNull()
         .primaryKey()
         .unique()
-        .defaultTo(sql`gen_random_uuid()`))
+        .defaultTo(kysely.sql`gen_random_uuid()`))
     .addColumn("name", "varchar(255)", (col) => col.notNull())
     .addColumn("description", "varchar(1000)")
     .addColumn("public", "boolean", (col) => col.notNull().defaultTo(false))
@@ -78,7 +56,7 @@ export async function up(db: FreshDb): Promise<void> {
     .addColumn("description", "varchar(1000)")
     .addColumn(
       "location",
-      sql`public.geography(Point, 4326)`,
+      kysely.sql`public.geography(Point, 4326)`,
       (col) => col.notNull(),
     )
     .addColumn("user_id", "integer", (col) => col.notNull())
