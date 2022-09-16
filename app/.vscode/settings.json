@@ -5,5 +5,8 @@
     "kysely",
     "preact",
     "twind"
-  ]
+  ],
+  "editor.quickSuggestions": {
+    "strings": "on"
+  }
 }
