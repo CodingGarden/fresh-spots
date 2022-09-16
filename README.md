@@ -76,13 +76,16 @@ The code is in the [app](/app/) directory. See the README there for setup direct
     * [x] Setup cookie session
   * [x] Navbar
     * [x] User State
-* [ ] Day 8 - September 9th
+* [x] Day 8 - September 9th
   * [x] Update fresh
   * [x] Fix login drop down on Chrome
-  * [ ] "Private / Logged In" Profile Page
+  * [x] "Private / Logged In" Profile Page
     * [x] Show map on homepage
-  * [ ] Spot List Create Page
+  * [x] Spot List Create Page
     * [x] Initial page
+* [ ] Day 9 - September 16th
+  * [ ] Review/Merge PRs
+  * [ ] Spot List Create Page
     * [ ] Center Map on users location
     * [ ] Places Search / API
   * [ ] Spot List Page
