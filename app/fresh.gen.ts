@@ -7,9 +7,10 @@ import * as $0 from "./routes/_404.tsx";
 import * as $1 from "./routes/_middleware.ts";
 import * as $2 from "./routes/auth/[provider]/callback.tsx";
 import * as $3 from "./routes/auth/[provider]/index.tsx";
-import * as $4 from "./routes/dashboard/index.tsx";
-import * as $5 from "./routes/index.tsx";
-import * as $6 from "./routes/logout.ts";
+import * as $4 from "./routes/dashboard/edit/[id].tsx";
+import * as $5 from "./routes/dashboard/index.tsx";
+import * as $6 from "./routes/index.tsx";
+import * as $7 from "./routes/logout.ts";
 import * as $$0 from "./islands/FreshMap.tsx";
 import * as $$1 from "./islands/Sidebar.tsx";
 import * as $$2 from "./islands/UserAvatarButton.tsx";
@@ -20,9 +21,10 @@ const manifest = {
     "./routes/_middleware.ts": $1,
     "./routes/auth/[provider]/callback.tsx": $2,
     "./routes/auth/[provider]/index.tsx": $3,
-    "./routes/dashboard/index.tsx": $4,
-    "./routes/index.tsx": $5,
-    "./routes/logout.ts": $6,
+    "./routes/dashboard/edit/[id].tsx": $4,
+    "./routes/dashboard/index.tsx": $5,
+    "./routes/index.tsx": $6,
+    "./routes/logout.ts": $7,
   },
   islands: {
     "./islands/FreshMap.tsx": $$0,

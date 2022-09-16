@@ -83,16 +83,22 @@ The code is in the [app](/app/) directory. See the README there for setup direct
     * [x] Show map on homepage
   * [x] Spot List Create Page
     * [x] Initial page
-* [ ] Day 9 - September 16th
-  * [ ] Review/Merge PRs
+* [x] Day 9 - September 16th
+  * [x] Review/Merge PRs
+  * [x] Map Theme
+  * [x] Auto Page Titles
+  * [x] Map background style
+  * [x] UI Library Setup
+    * [x] Bootswatch
+  * [x] Spot List Create Page
+* [ ] Day 10 - TBD
   * [ ] Spot List Create Page
     * [ ] Center Map on users location
     * [ ] Places Search / API
   * [ ] Spot List Page
   * [ ] Use signals for user data
   * [ ] Finish creating deps.ts
-  * [ ] Colors / Theme / twind setup
-    * [ ] Actually use flowbite
+  * [ ] Make a plan to finish / get to v1
 
 # Stretch Features
 

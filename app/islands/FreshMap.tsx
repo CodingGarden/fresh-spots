@@ -4,6 +4,7 @@ import { Head, IS_BROWSER } from "$fresh/runtime.ts";
 import { Map as LMap, LatLngExpression } from "leaflet";
 
 import { places, map } from '@/signals/index.ts';
+import config from '@/utils/config.ts';
 
 type PreactLeaflet = typeof import("preact-leaflet-ts");
 
@@ -36,7 +37,11 @@ effect(() => {
   }
 });
 
-export default function FreshMap() {
+interface FreshMapProps {
+  mapTileUrl: string;
+}
+
+export default function FreshMap({ mapTileUrl }: FreshMapProps) {
   const [currentCenter, setCurrentCenter] = useState<
     LatLngExpression | undefined
   >([39.742043, -104.991531]);
@@ -61,16 +66,14 @@ export default function FreshMap() {
       <div class="flex-grow w-full h-full isolate">
         {(Map && IS_BROWSER) && (
           <Map
-            style={{ filter: 'invert(90%) hue-rotate(111deg)' }}
+            // @ts-ignore class prop does exist...
             class="w-full h-full"
             center={currentCenter}
             zoom={5}
             ref={mapRef}
           >
             <TileLayer
-              // create acount when we deploy...
-              // url="https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png"
-              url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
+              url={mapTileUrl}
               attribution="&copy; OpenStreetMap contributors &copy; CARTO"
               maxZoom="20"
             />

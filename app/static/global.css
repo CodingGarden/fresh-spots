@@ -1,0 +1,14 @@
+body {
+  --bs-green: #56BC58;
+  --bs-font-sans-serif: 'Work Sans', sans-serif;
+  --bs-body-font-family: 'Work Sans', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6  {
+  font-family: var(--bs-font-sans-serif);
+  font-weight: 800;
+}
+
+body .leaflet-container {
+  background-color: #212121;
+}

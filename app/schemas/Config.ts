@@ -9,6 +9,10 @@ function getErrorMessage(environmentVariableName: EnvironmentVariableNames) {
 }
 
 export const ConfigSchema = z.object({
+  map_tile_url: z.string().min(
+    1,
+    getErrorMessage(EnvironmentVariableNames.MAP_TILE_URL),
+  ),
   base_url: z.string().min(
     1,
     getErrorMessage(EnvironmentVariableNames.BASE_URL),

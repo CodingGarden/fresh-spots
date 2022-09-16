@@ -7,7 +7,7 @@ import Layout from "@/components/Layout.tsx";
 import FreshMap from "@/islands/FreshMap.tsx";
 import config from "@/utils/config.ts";
 import Sidebar from "@/islands/Sidebar.tsx";
-import { pageTitle } from "../../signals/index.ts";
+import { pageTitle } from "@/signals/index.ts";
 
 export const handler: Handlers<UserWithSocialProfiles | null, State> = {
   async GET(req, ctx) {
@@ -34,6 +34,7 @@ export const handler: Handlers<UserWithSocialProfiles | null, State> = {
   },
 };
 
+// TODO: cookie parsing middleware...
 export default function Home(
   { data }: PageProps<UserWithSocialProfiles | null>,
 ) {
@@ -41,11 +42,9 @@ export default function Home(
   // TODO: use a signal
   return (
     <Layout user={data}>
-      <div class="mt-3 w-full flex flex-col justify-center items-center">
-        <a href="/dashboard/edit/abc123" class="btn btn-lg btn-info">
-          CREATE A LIST
-        </a>
-        <h2>You have not created any lists!</h2>
+      <div class="w-full h-full flex">
+        <Sidebar />
+        <FreshMap mapTileUrl={config.map_tile_url} />
       </div>
     </Layout>
   );

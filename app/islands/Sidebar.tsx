@@ -8,7 +8,7 @@ export default function SideBar() {
       tabindex="-1"
       aria-labelledby="drawer-label"
     >
-      <ul class="w-48 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+      <ul class="list-group">
         {places.value.map((place) => (
           <li onClick={() => {
             if (map.value) {
@@ -17,7 +17,7 @@ export default function SideBar() {
                 duration: 1,
               });
             }
-          }} class="py-2 px-4 w-full rounded-t-lg border-b border-gray-200 dark:border-gray-600 cursor-pointer">
+          }} class="list-group-item">
             {JSON.stringify(place, null, 2)}
           </li>
         ))}

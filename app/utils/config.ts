@@ -11,6 +11,7 @@ if (Deno.env.get(EnvironmentVariableNames.DENO_ENV) !== "production") {
 import { Config, ConfigSchema } from "@/schemas/Config.ts";
 
 const envConfig: Config = {
+  map_tile_url: Deno.env.get('MAP_TILE_URL'),
   // TODO: update to use parameterized port
   base_url: Deno.env.get(EnvironmentVariableNames.BASE_URL) ||
     "http://localhost:8000",

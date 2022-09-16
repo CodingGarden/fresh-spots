@@ -1,22 +1,16 @@
 import { join } from 'path'
-import {
-  ColumnDefinitionBuilder,
-  Kysely,
-  sql,
-  FileMigrationProvider,
-  Migration,
-} from 'kysely'
+import { kysely } from "@/deps.ts";
 import { DbSchema } from './db.ts'
 
-export type FreshDb = Kysely<DbSchema>
+export type FreshDb = kysely.Kysely<DbSchema>
 
 export function createTableWithDefaults<T extends string>(
-  schema: SourcesDb['schema'],
+  schema: FreshDb['schema'],
   tableName: T,
   hasId = true
 ) {
-  const notNullNow = (col: ColumnDefinitionBuilder) =>
-    col.notNull().defaultTo(sql`NOW()`)
+  const notNullNow = (col: kysely.ColumnDefinitionBuilder) =>
+    col.notNull().defaultTo(kysely.sql`NOW()`)
 
   const schemaWithDates = schema
     .createTable(tableName)
@@ -30,7 +24,7 @@ export function createTableWithDefaults<T extends string>(
   return schemaWithDates
 }
 
-export class DenoFileMigrationProvider extends FileMigrationProvider {
+export class DenoFileMigrationProvider extends kysely.FileMigrationProvider {
   folder: string
 
   constructor() {
@@ -51,8 +45,8 @@ export class DenoFileMigrationProvider extends FileMigrationProvider {
     this.folder = './db/migrations'
   }
 
-  async getMigrations(): Promise<Record<string, Migration>> {
-    const migrations: Record<string, Migration> = {}
+  async getMigrations(): Promise<Record<string, kysely.Migration>> {
+    const migrations: Record<string, kysely.Migration> = {}
     const files = await Deno.readDir(this.folder)
 
     for await (const file of files) {

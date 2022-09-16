@@ -1,4 +1,4 @@
-import { kysely, flags } from '@/deps.ts';
+import { kysely, flags as stdFlags } from '@/deps.ts';
 
 import { DenoFileMigrationProvider } from './migrate-utils.ts'
 import db from '@/db/db.ts'
@@ -23,7 +23,7 @@ function logMigrationResults(results?: kysely.MigrationResult[], error?: Error) 
   }
 }
 
-const flags = flags.parse(Deno.args, {
+const flags = stdFlags.parse(Deno.args, {
   boolean: ["up", "down"],
 });
 

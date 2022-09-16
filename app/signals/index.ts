@@ -12,3 +12,5 @@ function getInitialValue() {
 export const places = signal<LatLngExpression[]>(getInitialValue());
 
 export const map = signal<LMap | null>(null);
+
+export const pageTitle = signal('Fresh Spots');

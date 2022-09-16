@@ -98,7 +98,7 @@ const UserAvatarButton: FunctionComponent<PropsWithUser> = ({ user }) => {
             <a
               href="/logout"
               class={tw(
-                "block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white",
+                "block py-2 px-4",
               )}
             >
               Logout

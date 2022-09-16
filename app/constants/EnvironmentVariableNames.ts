@@ -1,4 +1,5 @@
 enum EnvironmentVariableNames {
+  MAP_TILE_URL = "MAP_TILE_URL",
   BASE_URL = "BASE_URL",
   DENO_ENV = "DENO_ENV",
   DB_NAME = "DB_NAME",
