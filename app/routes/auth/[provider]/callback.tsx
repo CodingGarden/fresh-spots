@@ -72,11 +72,10 @@ async function upsertDiscordProfile(request: Request, accessToken: string) {
     }
   }
   if (id) {
-    const secret = "keyboard_cat";
     const { cookie } = await squishyCookies.createSignedCookie(
       "id",
       id,
-      secret,
+      config.cookie_secret,
       {
         path: "/",
         httpOnly: true,
