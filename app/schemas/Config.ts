@@ -1,40 +1,44 @@
 import { z } from "@/deps.ts";
 
-import EnvironmentVariableNames from "../constants/EnvironmentVariableNames.ts";
+import EnvNames from "../constants/EnvVars.ts";
 
-function getErrorMessage(environmentVariableName: EnvironmentVariableNames) {
+function getErrorMessage(environmentVariableName: EnvNames) {
   return {
     message: `Missing ${environmentVariableName} environment variable.`,
   };
 }
 
 export const ConfigSchema = z.object({
+  cookie_secret: z.string().min(
+    1,
+    getErrorMessage(EnvNames.COOKIE_SECRET),
+  ),
   map_tile_url: z.string().min(
     1,
-    getErrorMessage(EnvironmentVariableNames.MAP_TILE_URL),
+    getErrorMessage(EnvNames.MAP_TILE_URL),
   ),
   base_url: z.string().min(
     1,
-    getErrorMessage(EnvironmentVariableNames.BASE_URL),
+    getErrorMessage(EnvNames.BASE_URL),
   ),
   environment: z.string().min(
     1,
-    getErrorMessage(EnvironmentVariableNames.DENO_ENV),
+    getErrorMessage(EnvNames.DENO_ENV),
   ),
   db_uri: z.string(),
   db: z.object({
-    host: z.string().min(1, getErrorMessage(EnvironmentVariableNames.DB_HOST)),
+    host: z.string().min(1, getErrorMessage(EnvNames.DB_HOST)),
     username: z.string().min(
       1,
-      getErrorMessage(EnvironmentVariableNames.DB_USERNAME),
+      getErrorMessage(EnvNames.DB_USERNAME),
     ),
     password: z.string().min(
       1,
-      getErrorMessage(EnvironmentVariableNames.DB_PASSWORD),
+      getErrorMessage(EnvNames.DB_PASSWORD),
     ),
     database: z.string().min(
       1,
-      getErrorMessage(EnvironmentVariableNames.DB_NAME),
+      getErrorMessage(EnvNames.DB_NAME),
     ),
     port: z.number().default(5432),
   }),
@@ -42,11 +46,11 @@ export const ConfigSchema = z.object({
     discord: z.object({
       client_id: z.string().min(
         1,
-        getErrorMessage(EnvironmentVariableNames.DISCORD_CLIENT_ID),
+        getErrorMessage(EnvNames.DISCORD_CLIENT_ID),
       ),
       client_secret: z.string().min(
         1,
-        getErrorMessage(EnvironmentVariableNames.DISCORD_CLIENT_SECRET),
+        getErrorMessage(EnvNames.DISCORD_CLIENT_SECRET),
       ),
     }),
   }),

@@ -2,3 +2,4 @@
 .env.local
 .env.prod
 db-data
+.env.prod.railway

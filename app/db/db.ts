@@ -21,8 +21,8 @@ export function jsonb_agg<DB, TB extends keyof DB, O = {}>(
 export interface DbSchema {
   user: UserTable;
   social_profile: SocialProfileTable;
-  spot_lists: SpotListTable;
-  spots: SpotTable;
+  spot_list: SpotListTable;
+  spot: SpotTable;
 }
 
 class Db {

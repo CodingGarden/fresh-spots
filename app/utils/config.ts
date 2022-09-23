@@ -1,8 +1,8 @@
 import * as mod from "dotenv";
 
-import EnvironmentVariableNames from "../constants/EnvironmentVariableNames.ts";
+import EnvNames from "../constants/EnvVars.ts";
 
-if (Deno.env.get(EnvironmentVariableNames.DENO_ENV) !== "production") {
+if (Deno.env.get(EnvNames.DENO_ENV) !== "production") {
   await mod.config({
     export: true,
   });
@@ -11,24 +11,24 @@ if (Deno.env.get(EnvironmentVariableNames.DENO_ENV) !== "production") {
 import { Config, ConfigSchema } from "@/schemas/Config.ts";
 
 const envConfig: Config = {
-  map_tile_url: Deno.env.get('MAP_TILE_URL'),
+  cookie_secret: Deno.env.get(EnvNames.COOKIE_SECRET) || "",
+  map_tile_url: Deno.env.get(EnvNames.MAP_TILE_URL) || "",
   // TODO: update to use parameterized port
-  base_url: Deno.env.get(EnvironmentVariableNames.BASE_URL) ||
+  base_url: Deno.env.get(EnvNames.BASE_URL) ||
     "http://localhost:8000",
-  environment: Deno.env.get(EnvironmentVariableNames.DENO_ENV) || "",
+  environment: Deno.env.get(EnvNames.DENO_ENV) || "",
   db: {
-    database: Deno.env.get(EnvironmentVariableNames.DB_NAME) || "",
-    host: Deno.env.get(EnvironmentVariableNames.DB_HOST) || "",
-    username: Deno.env.get(EnvironmentVariableNames.DB_USERNAME) || "",
-    password: Deno.env.get(EnvironmentVariableNames.DB_PASSWORD) || "",
-    port: Number(Deno.env.get(EnvironmentVariableNames.DB_PORT) || 5432),
+    database: Deno.env.get(EnvNames.DB_NAME) || "",
+    host: Deno.env.get(EnvNames.DB_HOST) || "",
+    username: Deno.env.get(EnvNames.DB_USERNAME) || "",
+    password: Deno.env.get(EnvNames.DB_PASSWORD) || "",
+    port: Number(Deno.env.get(EnvNames.DB_PORT) || 5432),
   },
   db_uri: "",
   oauth: {
     discord: {
-      client_id: Deno.env.get(EnvironmentVariableNames.DISCORD_CLIENT_ID) || "",
-      client_secret:
-        Deno.env.get(EnvironmentVariableNames.DISCORD_CLIENT_SECRET) || "",
+      client_id: Deno.env.get(EnvNames.DISCORD_CLIENT_ID) || "",
+      client_secret: Deno.env.get(EnvNames.DISCORD_CLIENT_SECRET) || "",
     },
   },
 };

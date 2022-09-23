@@ -11,7 +11,7 @@ export const handler: Handlers = {
         Location: config.base_url,
       },
     });
-    cookie.deleteCookie(response.headers, 'id');
+    cookie.deleteCookie(response.headers, "id");
     return response;
   },
 };

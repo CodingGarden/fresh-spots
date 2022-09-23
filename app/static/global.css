@@ -1,7 +1,9 @@
 body {
   --bs-green: #56BC58;
+  --bs-green-rgb: 86, 188, 88;
   --bs-font-sans-serif: 'Work Sans', sans-serif;
   --bs-body-font-family: 'Work Sans', sans-serif;
+  --bs-success-rgb: var(--bs-green-rgb);
 }
 
 h1, h2, h3, h4, h5, h6  {
@@ -11,4 +13,21 @@ h1, h2, h3, h4, h5, h6  {
 
 body .leaflet-container {
   background-color: #212121;
+}
+
+.btn-success {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: var(--bs-green);
+  --bs-btn-border-color: var(--bs-green);
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #00a077;
+  --bs-btn-hover-border-color: #009670;
+  --bs-btn-focus-shadow-rgb: 38, 198, 157;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #009670;
+  --bs-btn-active-border-color: #008d69;
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #fff;
+  --bs-btn-disabled-bg: var(--bs-green);
+  --bs-btn-disabled-border-color: var(--bs-green);
 }

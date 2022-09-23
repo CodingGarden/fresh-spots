@@ -1,51 +1,54 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
 
 import State from "@/schemas/State.ts";
-import db, { jsonb_agg } from "@/db/db.ts";
 import { UserWithSocialProfiles } from "@/db/tables/CombinedTables.ts";
 import Layout from "@/components/Layout.tsx";
-import FreshMap from "@/islands/FreshMap.tsx";
-import config from "@/utils/config.ts";
-import Sidebar from "@/islands/Sidebar.tsx";
-import { pageTitle } from "../../signals/index.ts";
+import { pageTitle } from "@/signals/index.ts";
+import SpotListTable from "@/db/tables/SpotListTable.ts";
+import { findAll } from "@/db/queries/SpotList.ts";
 
-export const handler: Handlers<UserWithSocialProfiles | null, State> = {
+interface DashboardPageProps {
+  user?: UserWithSocialProfiles,
+  lists: SpotListTable[],
+}
+
+export const handler: Handlers<DashboardPageProps, State> = {
   async GET(req, ctx) {
-    if (ctx.state.userId) {
-      const user = await db
-        .selectFrom("user")
-        .selectAll()
-        .select(
-          (qb) =>
-            jsonb_agg(
-              qb.selectFrom("social_profile")
-                .selectAll()
-                .whereRef("social_profile.user_id", "=", "user.id"),
-            )
-              .as("social_profiles"),
-        )
-        .where("id", "=", ctx.state.userId)
-        .executeTakeFirst();
-      if (user) {
-        return ctx.render(user as unknown as UserWithSocialProfiles);
-      }
-    }
-    return Response.redirect(`${config.base_url}?message=UnAuthorized`);
+    const lists = (await findAll(ctx.state.userId as number) as unknown as SpotListTable[]);
+    return ctx.render({
+      user: ctx.state.user,
+      lists,
+    });
   },
 };
 
 export default function Home(
-  { data }: PageProps<UserWithSocialProfiles | null>,
+  { data }: PageProps<DashboardPageProps>,
 ) {
-  pageTitle.value = 'Dashboard';
+  pageTitle.value = "Dashboard";
   // TODO: use a signal
   return (
-    <Layout user={data}>
-      <div class="mt-3 w-full flex flex-col justify-center items-center">
-        <a href="/dashboard/edit/abc123" class="btn btn-lg btn-info">
+    <Layout user={data.user}>
+      <div class="mt-5 w-full flex flex-col justify-center items-center container">
+        <a href="/dashboard/lists/create" class="btn btn-lg btn-info">
           CREATE A LIST
         </a>
-        <h2>You have not created any lists!</h2>
+        {!data.lists.length && <h2>You have not created any lists!</h2>}
+        <div class="mt-5 w-full">
+          {data.lists.map((list) => (
+            <div class="card border-success mb-3 w-full">
+              <div class="card-header">{list.name}</div>
+              <div class="card-body">
+                <p class="card-text">{list.description}</p>
+                <div class="flex justify-end">
+                  <a href={`/dashboard/lists/edit/${list.id}`} class="btn btn-success">
+                    EDIT
+                  </a>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </Layout>
   );

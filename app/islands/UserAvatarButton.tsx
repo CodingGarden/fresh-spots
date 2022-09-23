@@ -1,5 +1,5 @@
 import { FunctionComponent } from "preact";
-import { useState, useEffect, useRef } from "preact/hooks";
+import { useEffect, useRef, useState } from "preact/hooks";
 import { tw } from "twind";
 
 import PropsWithUser from "@/schemas/PropsWithUser.ts";
@@ -23,15 +23,27 @@ const UserAvatarButton: FunctionComponent<PropsWithUser> = ({ user }) => {
       setShowDropdown(true);
     };
     if (buttonRef.current) {
-      (buttonRef.current as HTMLDivElement).addEventListener('focusout', blurListener);
-      (buttonRef.current as HTMLDivElement).addEventListener('focusin', focusListener);
+      (buttonRef.current as HTMLDivElement).addEventListener(
+        "focusout",
+        blurListener,
+      );
+      (buttonRef.current as HTMLDivElement).addEventListener(
+        "focusin",
+        focusListener,
+      );
     }
-    () => {
+    (() => {
       if (buttonRef.current) {
-        (buttonRef.current as HTMLDivElement).removeEventListener('focusout', blurListener);
-        (buttonRef.current as HTMLDivElement).removeEventListener('focusin', focusListener);
+        (buttonRef.current as HTMLDivElement).removeEventListener(
+          "focusout",
+          blurListener,
+        );
+        (buttonRef.current as HTMLDivElement).removeEventListener(
+          "focusin",
+          focusListener,
+        );
       }
-    }
+    });
   }, []);
 
   if (!user) return null;
@@ -48,9 +60,7 @@ const UserAvatarButton: FunctionComponent<PropsWithUser> = ({ user }) => {
           {user.display_name}
         </div>
         <div>
-          <div
-            class="inline-flex overflow-hidden relative justify-center items-center w-10 h-10 bg-gray-100 rounded-full dark:bg-gray-600"
-          >
+          <div class="inline-flex overflow-hidden relative justify-center items-center w-10 h-10 bg-gray-100 rounded-full dark:bg-gray-600">
             {/* TODO: fix padding on image */}
             {socialProfile
               ? (
@@ -61,16 +71,16 @@ const UserAvatarButton: FunctionComponent<PropsWithUser> = ({ user }) => {
                 />
               )
               : (
-                <span
-                  class="font-medium text-gray-600 dark:text-gray-300"
-                >
+                <span class="font-medium text-gray-600 dark:text-gray-300">
                   {user.display_name[0].toUpperCase()}
                 </span>
               )}
           </div>
         </div>
         <svg
-          class={`ml-2 w-4 h-4 transition transition-transform ${showDropdown ? 'rotate-180' : ''}`}
+          class={`ml-2 w-4 h-4 transition transition-transform ${
+            showDropdown ? "rotate-180" : ""
+          }`}
           aria-hidden="true"
           fill="none"
           stroke="currentColor"
@@ -88,7 +98,9 @@ const UserAvatarButton: FunctionComponent<PropsWithUser> = ({ user }) => {
       </button>
       <div
         id="dropdown"
-        class={`${showDropdown ? '' : 'hidden'} absolute mt-2 right-4 z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700`}
+        class={`${
+          showDropdown ? "" : "hidden"
+        } absolute mt-2 right-4 z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700`}
       >
         <ul
           class={tw("py-1 text-sm text-gray-700 dark:text-gray-200")}

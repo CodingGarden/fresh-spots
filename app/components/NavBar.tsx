@@ -4,11 +4,12 @@ import UserAvatarButton from "../islands/UserAvatarButton.tsx";
 
 const NavBar: FunctionalComponent<PropsWithUser> = ({ user }) => {
   return (
-    <nav class="navbar navbar-expand-lg navbar-dark" style={{ background: 'var(--bs-green)'}}>
+    <nav
+      class="navbar navbar-expand-lg navbar-dark"
+      style={{ background: "var(--bs-green)" }}
+    >
       <div class="container-fluid">
-        <div
-          class="container flex flex-wrap justify-between items-center mx-auto"
-        >
+        <div class="container flex flex-wrap justify-between items-center mx-auto">
           <a class="navbar-brand flex items-center" href="/">
             <svg
               class="mr-3 h-6 sm:h-9"
@@ -49,9 +50,7 @@ const NavBar: FunctionalComponent<PropsWithUser> = ({ user }) => {
                 </g>
               </g>
             </svg>
-            <h4
-              class="mb-0 self-center text-xl whitespace-nowrap"
-            >
+            <h4 class="mb-0 self-center text-xl whitespace-nowrap">
               FRESH SPOTS
             </h4>
           </a>

@@ -1,4 +1,5 @@
-enum EnvironmentVariableNames {
+enum EnvNames {
+  COOKIE_SECRET = "COOKIE_SECRET",
   MAP_TILE_URL = "MAP_TILE_URL",
   BASE_URL = "BASE_URL",
   DENO_ENV = "DENO_ENV",
@@ -11,4 +12,4 @@ enum EnvironmentVariableNames {
   DISCORD_CLIENT_SECRET = "DISCORD_CLIENT_SECRET",
 }
 
-export default EnvironmentVariableNames;
+export default EnvNames;

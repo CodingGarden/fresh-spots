@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "preact/hooks";
 import { effect } from "@preact/signals";
 import { Head, IS_BROWSER } from "$fresh/runtime.ts";
-import { Map as LMap, LatLngExpression } from "leaflet";
+import { LatLngExpression, Map as LMap } from "leaflet";
 
-import { places, map } from '@/signals/index.ts';
-import config from '@/utils/config.ts';
+import { map, places } from "@/signals/index.ts";
+import config from "@/utils/config.ts";
 
 type PreactLeaflet = typeof import("preact-leaflet-ts");
 
@@ -24,14 +24,14 @@ if (IS_BROWSER) {
 
 effect(() => {
   if (map.value) {
-    map.value.on('click', (event) => {
+    map.value.on("click", (event) => {
       places.value = [...places.value, event.latlng];
       // TODO: calculate distance... set duration accordingly
       map.value?.flyTo(event.latlng, 15, {
         duration: 1,
       });
       if (IS_BROWSER) {
-        localStorage.setItem('places', JSON.stringify(places.value));
+        localStorage.setItem("places", JSON.stringify(places.value));
       }
     });
   }
@@ -50,7 +50,7 @@ export default function FreshMap({ mapTileUrl }: FreshMapProps) {
   useEffect(() => {
     if (mapRef.current) {
       const mapComponent = (mapRef.current as unknown as PreactMap);
-      map.value = mapComponent.state.map
+      map.value = mapComponent.state.map;
     }
   }, [mapRef]);
 

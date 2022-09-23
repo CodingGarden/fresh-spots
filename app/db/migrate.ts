@@ -1,25 +1,30 @@
-import { kysely, flags as stdFlags } from '@/deps.ts';
+import { flags as stdFlags, kysely } from "@/deps.ts";
 
-import { DenoFileMigrationProvider } from './migrate-utils.ts'
-import db from '@/db/db.ts'
+import { DenoFileMigrationProvider } from "./migrate-utils.ts";
+import db from "@/db/db.ts";
 
 const migrator = new kysely.Migrator({
   db,
   provider: new DenoFileMigrationProvider(),
 });
 
-function logMigrationResults(results?: kysely.MigrationResult[], error?: Error) {
+function logMigrationResults(
+  results?: kysely.MigrationResult[],
+  error?: Error,
+) {
   results?.forEach((res) => {
-    if (res.status === 'Success') {
-      console.log(`[Migrations] ✅ ${res.migrationName} was executed successfully`)
+    if (res.status === "Success") {
+      console.log(
+        `[Migrations] ✅ ${res.migrationName} was executed successfully`,
+      );
     } else {
-      console.log(`[Migrations] ✅ ${res.migrationName} failed to execute`)
+      console.log(`[Migrations] ✅ ${res.migrationName} failed to execute`);
     }
-  })
+  });
 
   if (error) {
-    console.log(`[Migrations] Failed to migrate`)
-    throw new Error(error.message)
+    console.log(`[Migrations] Failed to migrate`);
+    throw new Error(error.message);
   }
 }
 
