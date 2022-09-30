@@ -1,5 +1,16 @@
 import { kysely, z } from "@/deps.ts";
 
+export const generatedString = (): z.ZodType<
+  kysely.ColumnType<string, never, never>
+> =>
+  z.lazy(() =>
+    z.object({
+      __select__: z.string(),
+      __insert__: z.never(),
+      __update__: z.never(),
+    })
+  );
+
 export const generatedNumber = (): z.ZodType<
   kysely.ColumnType<number, never, never>
 > =>

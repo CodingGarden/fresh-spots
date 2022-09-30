@@ -3,7 +3,7 @@ import { effect } from "@preact/signals";
 import { Head, IS_BROWSER } from "$fresh/runtime.ts";
 import { LatLngExpression, Map as LMap } from "leaflet";
 
-import { map, places } from "@/signals/index.ts";
+import { map, editingSpot, editingList } from "@/signals/index.ts";
 import config from "@/utils/config.ts";
 
 type PreactLeaflet = typeof import("preact-leaflet-ts");
@@ -25,13 +25,25 @@ if (IS_BROWSER) {
 effect(() => {
   if (map.value) {
     map.value.on("click", (event) => {
-      places.value = [...places.value, event.latlng];
       // TODO: calculate distance... set duration accordingly
       map.value?.flyTo(event.latlng, 15, {
         duration: 1,
       });
-      if (IS_BROWSER) {
-        localStorage.setItem("places", JSON.stringify(places.value));
+      if (!editingSpot.value) {
+        editingSpot.value = {
+          latitude: event.latlng.lat,
+          longitude: event.latlng.lng,
+          name: "",
+          list_id: "",
+          user_id: -1,
+          description: "",
+        };
+      } else {
+        editingSpot.value = {
+          ...editingSpot.value,
+          latitude: event.latlng.lat,
+          longitude: event.latlng.lng,
+        };
       }
     });
   }
@@ -49,8 +61,22 @@ export default function FreshMap({ mapTileUrl }: FreshMapProps) {
 
   useEffect(() => {
     if (mapRef.current) {
-      const mapComponent = (mapRef.current as unknown as PreactMap);
+      const mapComponent = mapRef.current as unknown as PreactMap;
       map.value = mapComponent.state.map;
+      if (IS_BROWSER) {
+        if (editingList.value) {
+          // deno-lint-ignore ban-ts-comment
+          // @ts-ignore
+          const bounds = new L.LatLngBounds(
+            editingList.value.spots.map((spot) => [
+              spot.latitude,
+              spot.longitude,
+            ])
+          );
+          // TODO: let us click a button to do this anytime we want
+          map.value.fitBounds(bounds);
+        }
+      }
     }
   }, [mapRef]);
 
@@ -64,7 +90,7 @@ export default function FreshMap({ mapTileUrl }: FreshMapProps) {
         <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"></script>
       </Head>
       <div class="flex-grow w-full h-full isolate">
-        {(Map && IS_BROWSER) && (
+        {Map && IS_BROWSER && (
           <Map
             // @ts-ignore class prop does exist...
             class="w-full h-full"
@@ -77,7 +103,21 @@ export default function FreshMap({ mapTileUrl }: FreshMapProps) {
               attribution="&copy; OpenStreetMap contributors &copy; CARTO"
               maxZoom="20"
             />
-            {places.value.map((place) => <Marker position={place} />)}
+            {editingList.value?.spots.map((spot) => (
+              <Marker
+                key={[spot.latitude, spot.longitude]}
+                position={[spot.latitude, spot.longitude]}
+              />
+            ))}
+            {editingSpot.value && (
+              <Marker
+                key={[editingSpot.value.latitude, editingSpot.value.longitude]}
+                position={[
+                  editingSpot.value.latitude,
+                  editingSpot.value.longitude,
+                ]}
+              />
+            )}
           </Map>
         )}
       </div>

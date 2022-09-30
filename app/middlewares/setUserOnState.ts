@@ -7,26 +7,27 @@ import { UserWithSocialProfiles } from "@/db/tables/CombinedTables.ts";
 
 export async function handler(
   _req: Request,
-  ctx: MiddlewareHandlerContext<State>,
+  ctx: MiddlewareHandlerContext<State>
 ) {
   if (ctx.state.userId) {
     const user = await db
       .selectFrom("user")
       .selectAll()
-      .select(
-        (qb) =>
-          jsonb_agg(
-            qb.selectFrom("social_profile")
-              .selectAll()
-              .whereRef("social_profile.user_id", "=", "user.id"),
-          )
-            .as("social_profiles"),
+      .select((qb) =>
+        jsonb_agg(
+          qb
+            .selectFrom("social_profile")
+            .selectAll()
+            .whereRef("social_profile.user_id", "=", "user.id")
+        ).as("social_profiles")
       )
       .where("id", "=", ctx.state.userId)
       .executeTakeFirst();
     if (user) {
       ctx.state.user = user as unknown as UserWithSocialProfiles;
       return ctx.next();
+    } else {
+      return Response.redirect(`${config.base_url}/logout`);
     }
   }
   return Response.redirect(`${config.base_url}?message=UnAuthorized`);

@@ -8,13 +8,14 @@ import SpotListTable from "@/db/tables/SpotListTable.ts";
 import { findAll } from "@/db/queries/SpotList.ts";
 
 interface DashboardPageProps {
-  user?: UserWithSocialProfiles,
-  lists: SpotListTable[],
+  user?: UserWithSocialProfiles;
+  lists: SpotListTable[];
 }
 
 export const handler: Handlers<DashboardPageProps, State> = {
   async GET(req, ctx) {
-    const lists = (await findAll(ctx.state.userId as number) as unknown as SpotListTable[]);
+    const lists =
+      (await findAll(ctx.state.userId as number) as unknown as SpotListTable[]);
     return ctx.render({
       user: ctx.state.user,
       lists,
@@ -41,7 +42,10 @@ export default function Home(
               <div class="card-body">
                 <p class="card-text">{list.description}</p>
                 <div class="flex justify-end">
-                  <a href={`/dashboard/lists/edit/${list.id}`} class="btn btn-success">
+                  <a
+                    href={`/dashboard/lists/edit/${list.id}`}
+                    class="btn btn-success"
+                  >
                     EDIT
                   </a>
                 </div>

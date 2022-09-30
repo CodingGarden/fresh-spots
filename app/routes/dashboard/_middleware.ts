@@ -1,1 +1,1 @@
-export { handler } from '@/middlewares/setUserOnState.ts';
+export { handler } from "@/middlewares/setUserOnState.ts";

@@ -16,10 +16,8 @@ export async function up(db: FreshDb): Promise<void> {
     .execute();
 
   await createTableWithDefaults(db.schema, "social_profile")
-    .addColumn(
-      "provider_type",
-      kysely.sql`provider_type`,
-      (col) => col.notNull(),
+    .addColumn("provider_type", kysely.sql`provider_type`, (col) =>
+      col.notNull()
     )
     .addColumn("provider_id", "varchar(50)", (col) => col.notNull())
     .addColumn("username", "varchar(255)", (col) => col.notNull())
@@ -30,7 +28,7 @@ export async function up(db: FreshDb): Promise<void> {
       ["user_id"],
       "user",
       ["id"],
-      (cb) => cb.onDelete("cascade"),
+      (cb) => cb.onDelete("cascade")
     )
     .execute();
 
@@ -40,7 +38,8 @@ export async function up(db: FreshDb): Promise<void> {
         .notNull()
         .primaryKey()
         .unique()
-        .defaultTo(kysely.sql`gen_random_uuid()`))
+        .defaultTo(kysely.sql`gen_random_uuid()`)
+    )
     .addColumn("name", "varchar(255)", (col) => col.notNull())
     .addColumn("description", "varchar(1000)")
     .addColumn("public", "boolean", (col) => col.notNull().defaultTo(false))
@@ -51,18 +50,15 @@ export async function up(db: FreshDb): Promise<void> {
       ["user_id"],
       "user",
       ["id"],
-      (cb) => cb.onDelete("cascade"),
+      (cb) => cb.onDelete("cascade")
     )
     .execute();
 
   await createTableWithDefaults(db.schema, "spot")
     .addColumn("name", "varchar(255)", (col) => col.notNull())
     .addColumn("description", "varchar(1000)")
-    .addColumn(
-      "location",
-      kysely.sql`public.geography(Point, 4326)`,
-      (col) => col.notNull(),
-    )
+    .addColumn("latitude", "float8", (col) => col.notNull())
+    .addColumn("longitude", "float8", (col) => col.notNull())
     .addColumn("user_id", "integer", (col) => col.notNull())
     .addColumn("list_id", "uuid", (col) => col.notNull())
     .addForeignKeyConstraint(
@@ -70,14 +66,14 @@ export async function up(db: FreshDb): Promise<void> {
       ["user_id"],
       "user",
       ["id"],
-      (cb) => cb.onDelete("cascade"),
+      (cb) => cb.onDelete("cascade")
     )
     .addForeignKeyConstraint(
       "spot_list_spot_id_fk",
       ["list_id"],
       "spot_list",
       ["id"],
-      (cb) => cb.onDelete("cascade"),
+      (cb) => cb.onDelete("cascade")
     )
     .execute();
 }

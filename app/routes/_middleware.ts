@@ -6,12 +6,12 @@ import config from "@/utils/config.ts";
 
 export async function handler(
   req: Request,
-  ctx: MiddlewareHandlerContext<State>,
+  ctx: MiddlewareHandlerContext<State>
 ) {
   const userId = await squishyCookies.verifySignedCookie(
     req.headers,
     "id",
-    config.cookie_secret,
+    config.cookie_secret
   );
   if (userId) {
     ctx.state.userId = Number(userId.split(".")[0]);

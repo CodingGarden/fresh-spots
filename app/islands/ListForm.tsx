@@ -1,7 +1,7 @@
 import { useState } from "preact/hooks";
 
 export default function ListForm() {
-  const [createError, setCreateError] = useState('');
+  const [createError, setCreateError] = useState("");
   const [errors, setErrors] = useState({
     name: "",
     description: "",
@@ -14,16 +14,16 @@ export default function ListForm() {
     if (event.target) {
       const formData = new FormData(event.target);
       const newList = {
-        name: formData.get('name')?.toString() || '',
-        description: formData.get('description')?.toString() || '',
+        name: formData.get("name")?.toString() || "",
+        description: formData.get("description")?.toString() || "",
       };
-      let nameError = '';
-      let descriptionError = '';
+      let nameError = "";
+      let descriptionError = "";
       if (!newList.name.trim()) {
-        nameError = 'Name is required.';
+        nameError = "Name is required.";
       }
       if (!newList.description.trim()) {
-        descriptionError = 'Description is required.';
+        descriptionError = "Description is required.";
       }
       if (nameError || descriptionError) {
         setErrors({
@@ -31,10 +31,10 @@ export default function ListForm() {
           description: descriptionError,
         });
       } else {
-        const response = await fetch('/api/lists', {
-          method: 'POST',
+        const response = await fetch("/api/lists", {
+          method: "POST",
           headers: {
-            'content-type': 'application/json',
+            "content-type": "application/json",
           },
           body: JSON.stringify(newList),
         });
@@ -61,12 +61,13 @@ export default function ListForm() {
             Name
           </label>
           <input
-            onInput={() => setErrors((current) => ({
-              ...current,
-              name: '',
-            }))}
+            onInput={() =>
+              setErrors((current) => ({
+                ...current,
+                name: "",
+              }))}
             type="text"
-            class={`form-control ${errors.name ? 'is-invalid' : ''}`}
+            class={`form-control ${errors.name ? "is-invalid" : ""}`}
             id="listName"
             name="name"
             aria-describedby="listNameHelp"
@@ -83,18 +84,21 @@ export default function ListForm() {
             Description
           </label>
           <textarea
-            onInput={() => setErrors((current) => ({
-              ...current,
-              description: '',
-            }))}
-            class={`form-control ${errors.description ? 'is-invalid' : ''}`}
+            onInput={() =>
+              setErrors((current) => ({
+                ...current,
+                description: "",
+              }))}
+            class={`form-control ${errors.description ? "is-invalid" : ""}`}
             id="listDescription"
             name="description"
             aria-describedby="listDescriptionHelp"
             rows={3}
           >
           </textarea>
-          {errors.description && <div class="invalid-feedback">{errors.description}</div>}
+          {errors.description && (
+            <div class="invalid-feedback">{errors.description}</div>
+          )}
           <small id="listDescriptionHelp" class="form-text text-muted">
             A quick description of your list so people can understand what it is
             about.

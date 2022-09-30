@@ -5,39 +5,47 @@
 import config from "./deno.json" assert { type: "json" };
 import * as $0 from "./routes/_404.tsx";
 import * as $1 from "./routes/_middleware.ts";
-import * as $2 from "./routes/api/lists/index.ts";
-import * as $3 from "./routes/auth/[provider]/callback.tsx";
-import * as $4 from "./routes/auth/[provider]/index.tsx";
-import * as $5 from "./routes/dashboard/_middleware.ts";
-import * as $6 from "./routes/dashboard/index.tsx";
-import * as $7 from "./routes/dashboard/lists/create.tsx";
-import * as $8 from "./routes/dashboard/lists/edit/[id].tsx";
-import * as $9 from "./routes/index.tsx";
-import * as $10 from "./routes/logout.ts";
+import * as $2 from "./routes/api/lists/[id].ts";
+import * as $3 from "./routes/api/lists/index.ts";
+import * as $4 from "./routes/api/spots/index.ts";
+import * as $5 from "./routes/auth/[provider]/callback.tsx";
+import * as $6 from "./routes/auth/[provider]/index.tsx";
+import * as $7 from "./routes/dashboard/_middleware.ts";
+import * as $8 from "./routes/dashboard/index.tsx";
+import * as $9 from "./routes/dashboard/lists/create.tsx";
+import * as $10 from "./routes/dashboard/lists/edit/[id].tsx";
+import * as $11 from "./routes/index.tsx";
+import * as $12 from "./routes/logout.ts";
 import * as $$0 from "./islands/FreshMap.tsx";
-import * as $$1 from "./islands/ListForm.tsx";
-import * as $$2 from "./islands/Sidebar.tsx";
-import * as $$3 from "./islands/UserAvatarButton.tsx";
+import * as $$1 from "./islands/HydrateIsland.tsx";
+import * as $$2 from "./islands/ListForm.tsx";
+import * as $$3 from "./islands/Sidebar.tsx";
+import * as $$4 from "./islands/SpotForm.tsx";
+import * as $$5 from "./islands/UserAvatarButton.tsx";
 
 const manifest = {
   routes: {
     "./routes/_404.tsx": $0,
     "./routes/_middleware.ts": $1,
-    "./routes/api/lists/index.ts": $2,
-    "./routes/auth/[provider]/callback.tsx": $3,
-    "./routes/auth/[provider]/index.tsx": $4,
-    "./routes/dashboard/_middleware.ts": $5,
-    "./routes/dashboard/index.tsx": $6,
-    "./routes/dashboard/lists/create.tsx": $7,
-    "./routes/dashboard/lists/edit/[id].tsx": $8,
-    "./routes/index.tsx": $9,
-    "./routes/logout.ts": $10,
+    "./routes/api/lists/[id].ts": $2,
+    "./routes/api/lists/index.ts": $3,
+    "./routes/api/spots/index.ts": $4,
+    "./routes/auth/[provider]/callback.tsx": $5,
+    "./routes/auth/[provider]/index.tsx": $6,
+    "./routes/dashboard/_middleware.ts": $7,
+    "./routes/dashboard/index.tsx": $8,
+    "./routes/dashboard/lists/create.tsx": $9,
+    "./routes/dashboard/lists/edit/[id].tsx": $10,
+    "./routes/index.tsx": $11,
+    "./routes/logout.ts": $12,
   },
   islands: {
     "./islands/FreshMap.tsx": $$0,
-    "./islands/ListForm.tsx": $$1,
-    "./islands/Sidebar.tsx": $$2,
-    "./islands/UserAvatarButton.tsx": $$3,
+    "./islands/HydrateIsland.tsx": $$1,
+    "./islands/ListForm.tsx": $$2,
+    "./islands/Sidebar.tsx": $$3,
+    "./islands/SpotForm.tsx": $$4,
+    "./islands/UserAvatarButton.tsx": $$5,
   },
   baseUrl: import.meta.url,
   config,
