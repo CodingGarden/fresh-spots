@@ -91,14 +91,26 @@ The code is in the [app](/app/) directory. See the README there for setup direct
   * [x] UI Library Setup
     * [x] Bootswatch
   * [x] Spot List Create Page
-* [ ] Day 10 - TBD
-  * [ ] Spot List Create Page
-    * [ ] Center Map on users location
-    * [ ] Places Search / API
-  * [ ] Spot List Page
-  * [ ] Use signals for user data
-  * [ ] Finish creating deps.ts
-  * [ ] Make a plan to finish / get to v1
+* [x] Day 10 - September 23rd
+  * [x] Spot List Create Page
+  * [x] Spot List Page
+* [x] Day 11 - September 30th
+  * [x] Spot List Edit Page
+    * [x] Center Map on map pins
+  * [x] Add spot to list
+* [ ] Day 12 - October 7th
+  * [ ] Edit / Update Spots on a List
+  * [ ] Edit / Update List
+    * name / description
+    * public / published
+  * [ ] Shareable link to published list
+    * [ ] Slug
+
+# Todo
+
+* [ ] Use signals for user data
+* [ ] Places Search / call API for adding spots
+* [ ] Finish creating deps.ts
 
 # Stretch Features
 
@@ -111,6 +123,8 @@ The code is in the [app](/app/) directory. See the README there for setup direct
 * Lists can have a header / background image
 * User profile that shows all the lists they've created
 * Lists can be upvoted
+* Dev Experience
+  * Hot reload islands
 
 # AI Images
 * Created by NGriffin_uk
