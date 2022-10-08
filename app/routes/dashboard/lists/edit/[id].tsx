@@ -47,7 +47,7 @@ export default function Home({ data }: PageProps<ListEditProps>) {
         // }}
       />
       {data.list ? (
-        <div class="w-full h-full flex">
+        <div class="flex-grow flex">
           <Sidebar />
           <FreshMap mapTileUrl={config.map_tile_url} />
         </div>

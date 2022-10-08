@@ -3,6 +3,7 @@ import { z } from "@/deps.ts";
 import { generatedNumber, timestamps } from "../zod-utils.ts";
 
 export const Spot = z.object({
+  id: z.number().optional(),
   name: z.string().min(1, "Name required."),
   list_id: z.string(),
   user_id: z.number(),

@@ -1,9 +1,15 @@
 import { z } from "@/deps.ts";
 import { useState } from "preact/hooks";
-import { editingSpot, editingList } from "@/signals/index.ts";
+import {
+  editingSpot,
+  editingList,
+  editingSpotUnsavedChanges,
+} from "@/signals/index.ts";
 import { Spot } from "@/db/tables/SpotTable.ts";
+import Alert from "@/components/Alert.tsx";
 
 export default function SpotForm() {
+  const [isCanceling, setIsCanceling] = useState(false);
   const [createError, setCreateError] = useState("");
   const [errors, setErrors] = useState({
     name: "",
@@ -18,20 +24,38 @@ export default function SpotForm() {
       // TODO: add map tile for use later
       // http://jsfiddle.net/84P9r/
       validated.list_id = editingList.value!.id;
-      const response = await fetch("/api/spots", {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(validated),
-      });
+      let response;
+      const jsonType = "application/json";
+      if (validated.id) {
+        // UPDATE
+        response = await fetch(`/api/spots/${validated.id}`, {
+          method: "PUT",
+          headers: {
+            accept: jsonType,
+            "content-type": jsonType,
+          },
+          body: JSON.stringify(validated),
+        });
+      } else {
+        // CREATE
+        response = await fetch("/api/spots", {
+          method: "POST",
+          headers: {
+            accept: jsonType,
+            "content-type": jsonType,
+          },
+          body: JSON.stringify(validated),
+        });
+      }
       const data = await response.json();
       if (response.ok) {
         editingSpot.value = null;
+        editingSpotUnsavedChanges.value = false;
         // TODO: move this logic to an API handler.
         const response = await fetch(`/api/lists/${editingList.value!.id}`);
         editingList.value = await response.json();
       } else {
+        console.log("setting error...", data.message || response.statusText);
         setCreateError(data.message || response.statusText);
       }
     } catch (error) {
@@ -48,7 +72,12 @@ export default function SpotForm() {
   };
 
   return (
-    <form onSubmit={formSubmitted}>
+    <form
+      class={`mt-3 mb-5 card p-3 ${
+        editingSpotUnsavedChanges.value ? "border-warning" : "border-light"
+      }`}
+      onSubmit={formSubmitted}
+    >
       {createError && (
         <div class="alert alert-danger" role="alert">
           {createError}
@@ -65,6 +94,7 @@ export default function SpotForm() {
                 ...editingSpot.value!,
                 name: event.currentTarget.value,
               };
+              editingSpotUnsavedChanges.value = true;
               setErrors((current) => ({
                 ...current,
                 name: "",
@@ -93,6 +123,7 @@ export default function SpotForm() {
                 ...editingSpot.value!,
                 description: event.currentTarget.value,
               };
+              editingSpotUnsavedChanges.value = true;
               setErrors((current) => ({
                 ...current,
                 description: "",
@@ -119,22 +150,68 @@ export default function SpotForm() {
           <label for="spotLocation" class="form-label mt-4">
             Location
           </label>
-          <input
-            disabled
-            value={[
-              editingSpot.value?.latitude,
-              editingSpot.value?.longitude,
-            ].join(", ")}
-            type="text"
-            class="form-control"
-            id="spotLocation"
-            name="location"
-          />
+          {/* TODO: maybe add an edit location state / button */}
+          <p class="text-gray-400">
+            {editingSpot.value?.latitude}
+            <br />
+            {editingSpot.value?.longitude}
+          </p>
         </div>
       </fieldset>
-      <div class="flex justify-end">
-        <button class="btn btn-large btn-success">SAVE</button>
-      </div>
+      {isCanceling ? (
+        <>
+          <Alert
+            margin={false}
+            className="mt-4"
+            message="Are you sure you want to cancel? You will lose any unsaved changes."
+          />
+          <div class="flex justify-end mt-4 gap-3">
+            <button
+              onClick={() => setIsCanceling(false)}
+              type="button"
+              class="btn btn-large btn-outline-light"
+            >
+              Keep Changes
+            </button>
+            <button
+              onClick={() => {
+                editingSpot.value = null;
+                setIsCanceling(false);
+                editingSpotUnsavedChanges.value = false;
+              }}
+              type="button"
+              class="btn btn-large btn-warning"
+            >
+              Discard changes
+            </button>
+          </div>
+        </>
+      ) : (
+        <div class="flex justify-end mt-3 gap-3">
+          <button
+            onClick={() => {
+              if (!editingSpotUnsavedChanges.value) {
+                editingSpot.value = null;
+              } else {
+                setIsCanceling(true);
+              }
+            }}
+            type="button"
+            class="btn btn-large btn-warning"
+          >
+            CANCEL
+          </button>
+          {editingSpot.value?.id ? (
+            <button type="submit" class="btn btn-large btn-success">
+              UPDATE SPOT
+            </button>
+          ) : (
+            <button type="submit" class="btn btn-large btn-success">
+              ADD SPOT
+            </button>
+          )}
+        </div>
+      )}
     </form>
   );
 }

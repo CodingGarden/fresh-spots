@@ -20,6 +20,7 @@ export async function findOne(
           .selectFrom("spot")
           .selectAll()
           .whereRef("spot.list_id", "=", "spot_list.id")
+          .orderBy("updated_at", "desc")
       ).as("spots")
     );
   }

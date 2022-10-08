@@ -5,6 +5,8 @@ import { SpotListWithIdAndSpots } from "@/db/tables/SpotListTable.ts";
 
 export const editingList = signal<SpotListWithIdAndSpots | null>(null);
 
+export const editingSpotUnsavedChanges = signal(false);
+
 export const editingSpot = signal<Spot | null>(null);
 
 export const map = signal<LMap | null>(null);

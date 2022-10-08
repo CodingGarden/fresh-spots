@@ -28,9 +28,7 @@ const Layout: FunctionalComponent<PropsWithUser> = ({ children, user }) => {
       </Head>
       <div class="w-screen h-screen overflow-hidden bg-primary-bg text-white flex flex-col">
         <NavBar user={user} />
-        <main class="overflow-auto flex-grow-1">
-          {children}
-        </main>
+        <main class="overflow-hidden flex-grow-1 flex">{children}</main>
       </div>
     </>
   );

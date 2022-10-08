@@ -3,7 +3,12 @@ import { effect } from "@preact/signals";
 import { Head, IS_BROWSER } from "$fresh/runtime.ts";
 import { LatLngExpression, Map as LMap } from "leaflet";
 
-import { map, editingSpot, editingList } from "@/signals/index.ts";
+import {
+  map,
+  editingSpot,
+  editingList,
+  editingSpotUnsavedChanges,
+} from "@/signals/index.ts";
 import config from "@/utils/config.ts";
 
 type PreactLeaflet = typeof import("preact-leaflet-ts");
@@ -11,6 +16,8 @@ type PreactLeaflet = typeof import("preact-leaflet-ts");
 let Map: PreactLeaflet["Map"];
 let TileLayer: PreactLeaflet["TileLayer"];
 let Marker: PreactLeaflet["Marker"];
+let spotIcon: L.DivIcon;
+let editingIcon: L.DivIcon;
 
 interface PreactMap {
   state: {
@@ -20,6 +27,26 @@ interface PreactMap {
 
 if (IS_BROWSER) {
   ({ Map, TileLayer, Marker } = await import("preact-leaflet-ts"));
+  const html = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 33 42.53" class="overflow-visible">
+  <g id="icon-shadow" style="transform: translate(6px, 2px); filter: blur(2px); opacity: 0.8;">
+    <path fill="#000000" d="M30.73,15.36c0,8.49-15.37,26.17-15.37,26.17S0,23.85,0,15.36a15.37,15.37,0,0,1,30.73,0Z"></path>
+  </g>
+  <g id="icon">
+    <path id="marker" d="M30.73,15.36c0,8.49-15.37,26.17-15.37,26.17S0,23.85,0,15.36a15.37,15.37,0,0,1,30.73,0Z"></path>
+  </g>
+</svg>`;
+  spotIcon = L.divIcon({
+    className: "spot-icon",
+    html,
+    iconSize: [33, 42.53],
+    iconAnchor: [33 / 2, 42.53],
+  });
+  editingIcon = L.divIcon({
+    iconSize: [33, 42.53],
+    iconAnchor: [33 / 2, 42.53],
+    className: "spot-icon-editing",
+    html,
+  });
 }
 
 effect(() => {
@@ -44,6 +71,7 @@ effect(() => {
           latitude: event.latlng.lat,
           longitude: event.latlng.lng,
         };
+        editingSpotUnsavedChanges.value = true;
       }
     });
   }
@@ -89,6 +117,7 @@ export default function FreshMap({ mapTileUrl }: FreshMapProps) {
         />
         <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"></script>
       </Head>
+      {/* TODO: use a pin as a mouse cursor when editing location */}
       <div class="flex-grow w-full h-full isolate">
         {Map && IS_BROWSER && (
           <Map
@@ -103,14 +132,27 @@ export default function FreshMap({ mapTileUrl }: FreshMapProps) {
               attribution="&copy; OpenStreetMap contributors &copy; CARTO"
               maxZoom="20"
             />
-            {editingList.value?.spots.map((spot) => (
-              <Marker
-                key={[spot.latitude, spot.longitude]}
-                position={[spot.latitude, spot.longitude]}
-              />
-            ))}
+            {editingList.value?.spots.map((spot) =>
+              spot.id === editingSpot.value?.id ? null : (
+                <Marker
+                  onClick={(e) => {
+                    e.originalEvent.preventDefault();
+                    if (!editingSpotUnsavedChanges.value) {
+                      editingSpot.value = spot;
+                      map.value?.flyTo([spot.latitude, spot.longitude], 15, {
+                        duration: 1,
+                      });
+                    }
+                  }}
+                  icon={spotIcon}
+                  key={[spot.latitude, spot.longitude]}
+                  position={[spot.latitude, spot.longitude]}
+                />
+              )
+            )}
             {editingSpot.value && (
               <Marker
+                icon={editingIcon}
                 key={[editingSpot.value.latitude, editingSpot.value.longitude]}
                 position={[
                   editingSpot.value.latitude,

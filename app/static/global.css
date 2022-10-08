@@ -1,4 +1,6 @@
 body {
+  --orange-yellow: #F5BB00;
+  --gainsboro: #E3DBDB;
   --bs-green: #56BC58;
   --bs-green-rgb: 86, 188, 88;
   --bs-font-sans-serif: 'Work Sans', sans-serif;
@@ -13,6 +15,18 @@ h1, h2, h3, h4, h5, h6  {
 
 body .leaflet-container {
   background-color: #212121;
+}
+
+.spot-icon #icon {
+  fill: var(--bs-green);
+}
+
+.spot-icon-editing #icon {
+  fill: var(--orange-yellow);
+}
+
+.btn {
+  text-transform: uppercase;
 }
 
 .btn-success {

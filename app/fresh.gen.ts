@@ -7,15 +7,16 @@ import * as $0 from "./routes/_404.tsx";
 import * as $1 from "./routes/_middleware.ts";
 import * as $2 from "./routes/api/lists/[id].ts";
 import * as $3 from "./routes/api/lists/index.ts";
-import * as $4 from "./routes/api/spots/index.ts";
-import * as $5 from "./routes/auth/[provider]/callback.tsx";
-import * as $6 from "./routes/auth/[provider]/index.tsx";
-import * as $7 from "./routes/dashboard/_middleware.ts";
-import * as $8 from "./routes/dashboard/index.tsx";
-import * as $9 from "./routes/dashboard/lists/create.tsx";
-import * as $10 from "./routes/dashboard/lists/edit/[id].tsx";
-import * as $11 from "./routes/index.tsx";
-import * as $12 from "./routes/logout.ts";
+import * as $4 from "./routes/api/spots/[id].ts";
+import * as $5 from "./routes/api/spots/index.ts";
+import * as $6 from "./routes/auth/[provider]/callback.tsx";
+import * as $7 from "./routes/auth/[provider]/index.tsx";
+import * as $8 from "./routes/dashboard/_middleware.ts";
+import * as $9 from "./routes/dashboard/index.tsx";
+import * as $10 from "./routes/dashboard/lists/create.tsx";
+import * as $11 from "./routes/dashboard/lists/edit/[id].tsx";
+import * as $12 from "./routes/index.tsx";
+import * as $13 from "./routes/logout.ts";
 import * as $$0 from "./islands/FreshMap.tsx";
 import * as $$1 from "./islands/HydrateIsland.tsx";
 import * as $$2 from "./islands/ListForm.tsx";
@@ -29,15 +30,16 @@ const manifest = {
     "./routes/_middleware.ts": $1,
     "./routes/api/lists/[id].ts": $2,
     "./routes/api/lists/index.ts": $3,
-    "./routes/api/spots/index.ts": $4,
-    "./routes/auth/[provider]/callback.tsx": $5,
-    "./routes/auth/[provider]/index.tsx": $6,
-    "./routes/dashboard/_middleware.ts": $7,
-    "./routes/dashboard/index.tsx": $8,
-    "./routes/dashboard/lists/create.tsx": $9,
-    "./routes/dashboard/lists/edit/[id].tsx": $10,
-    "./routes/index.tsx": $11,
-    "./routes/logout.ts": $12,
+    "./routes/api/spots/[id].ts": $4,
+    "./routes/api/spots/index.ts": $5,
+    "./routes/auth/[provider]/callback.tsx": $6,
+    "./routes/auth/[provider]/index.tsx": $7,
+    "./routes/dashboard/_middleware.ts": $8,
+    "./routes/dashboard/index.tsx": $9,
+    "./routes/dashboard/lists/create.tsx": $10,
+    "./routes/dashboard/lists/edit/[id].tsx": $11,
+    "./routes/index.tsx": $12,
+    "./routes/logout.ts": $13,
   },
   islands: {
     "./islands/FreshMap.tsx": $$0,
