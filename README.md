@@ -14,6 +14,8 @@
   * [Kysely](https://koskimas.github.io/kysely/)
 * OAuth 2
   * [DenoGrant](https://github.com/w3cj/deno_grant)
+* Signed Cookies
+  * [Squishy Cookies](https://github.com/omar2205/squishy_cookies)
 
 The code is in the [app](/app/) directory. See the README there for setup directions.
 
@@ -98,8 +100,9 @@ The code is in the [app](/app/) directory. See the README there for setup direct
   * [x] Spot List Edit Page
     * [x] Center Map on map pins
   * [x] Add spot to list
-* [ ] Day 12 - October 7th
-  * [ ] Edit / Update Spots on a List
+* [x] Day 12 - October 8th
+  * [x] Edit / Update Spots on a List
+* [ ] Day 13 - October 14th
   * [ ] Edit / Update List
     * name / description
     * public / published
