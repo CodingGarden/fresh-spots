@@ -20,7 +20,6 @@ export default function Home({
   data,
 }: PageProps<UserWithSocialProfiles | null>) {
   pageTitle.value = "CREATE LIST";
-  // TODO: use a signal
   return (
     <Layout user={data}>
       <div class="container container-fluid">

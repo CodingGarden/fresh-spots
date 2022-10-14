@@ -10,14 +10,13 @@ import SpotListTable from "@/db/tables/SpotListTable.ts";
 import SpotTable from "@/db/tables/SpotTable.ts";
 
 export function jsonb_agg<DB, TB extends keyof DB, O = {}>(
-  qb: kysely.SelectQueryBuilder<DB, TB, O>,
+  qb: kysely.SelectQueryBuilder<DB, TB, O>
 ) {
   return kysely.sql<
     O[]
   >`coalesce((select jsonb_agg(x) from (${qb}) x), '[]'::jsonb)`;
 }
 
-// TODO: create separate zod validators for insert / update...
 export interface DbSchema {
   user: UserTable;
   social_profile: SocialProfileTable;

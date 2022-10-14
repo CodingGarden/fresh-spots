@@ -42,6 +42,7 @@ export async function up(db: FreshDb): Promise<void> {
     )
     .addColumn("name", "varchar(255)", (col) => col.notNull())
     .addColumn("description", "varchar(1000)")
+    .addColumn("slug", "varchar(100)", (col) => col.notNull())
     .addColumn("public", "boolean", (col) => col.notNull().defaultTo(false))
     .addColumn("published", "boolean", (col) => col.notNull().defaultTo(false))
     .addColumn("user_id", "integer", (col) => col.notNull())

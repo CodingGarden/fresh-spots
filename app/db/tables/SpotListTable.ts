@@ -8,14 +8,13 @@ const SpotListValidators = {
   description: z.string(),
 };
 
-// TODO: better naming for DTO
-
 export const SpotList = z.object(SpotListValidators);
 export type SpotList = z.infer<typeof SpotList>;
 
 export const SpotListWithIdAndSpots = z.object({
   id: z.string(),
   ...SpotListValidators,
+  slug: z.string(),
   spots: z.array(SpotTable),
 });
 export type SpotListWithIdAndSpots = z.infer<typeof SpotListWithIdAndSpots>;
@@ -23,6 +22,7 @@ export type SpotListWithIdAndSpots = z.infer<typeof SpotListWithIdAndSpots>;
 const SpotListTable = z.object({
   id: generatedString(),
   ...SpotListValidators,
+  slug: z.string(),
   public: z.boolean(),
   published: z.boolean(),
   user_id: z.number(),

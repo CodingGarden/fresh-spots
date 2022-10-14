@@ -3,11 +3,10 @@ import { HandlerContext, Handlers } from "$fresh/server.ts";
 import db from "@/db/db.ts";
 import State from "@/schemas/State.ts";
 import { SpotList } from "@/db/tables/SpotListTable.ts";
-import { findAll } from "@/db/queries/SpotList.ts";
+import { createOne, findAll } from "@/db/queries/SpotList.ts";
 
 export const handler: Handlers = {
   async GET(_req, ctx: HandlerContext<SpotList, State>) {
-    // TODO: extract this to common place
     if (!ctx.state.userId) {
       return Response.json(
         {
@@ -46,25 +45,14 @@ export const handler: Handlers = {
     try {
       const body = await req.json();
       const validatedResult = await SpotList.parseAsync(body);
-      const inserted = await db
-        .insertInto("spot_list")
-        .values({
-          ...validatedResult,
-          user_id: ctx.state.userId,
-          public: false,
-          published: false,
-        })
-        .returningAll()
-        .executeTakeFirstOrThrow();
+      const inserted = await createOne(validatedResult, ctx.state.userId);
       return Response.json(inserted);
     } catch (error) {
-      // TODO: proper error response
       return Response.json(
         {
           message: error.message || "Unknown Error",
         },
         {
-          // TODO: proper status code based on error
           status: 500,
         }
       );

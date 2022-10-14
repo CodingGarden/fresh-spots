@@ -11,7 +11,6 @@ export default function HydrateIsland({
 }) {
   useEffect(() => {
     // @ts-ignore
-    // TODO: dynamically set value without hard coding
     editingList.value = window[`HYDRATE_${name}`];
   }, []);
   if (IS_BROWSER) return null;

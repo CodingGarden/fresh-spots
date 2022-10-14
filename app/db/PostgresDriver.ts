@@ -1,15 +1,10 @@
 // THANK YOU Omar2205! Code from here: https://gist.github.com/omar2205/cd42feccf25cff845b50ec2397eba18f
-// TODO: Use a library or extract this to a reusable library instead
 
 import { kysely, postgres } from "@/deps.ts";
 
-const {
-  Client,
-} = postgres;
+const { Client } = postgres;
 
-const {
-  CompiledQuery,
-} = kysely;
+const { CompiledQuery } = kysely;
 
 type QueryArguments = unknown[] | Record<string, unknown>;
 
@@ -39,19 +34,19 @@ export default class PostgresDriver implements kysely.Driver {
 
   async beginTransaction(
     connection: kysely.DatabaseConnection,
-    _settings: kysely.TransactionSettings,
+    _settings: kysely.TransactionSettings
   ): Promise<void> {
     await connection.executeQuery(CompiledQuery.raw("begin"));
   }
 
   async commitTransaction(
-    connection: kysely.DatabaseConnection,
+    connection: kysely.DatabaseConnection
   ): Promise<void> {
     await connection.executeQuery(CompiledQuery.raw("commit"));
   }
 
   async rollbackTransaction(
-    connection: kysely.DatabaseConnection,
+    connection: kysely.DatabaseConnection
   ): Promise<void> {
     await connection.executeQuery(CompiledQuery.raw("rollback"));
   }
@@ -76,12 +71,12 @@ class PgConnection implements kysely.DatabaseConnection {
   }
 
   async executeQuery<R>(
-    compiledQuery: kysely.CompiledQuery,
+    compiledQuery: kysely.CompiledQuery
   ): Promise<QueryResult<R>> {
     const { sql, parameters } = compiledQuery;
     const { rows } = await this.#db.queryObject(
       sql,
-      parameters as QueryArguments,
+      parameters as QueryArguments
     );
 
     return Promise.resolve({

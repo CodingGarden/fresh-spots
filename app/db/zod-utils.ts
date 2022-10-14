@@ -30,7 +30,6 @@ export const DateType = (): z.ZodType<
     z.object({
       __select__: z.date(),
       __insert__: z.date().or(z.string().or(z.undefined())),
-      // TODO: add database trigger to auto update this
       __update__: z.date().or(z.string()),
     })
   );

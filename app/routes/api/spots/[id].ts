@@ -7,7 +7,6 @@ import { findOne, updateOne } from "@/db/queries/Spot.ts";
 export const handler: Handlers = {
   async GET(_req, ctx: HandlerContext<Spot, State>) {
     try {
-      // TODO: extract this to common place
       if (!ctx.state.userId) {
         return Response.json(
           {
@@ -39,7 +38,6 @@ export const handler: Handlers = {
   },
   async PUT(_req, ctx: HandlerContext<Spot, State>) {
     try {
-      // TODO: extract this to common place
       if (!ctx.state.userId) {
         return Response.json(
           {

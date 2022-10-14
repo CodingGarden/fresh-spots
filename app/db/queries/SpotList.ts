@@ -1,4 +1,6 @@
+import { slugify } from "@/deps.ts";
 import db, { jsonb_agg } from "@/db/db.ts";
+import { SpotList } from "@/db/tables/SpotListTable.ts";
 
 export async function findOne(
   listId: string,
@@ -37,4 +39,31 @@ export async function findAll(userId: number) {
     .orderBy("updated_at", "desc")
     .execute();
   return lists;
+}
+
+export async function createOne(list: SpotList, user_id: number) {
+  let slug = slugify(list.name, {
+    lower: true,
+    strict: true,
+    locale: "en",
+  });
+  const existing = await db
+    .selectFrom("spot_list")
+    .where("slug", "=", slug)
+    .orWhere("slug", "like", `${slug}--%`)
+    .execute();
+  if (existing.length) {
+    slug += `--${existing.length}`;
+  }
+  return db
+    .insertInto("spot_list")
+    .values({
+      ...list,
+      user_id,
+      slug,
+      public: false,
+      published: false,
+    })
+    .returningAll()
+    .executeTakeFirstOrThrow();
 }

@@ -16,13 +16,10 @@ export default function SpotForm() {
     description: "",
   });
 
-  // TODO: add form types
   const formSubmitted = async (event: any) => {
     event.preventDefault();
     try {
       const validated = await Spot.parseAsync(editingSpot.value);
-      // TODO: add map tile for use later
-      // http://jsfiddle.net/84P9r/
       validated.list_id = editingList.value!.id;
       let response;
       const jsonType = "application/json";
@@ -51,7 +48,6 @@ export default function SpotForm() {
       if (response.ok) {
         editingSpot.value = null;
         editingSpotUnsavedChanges.value = false;
-        // TODO: move this logic to an API handler.
         const response = await fetch(`/api/lists/${editingList.value!.id}`);
         editingList.value = await response.json();
       } else {
@@ -150,7 +146,6 @@ export default function SpotForm() {
           <label for="spotLocation" class="form-label mt-4">
             Location
           </label>
-          {/* TODO: maybe add an edit location state / button */}
           <p class="text-gray-400">
             {editingSpot.value?.latitude}
             <br />

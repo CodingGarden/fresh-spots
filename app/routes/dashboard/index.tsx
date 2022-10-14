@@ -14,8 +14,9 @@ interface DashboardPageProps {
 
 export const handler: Handlers<DashboardPageProps, State> = {
   async GET(req, ctx) {
-    const lists =
-      (await findAll(ctx.state.userId as number) as unknown as SpotListTable[]);
+    const lists = (await findAll(
+      ctx.state.userId as number
+    )) as unknown as SpotListTable[];
     return ctx.render({
       user: ctx.state.user,
       lists,
@@ -23,13 +24,10 @@ export const handler: Handlers<DashboardPageProps, State> = {
   },
 };
 
-export default function Home(
-  { data }: PageProps<DashboardPageProps>,
-) {
+export default function Home({ data }: PageProps<DashboardPageProps>) {
   pageTitle.value = "Dashboard";
-  // TODO: use a signal
   return (
-    <Layout user={data.user}>
+    <Layout overflowHidden={false} user={data.user}>
       <div class="mt-5 w-full flex flex-col justify-center items-center container">
         <a href="/dashboard/lists/create" class="btn btn-lg btn-info">
           CREATE A LIST

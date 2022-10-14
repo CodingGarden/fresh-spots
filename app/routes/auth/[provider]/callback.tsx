@@ -12,21 +12,18 @@ function getDiscordAvatar(profile: DiscordProfile) {
   return `https://cdn.discordapp.com/avatars/${profile.id}/${profile.avatar}.png`;
 }
 
-// TODO: refactor this when we have more than 1 provider
 async function upsertDiscordProfile(request: Request, accessToken: string) {
   const profile = await denoGrant.getProfile(Providers.discord, accessToken);
   const socialProfile = await db
     .selectFrom("social_profile")
-    .select([
-      "provider_id",
-      "user_id",
-    ])
+    .select(["provider_id", "user_id"])
     .where("provider_id", "=", profile.id)
     .executeTakeFirst();
   let id = "";
   if (socialProfile) {
     id = socialProfile.user_id.toString();
-    await db.updateTable("social_profile")
+    await db
+      .updateTable("social_profile")
       .set({
         username: profile.username,
         avatar_url: getDiscordAvatar(profile),
@@ -79,11 +76,10 @@ async function upsertDiscordProfile(request: Request, accessToken: string) {
       {
         path: "/",
         httpOnly: true,
-        // TODO: why can't we set the cookie after a redirect?
         // sameSite: "Strict",
         secure: config.environment === "production",
         maxAge: 60 * 60 * 24,
-      },
+      }
     );
     return new Response("", {
       status: 302,
@@ -107,7 +103,6 @@ export const handler: Handlers = {
         }
       }
     }
-    // TODO: show error message instead of instant redirect
     return Response.redirect(config.base_url);
   },
 };

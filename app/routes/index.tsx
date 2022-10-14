@@ -9,7 +9,6 @@ import { pageTitle } from "../signals/index.ts";
 export const handler: Handlers = {
   GET(req, ctx) {
     if (ctx.state.userId) {
-      // TODO: path utility?
       return Response.redirect(`${config.base_url}/dashboard`);
     }
     const params = new URLSearchParams(req.url.split("?")[1]);

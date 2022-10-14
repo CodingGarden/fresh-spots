@@ -7,7 +7,6 @@ export default function ListForm() {
     description: "",
   });
 
-  // TODO: add form types
   const formSubmitted = async (event: any) => {
     event.preventDefault();
     // validate
@@ -65,7 +64,8 @@ export default function ListForm() {
               setErrors((current) => ({
                 ...current,
                 name: "",
-              }))}
+              }))
+            }
             type="text"
             class={`form-control ${errors.name ? "is-invalid" : ""}`}
             id="listName"
@@ -88,14 +88,14 @@ export default function ListForm() {
               setErrors((current) => ({
                 ...current,
                 description: "",
-              }))}
+              }))
+            }
             class={`form-control ${errors.description ? "is-invalid" : ""}`}
             id="listDescription"
             name="description"
             aria-describedby="listDescriptionHelp"
             rows={3}
-          >
-          </textarea>
+          ></textarea>
           {errors.description && (
             <div class="invalid-feedback">{errors.description}</div>
           )}

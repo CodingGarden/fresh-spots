@@ -5,7 +5,15 @@ import NavBar from "../components/NavBar.tsx";
 import PropsWithUser from "@/schemas/PropsWithUser.ts";
 import { pageTitle } from "../signals/index.ts";
 
-const Layout: FunctionalComponent<PropsWithUser> = ({ children, user }) => {
+type LayoutProps = {
+  overflowHidden?: boolean;
+} & PropsWithUser;
+
+const Layout: FunctionalComponent<LayoutProps> = ({
+  overflowHidden = true,
+  children,
+  user,
+}) => {
   return (
     <>
       <Head>
@@ -26,9 +34,17 @@ const Layout: FunctionalComponent<PropsWithUser> = ({ children, user }) => {
         />
         <link rel="stylesheet" href="/global.css" />
       </Head>
-      <div class="w-screen h-screen overflow-hidden bg-primary-bg text-white flex flex-col">
+      <div
+        class={`w-screen h-screen ${
+          overflowHidden ? "overflow-hidden" : "overflow-auto"
+        } bg-primary-bg text-white flex flex-col`}
+      >
         <NavBar user={user} />
-        <main class="overflow-hidden flex-grow-1 flex">{children}</main>
+        <main
+          class={`${overflowHidden ? "overflow-hidden" : ""} flex-grow-1 flex`}
+        >
+          {children}
+        </main>
       </div>
     </>
   );

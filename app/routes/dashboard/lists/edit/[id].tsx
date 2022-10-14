@@ -28,7 +28,6 @@ export const handler: Handlers<ListEditProps, State> = {
   },
 };
 
-// TODO: cookie parsing middleware...
 export default function Home({ data }: PageProps<ListEditProps>) {
   pageTitle.value = "List Edit";
   if (data.list) {
@@ -36,9 +35,7 @@ export default function Home({ data }: PageProps<ListEditProps>) {
   }
 
   return (
-    // TODO: use a signal
     <Layout user={data.user}>
-      {/* TODO: remove this hacky code... probably with props */}
       <Hydrate
         name="editingList"
         data={data.list}

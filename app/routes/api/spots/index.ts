@@ -34,13 +34,11 @@ export const handler: Handlers = {
       });
       return Response.json(inserted);
     } catch (error) {
-      // TODO: proper error response
       return Response.json(
         {
           message: error.message || "Unknown Error",
         },
         {
-          // TODO: proper status code based on error
           status: 500,
         }
       );

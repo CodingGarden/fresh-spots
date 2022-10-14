@@ -16,13 +16,13 @@ export default function SideBar() {
       aria-labelledby="drawer-label"
     >
       <h1 class="h3">{editingList.value?.name}</h1>
+      <h4>{editingList.value?.slug}</h4>
       {editingSpot.value && <SpotForm />}
       <div>
         {editingList.value?.spots.map((spot) => (
           <div
             onClick={() => {
               if (map.value) {
-                // TODO: calculate distance... set duration accordingly
                 if (!editingSpotUnsavedChanges.value) {
                   editingSpot.value = spot;
                   map.value.flyTo([spot.latitude, spot.longitude], 15, {

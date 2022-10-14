@@ -13,9 +13,7 @@ import { Config, ConfigSchema } from "@/schemas/Config.ts";
 const envConfig: Config = {
   cookie_secret: Deno.env.get(EnvNames.COOKIE_SECRET) || "",
   map_tile_url: Deno.env.get(EnvNames.MAP_TILE_URL) || "",
-  // TODO: update to use parameterized port
-  base_url: Deno.env.get(EnvNames.BASE_URL) ||
-    "http://localhost:8000",
+  base_url: Deno.env.get(EnvNames.BASE_URL) || "http://localhost:8000",
   environment: Deno.env.get(EnvNames.DENO_ENV) || "",
   db: {
     database: Deno.env.get(EnvNames.DB_NAME) || "",
@@ -33,10 +31,8 @@ const envConfig: Config = {
   },
 };
 
-envConfig.db_uri =
-  `postgres://${envConfig.db.username}:${envConfig.db.password}@${envConfig.db.host}:${envConfig.db.port}/${envConfig.db.database}`;
+envConfig.db_uri = `postgres://${envConfig.db.username}:${envConfig.db.password}@${envConfig.db.host}:${envConfig.db.port}/${envConfig.db.database}`;
 
-// TODO: maybe... cleanup the error that is logged
 const config = ConfigSchema.parse(envConfig);
 
 export default config;

@@ -52,7 +52,6 @@ if (IS_BROWSER) {
 effect(() => {
   if (map.value) {
     map.value.on("click", (event) => {
-      // TODO: calculate distance... set duration accordingly
       map.value?.flyTo(event.latlng, 15, {
         duration: 1,
       });
@@ -101,7 +100,6 @@ export default function FreshMap({ mapTileUrl }: FreshMapProps) {
               spot.longitude,
             ])
           );
-          // TODO: let us click a button to do this anytime we want
           map.value.fitBounds(bounds);
         }
       }
@@ -117,7 +115,6 @@ export default function FreshMap({ mapTileUrl }: FreshMapProps) {
         />
         <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"></script>
       </Head>
-      {/* TODO: use a pin as a mouse cursor when editing location */}
       <div class="flex-grow w-full h-full isolate">
         {Map && IS_BROWSER && (
           <Map

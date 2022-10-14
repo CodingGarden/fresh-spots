@@ -13,9 +13,7 @@ export const handler: Handlers = {
         return Response.redirect(authorizationUrl);
       }
     }
-    // TODO: use ctx.renderNotFound in next release
-    const redirectUrl =
-      `${config.base_url}/not-found?message=Unknown provider "${providerString}"`;
+    const redirectUrl = `${config.base_url}/not-found?message=Unknown provider "${providerString}"`;
     return Response.redirect(redirectUrl);
   },
 };
