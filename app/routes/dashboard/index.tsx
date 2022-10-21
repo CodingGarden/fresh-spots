@@ -28,7 +28,7 @@ export default function Home({ data }: PageProps<DashboardPageProps>) {
   pageTitle.value = "Dashboard";
   return (
     <Layout overflowHidden={false} user={data.user}>
-      <div class="mt-5 w-full flex flex-col justify-center items-center container">
+      <div class="mt-5 w-full flex flex-col items-center container">
         <a href="/dashboard/lists/create" class="btn btn-lg btn-info">
           CREATE A LIST
         </a>

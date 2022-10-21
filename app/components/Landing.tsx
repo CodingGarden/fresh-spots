@@ -1,6 +1,6 @@
 export default function Landing() {
   return (
-    <div class="px-2 sm:px-4">
+    <div class="px-2 sm:px-4 mx-auto">
       <h3 class="text-3xl py-10 text-center">The freshest spots in town.</h3>
       <img
         class="block m-auto w-[50%]"
