@@ -1,5 +1,6 @@
 import { map } from "@/signals/index.ts";
 import SpotForm from "@/islands/SpotForm.tsx";
+import ListForm from "@/islands/ListForm.tsx";
 
 import {
   editingList,
@@ -15,10 +16,9 @@ export default function SideBar() {
       tabIndex={-1}
       aria-labelledby="drawer-label"
     >
-      <h1 class="h3">{editingList.value?.name}</h1>
-      <h4>{editingList.value?.slug}</h4>
+      <ListForm />
       {editingSpot.value && <SpotForm />}
-      <div>
+      <div class="mt-2">
         {editingList.value?.spots.map((spot) => (
           <div
             onClick={() => {

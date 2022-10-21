@@ -32,14 +32,7 @@ export async function up(db: FreshDb): Promise<void> {
     )
     .execute();
 
-  await createTableWithDefaults(db.schema, "spot_list", false)
-    .addColumn("id", "uuid", (col) =>
-      col
-        .notNull()
-        .primaryKey()
-        .unique()
-        .defaultTo(kysely.sql`gen_random_uuid()`)
-    )
+  await createTableWithDefaults(db.schema, "spot_list")
     .addColumn("name", "varchar(255)", (col) => col.notNull())
     .addColumn("description", "varchar(1000)")
     .addColumn("slug", "varchar(100)", (col) => col.notNull())
@@ -61,7 +54,7 @@ export async function up(db: FreshDb): Promise<void> {
     .addColumn("latitude", "float8", (col) => col.notNull())
     .addColumn("longitude", "float8", (col) => col.notNull())
     .addColumn("user_id", "integer", (col) => col.notNull())
-    .addColumn("list_id", "uuid", (col) => col.notNull())
+    .addColumn("list_id", "integer", (col) => col.notNull())
     .addForeignKeyConstraint(
       "spot_user_id_fk",
       ["user_id"],

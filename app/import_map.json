@@ -7,6 +7,7 @@
     "@/": "./",
     "twind": "https://esm.sh/twind@0.16.17",
     "twind/": "https://esm.sh/twind@0.16.17/",
+    "kysely/": "https://cdn.jsdelivr.net/npm/kysely@0.21.4/dist/esm/",
     "path": "https://deno.land/std@0.152.0/path/mod.ts",
     "dotenv": "https://deno.land/std@0.150.0/dotenv/mod.ts",
     "deno_grant": "https://deno.land/x/deno_grant@v0.3.0/mod.ts",

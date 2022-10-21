@@ -2,6 +2,7 @@ body {
   --orange-yellow: #F5BB00;
   --gainsboro: #E3DBDB;
   --bs-green: #56BC58;
+  --fern-green: #2F7530;
   --bs-green-rgb: 86, 188, 88;
   --bs-font-sans-serif: 'Work Sans', sans-serif;
   --bs-body-font-family: 'Work Sans', sans-serif;
@@ -34,14 +35,31 @@ body .leaflet-container {
   --bs-btn-bg: var(--bs-green);
   --bs-btn-border-color: var(--bs-green);
   --bs-btn-hover-color: #fff;
-  --bs-btn-hover-bg: #00a077;
-  --bs-btn-hover-border-color: #009670;
+  --bs-btn-hover-bg: var(--fern-green);
+  --bs-btn-hover-border-color: var(--fern-green);
   --bs-btn-focus-shadow-rgb: 38, 198, 157;
   --bs-btn-active-color: #fff;
-  --bs-btn-active-bg: #009670;
-  --bs-btn-active-border-color: #008d69;
+  --bs-btn-active-bg: var(--fern-green);
+  --bs-btn-active-border-color: var(--fern-green);
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   --bs-btn-disabled-color: #fff;
   --bs-btn-disabled-bg: var(--bs-green);
   --bs-btn-disabled-border-color: var(--bs-green);
+}
+
+.btn-outline-success {
+  --bs-btn-color: var(--bs-green);
+  --bs-btn-border-color: var(--bs-green);
+  --bs-btn-hover-bg: var(--bs-green);
+  --bs-btn-hover-border-color: var(--bs-green);
+  --bs-btn-focus-shadow-rgb: var(--bs-green-rgb);
+  --bs-btn-active-bg: var(--bs-green);
+  --bs-btn-active-border-color: var(--bs-green);
+  --bs-btn-disabled-color: var(--bs-green);
+  --bs-btn-disabled-border-color: var(--bs-green);
+}
+
+.form-check-input:checked {
+  background-color: var(--bs-green);
+  border-color: var(--bs-green);
 }

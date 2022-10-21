@@ -2,12 +2,32 @@ import { slugify } from "@/deps.ts";
 import db, { jsonb_agg } from "@/db/db.ts";
 import { SpotList } from "@/db/tables/SpotListTable.ts";
 
+export function findOneBySlug(slug: string, userId?: number, withSpots = true) {
+  return findOne({ slug }, userId, withSpots);
+}
+
+export function findOneById(id: number, userId?: number, withSpots = true) {
+  return findOne({ id }, userId, withSpots);
+}
+
 export async function findOne(
-  listId: string,
+  { slug, id }: { slug?: string; id?: number },
   userId?: number,
   withSpots = true
 ) {
-  let query = db.selectFrom("spot_list").selectAll().where("id", "=", listId);
+  if (!slug && !id) {
+    throw Error("Slug or Id must be defined");
+  }
+
+  let query = db.selectFrom("spot_list").selectAll();
+
+  if (id) {
+    query = query.where("id", "=", id);
+  }
+
+  if (slug) {
+    query = query.where("slug", "=", slug);
+  }
 
   if (userId) {
     query = query.where("user_id", "=", userId);
@@ -66,4 +86,12 @@ export async function createOne(list: SpotList, user_id: number) {
     })
     .returningAll()
     .executeTakeFirstOrThrow();
+}
+
+export function deleteOne(id: number, userId: number) {
+  return db
+    .deleteFrom("spot_list")
+    .where("id", "=", id)
+    .where("user_id", "=", userId)
+    .execute();
 }

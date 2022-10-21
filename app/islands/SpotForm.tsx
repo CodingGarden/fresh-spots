@@ -7,6 +7,7 @@ import {
 } from "@/signals/index.ts";
 import { Spot } from "@/db/tables/SpotTable.ts";
 import Alert from "@/components/Alert.tsx";
+import { getErrorMessages } from "../utils/zodErrorUtils.ts";
 
 export default function SpotForm() {
   const [isCanceling, setIsCanceling] = useState(false);
@@ -48,20 +49,21 @@ export default function SpotForm() {
       if (response.ok) {
         editingSpot.value = null;
         editingSpotUnsavedChanges.value = false;
-        const response = await fetch(`/api/lists/${editingList.value!.id}`);
+        const response = await fetch(`/api/lists/${editingList.value!.slug}`);
         editingList.value = await response.json();
       } else {
         console.log("setting error...", data.message || response.statusText);
         setCreateError(data.message || response.statusText);
       }
     } catch (error) {
+      console.log(error);
       const zError = error as z.ZodError;
       if (zError.errors) {
-        const getErrorMessage = (path: string) =>
-          zError.errors.find((e) => e.path[0] === path)?.message || "";
+        const errorMessages = getErrorMessages(zError.errors);
+        console.log(errorMessages.fieldMap);
         setErrors({
-          name: getErrorMessage("name"),
-          description: getErrorMessage("description"),
+          name: errorMessages.get("name"),
+          description: errorMessages.get("description"),
         });
       }
     }

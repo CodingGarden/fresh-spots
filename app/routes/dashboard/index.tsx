@@ -41,7 +41,7 @@ export default function Home({ data }: PageProps<DashboardPageProps>) {
                 <p class="card-text">{list.description}</p>
                 <div class="flex justify-end">
                   <a
-                    href={`/dashboard/lists/edit/${list.id}`}
+                    href={`/dashboard/lists/edit/${list.slug}`}
                     class="btn btn-success"
                   >
                     EDIT

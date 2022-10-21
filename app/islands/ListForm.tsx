@@ -1,4 +1,7 @@
-import { useState } from "preact/hooks";
+import { useState, useEffect } from "preact/hooks";
+import { editingList } from "@/signals/index.ts";
+import { SpotList } from "@/db/tables/SpotListTable.ts";
+import { getErrorMessages } from "@/utils/zodErrorUtils.ts";
 
 export default function ListForm() {
   const [createError, setCreateError] = useState("");
@@ -6,44 +9,75 @@ export default function ListForm() {
     name: "",
     description: "",
   });
+  const [list, setList] = useState({
+    name: editingList.value?.name || "",
+    description: editingList.value?.description || "",
+    published: editingList.value?.published || false,
+    public: editingList.value?.public || false,
+  });
+
+  useEffect(() => {
+    setList({
+      name: editingList.value?.name || "",
+      description: editingList.value?.description || "",
+      published: editingList.value?.published || false,
+      public: editingList.value?.public || false,
+    });
+  }, [editingList.value]);
 
   const formSubmitted = async (event: any) => {
     event.preventDefault();
-    // validate
     if (event.target) {
-      const formData = new FormData(event.target);
-      const newList = {
-        name: formData.get("name")?.toString() || "",
-        description: formData.get("description")?.toString() || "",
-      };
-      let nameError = "";
-      let descriptionError = "";
-      if (!newList.name.trim()) {
-        nameError = "Name is required.";
-      }
-      if (!newList.description.trim()) {
-        descriptionError = "Description is required.";
-      }
-      if (nameError || descriptionError) {
-        setErrors({
-          name: nameError,
-          description: descriptionError,
-        });
-      } else {
-        const response = await fetch("/api/lists", {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(newList),
-        });
-        const data = await response.json();
-        if (response.ok) {
-          window.location.href = `/dashboard/lists/edit/${data.id}`;
+      try {
+        const validated = await SpotList.parseAsync(list);
+        if (editingList.value) {
+          // PUT request...
         } else {
-          setCreateError(data.message || response.statusText);
+          const response = await fetch("/api/lists", {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(validated),
+          });
+          const data = await response.json();
+          if (response.ok) {
+            window.location.href = `/dashboard/lists/edit/${data.slug}`;
+          } else {
+            setCreateError(data.message || response.statusText);
+          }
+        }
+      } catch (error) {
+        if (error.errors) {
+          const errorMessages = getErrorMessages(error.errors);
+          setErrors({
+            name: errorMessages.get("name"),
+            description: errorMessages.get("description"),
+          });
         }
       }
+    }
+  };
+
+  const togglePublished = () => {
+    setList((current) => ({
+      ...current,
+      public: false,
+      published: !current.published,
+    }));
+  };
+
+  const deleteList = async () => {
+    const response = await fetch(`/api/lists/${editingList.value!.id}`, {
+      method: "DELETE",
+      headers: {
+        "content-type": "application/json",
+      },
+    });
+    if (response.ok) {
+      window.location.href = "/dashboard";
+    } else {
+      setCreateError(response.statusText);
     }
   };
 
@@ -60,12 +94,17 @@ export default function ListForm() {
             Name
           </label>
           <input
-            onInput={() =>
+            onInput={(event) => {
               setErrors((current) => ({
                 ...current,
                 name: "",
-              }))
-            }
+              }));
+              setList((current) => ({
+                ...current,
+                name: event.currentTarget.value,
+              }));
+            }}
+            value={list.name}
             type="text"
             class={`form-control ${errors.name ? "is-invalid" : ""}`}
             id="listName"
@@ -84,12 +123,17 @@ export default function ListForm() {
             Description
           </label>
           <textarea
-            onInput={() =>
+            onInput={(event) => {
               setErrors((current) => ({
                 ...current,
                 description: "",
-              }))
-            }
+              }));
+              setList((current) => ({
+                ...current,
+                description: event.currentTarget.value,
+              }));
+            }}
+            value={list.description}
             class={`form-control ${errors.description ? "is-invalid" : ""}`}
             id="listDescription"
             name="description"
@@ -104,9 +148,78 @@ export default function ListForm() {
             about.
           </small>
         </div>
+        {editingList.value && (
+          <>
+            <div
+              class="btn-group mt-2"
+              role="group"
+              aria-label="Published State"
+            >
+              <input
+                type="radio"
+                class="btn-check"
+                name="draft"
+                id="draft"
+                autocomplete="off"
+                checked={!list.published}
+                onClick={togglePublished}
+              />
+              <label class="btn btn-outline-success" for="draft">
+                Draft
+              </label>
+              <input
+                onClick={togglePublished}
+                type="radio"
+                class="btn-check"
+                name="published"
+                id="published"
+                autocomplete="off"
+                checked={list.published}
+              />
+              <label class="btn btn-outline-success" for="published">
+                Published
+              </label>
+            </div>
+            <fieldset class="form-group mt-2">
+              <div class="form-check">
+                <input
+                  onClick={() => {
+                    setList((current) => ({
+                      ...current,
+                      public: !current.public,
+                    }));
+                  }}
+                  disabled={!list.published}
+                  checked={list.public}
+                  class="form-check-input"
+                  type="checkbox"
+                  id="public"
+                />
+                <label
+                  disabled={!list.published}
+                  class="form-check-label"
+                  for="public"
+                >
+                  Show On Profile
+                </label>
+              </div>
+            </fieldset>
+          </>
+        )}
       </fieldset>
-      <div class="flex justify-end">
-        <button class="btn btn-large btn-success">CREATE</button>
+      <div class="flex justify-end gap-2">
+        {editingList.value && (
+          <button
+            onClick={deleteList}
+            type="button"
+            class="btn btn-large btn-danger"
+          >
+            DELETE
+          </button>
+        )}
+        <button class="btn btn-large btn-success" type="submit">
+          {editingList.value ? "SAVE" : "CREATE"}
+        </button>
       </div>
     </form>
   );

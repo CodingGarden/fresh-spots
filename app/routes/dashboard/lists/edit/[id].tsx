@@ -20,7 +20,17 @@ interface ListEditProps {
 
 export const handler: Handlers<ListEditProps, State> = {
   async GET(req, ctx) {
-    const list = await findOne(ctx.params.id, ctx.state.userId);
+    const idAsNumber = Number(ctx.params.id);
+    const list = await findOne(
+      {
+        slug: isNaN(idAsNumber) ? ctx.params.id : undefined,
+        id: isNaN(idAsNumber) ? undefined : idAsNumber,
+      },
+      ctx.state.userId
+    );
+    if (!list) {
+      return ctx.renderNotFound();
+    }
     return ctx.render({
       list: list as unknown as SpotListWithIdAndSpots,
       user: ctx.state.user as UserWithSocialProfiles,

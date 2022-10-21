@@ -22,7 +22,7 @@ export const handler: Handlers = {
       const body = await req.json();
       const validatedResult = await Spot.parseAsync(body);
       const list = await SpotList.findOne(
-        validatedResult.list_id,
+        { id: validatedResult.list_id },
         ctx.state.userId
       );
       if (!list) {

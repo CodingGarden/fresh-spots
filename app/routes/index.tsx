@@ -21,7 +21,7 @@ export const handler: Handlers = {
 export default function Home({ data }: { data: { message: string } }) {
   pageTitle.value = "Fresh Spots";
   return (
-    <Layout user={null}>
+    <Layout user={null} flexCol>
       {data.message && <Alert message={data.message} />}
       <Landing />
     </Layout>

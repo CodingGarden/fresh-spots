@@ -7,10 +7,12 @@ import { pageTitle } from "../signals/index.ts";
 
 type LayoutProps = {
   overflowHidden?: boolean;
+  flexCol?: boolean;
 } & PropsWithUser;
 
 const Layout: FunctionalComponent<LayoutProps> = ({
   overflowHidden = true,
+  flexCol = false,
   children,
   user,
 }) => {
@@ -41,7 +43,9 @@ const Layout: FunctionalComponent<LayoutProps> = ({
       >
         <NavBar user={user} />
         <main
-          class={`${overflowHidden ? "overflow-hidden" : ""} flex-grow-1 flex`}
+          class={`${overflowHidden ? "overflow-hidden" : ""} flex-grow-1 flex ${
+            flexCol ? "flex-col" : ""
+          }`}
         >
           {children}
         </main>

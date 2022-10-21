@@ -25,7 +25,7 @@ export default function NotFoundPage({ url }: UnknownPageProps) {
   const message = url.searchParams.get("message");
   pageTitle.value = "Not Found";
   return (
-    <Layout>
+    <Layout flexCol>
       <Alert message={message || `404 not found: ${url.pathname}`} />
     </Layout>
   );

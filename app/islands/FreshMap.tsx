@@ -60,7 +60,7 @@ effect(() => {
           latitude: event.latlng.lat,
           longitude: event.latlng.lng,
           name: "",
-          list_id: "",
+          list_id: -1,
           user_id: -1,
           description: "",
         };
@@ -91,7 +91,7 @@ export default function FreshMap({ mapTileUrl }: FreshMapProps) {
       const mapComponent = mapRef.current as unknown as PreactMap;
       map.value = mapComponent.state.map;
       if (IS_BROWSER) {
-        if (editingList.value) {
+        if (editingList.value && editingList.value.spots.length) {
           // deno-lint-ignore ban-ts-comment
           // @ts-ignore
           const bounds = new L.LatLngBounds(
