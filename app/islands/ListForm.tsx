@@ -2,8 +2,13 @@ import { useState, useEffect } from "preact/hooks";
 import { editingList } from "@/signals/index.ts";
 import { SpotList } from "@/db/tables/SpotListTable.ts";
 import { getErrorMessages } from "@/utils/zodErrorUtils.ts";
+import ConfirmationButtons from "./ConfirmationButtons.tsx";
 
-export default function ListForm() {
+interface ListFormProps {
+  setIsEditingList?: (value: boolean) => unknown;
+}
+
+export default function ListForm({ setIsEditingList }: ListFormProps) {
   const [createError, setCreateError] = useState("");
   const [errors, setErrors] = useState({
     name: "",
@@ -31,7 +36,25 @@ export default function ListForm() {
       try {
         const validated = await SpotList.parseAsync(list);
         if (editingList.value) {
-          // PUT request...
+          const response = await fetch(`/api/lists/${editingList.value.id}`, {
+            method: "PUT",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(validated),
+          });
+          const data = await response.json();
+          if (response.ok) {
+            const { spots } = editingList.value;
+            data.spots = spots;
+            editingList.value = data;
+            if (setIsEditingList) {
+              setIsEditingList(false);
+            }
+            history.replaceState({}, "", data.slug);
+          } else {
+            setCreateError(data.message || response.statusText);
+          }
         } else {
           const response = await fetch("/api/lists", {
             method: "POST",
@@ -65,20 +88,6 @@ export default function ListForm() {
       public: false,
       published: !current.published,
     }));
-  };
-
-  const deleteList = async () => {
-    const response = await fetch(`/api/lists/${editingList.value!.id}`, {
-      method: "DELETE",
-      headers: {
-        "content-type": "application/json",
-      },
-    });
-    if (response.ok) {
-      window.location.href = "/dashboard";
-    } else {
-      setCreateError(response.statusText);
-    }
   };
 
   return (
@@ -207,20 +216,26 @@ export default function ListForm() {
           </>
         )}
       </fieldset>
-      <div class="flex justify-end gap-2">
-        {editingList.value && (
-          <button
-            onClick={deleteList}
-            type="button"
-            class="btn btn-large btn-danger"
-          >
-            DELETE
+      {editingList.value ? (
+        <ConfirmationButtons
+          onConfirm={() => {
+            if (setIsEditingList) {
+              setIsEditingList(false);
+            }
+          }}
+          rightButtons={
+            <button class="btn btn-large btn-success" type="submit">
+              SAVE
+            </button>
+          }
+        />
+      ) : (
+        <div class="flex justify-end mt-3 gap-3">
+          <button class="btn btn-large btn-success" type="submit">
+            CREATE
           </button>
-        )}
-        <button class="btn btn-large btn-success" type="submit">
-          {editingList.value ? "SAVE" : "CREATE"}
-        </button>
-      </div>
+        </div>
+      )}
     </form>
   );
 }

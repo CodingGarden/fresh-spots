@@ -61,12 +61,24 @@ export async function findAll(userId: number) {
   return lists;
 }
 
-export async function createOne(list: SpotList, user_id: number) {
-  let slug = slugify(list.name, {
+async function getSlug(name: string, id?: number) {
+  let existingSlug = "";
+  if (id) {
+    const [existingList] = await db
+      .selectFrom("spot_list")
+      .where("id", "=", id)
+      .select("slug")
+      .execute();
+    existingSlug = existingList.slug;
+  }
+  let slug = slugify(name, {
     lower: true,
     strict: true,
     locale: "en",
   });
+  if (existingSlug.replace(/--.*/, "") === slug) {
+    return existingSlug;
+  }
   const existing = await db
     .selectFrom("spot_list")
     .where("slug", "=", slug)
@@ -75,6 +87,11 @@ export async function createOne(list: SpotList, user_id: number) {
   if (existing.length) {
     slug += `--${existing.length}`;
   }
+  return slug;
+}
+
+export async function createOne(list: SpotList, user_id: number) {
+  const slug = await getSlug(list.name);
   return db
     .insertInto("spot_list")
     .values({
@@ -94,4 +111,19 @@ export function deleteOne(id: number, userId: number) {
     .where("id", "=", id)
     .where("user_id", "=", userId)
     .execute();
+}
+
+export async function updateOne(id: number, userId: number, list: SpotList) {
+  const slug = await getSlug(list.name, id);
+  return db
+    .updateTable("spot_list")
+    .where("id", "=", id)
+    .where("user_id", "=", userId)
+    .set({
+      ...list,
+      slug,
+      updated_at: new Date(),
+    })
+    .returningAll()
+    .executeTakeFirstOrThrow();
 }

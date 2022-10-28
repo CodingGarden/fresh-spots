@@ -7,10 +7,10 @@ import {
 } from "@/signals/index.ts";
 import { Spot } from "@/db/tables/SpotTable.ts";
 import Alert from "@/components/Alert.tsx";
+import ConfirmationButtons from "@/islands/ConfirmationButtons.tsx";
 import { getErrorMessages } from "../utils/zodErrorUtils.ts";
 
 export default function SpotForm() {
-  const [isCanceling, setIsCanceling] = useState(false);
   const [createError, setCreateError] = useState("");
   const [errors, setErrors] = useState({
     name: "",
@@ -155,50 +155,14 @@ export default function SpotForm() {
           </p>
         </div>
       </fieldset>
-      {isCanceling ? (
-        <>
-          <Alert
-            margin={false}
-            className="mt-4"
-            message="Are you sure you want to cancel? You will lose any unsaved changes."
-          />
-          <div class="flex justify-end mt-4 gap-3">
-            <button
-              onClick={() => setIsCanceling(false)}
-              type="button"
-              class="btn btn-large btn-outline-light"
-            >
-              Keep Changes
-            </button>
-            <button
-              onClick={() => {
-                editingSpot.value = null;
-                setIsCanceling(false);
-                editingSpotUnsavedChanges.value = false;
-              }}
-              type="button"
-              class="btn btn-large btn-warning"
-            >
-              Discard changes
-            </button>
-          </div>
-        </>
-      ) : (
-        <div class="flex justify-end mt-3 gap-3">
-          <button
-            onClick={() => {
-              if (!editingSpotUnsavedChanges.value) {
-                editingSpot.value = null;
-              } else {
-                setIsCanceling(true);
-              }
-            }}
-            type="button"
-            class="btn btn-large btn-warning"
-          >
-            CANCEL
-          </button>
-          {editingSpot.value?.id ? (
+      <ConfirmationButtons
+        bypassConfirmation={!editingSpotUnsavedChanges.value}
+        onConfirm={() => {
+          editingSpot.value = null;
+          editingSpotUnsavedChanges.value = false;
+        }}
+        rightButtons={
+          editingSpot.value?.id ? (
             <button type="submit" class="btn btn-large btn-success">
               UPDATE SPOT
             </button>
@@ -206,9 +170,9 @@ export default function SpotForm() {
             <button type="submit" class="btn btn-large btn-success">
               ADD SPOT
             </button>
-          )}
-        </div>
-      )}
+          )
+        }
+      />
     </form>
   );
 }

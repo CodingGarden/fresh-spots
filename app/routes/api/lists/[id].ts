@@ -4,6 +4,7 @@ import { http } from "@/deps.ts";
 import State from "@/schemas/State.ts";
 import { SpotList } from "@/db/tables/SpotListTable.ts";
 import {
+  updateOne,
   deleteOne,
   findOneById,
   findOneBySlug,
@@ -50,6 +51,38 @@ export const handler: Handlers = {
       return new Response(null, {
         status: http.Status.NoContent,
       });
+    } catch (error) {
+      return Response.json(
+        {
+          message: error.message || "Unknown Error",
+        },
+        {
+          status: 500,
+        }
+      );
+    }
+  },
+  async PUT(_req, ctx: HandlerContext<SpotList, State>) {
+    if (!ctx.state.userId) {
+      return Response.json(
+        {
+          message: "Un-Authorized",
+        },
+        {
+          status: http.Status.Unauthorized,
+        }
+      );
+    }
+    try {
+      const body = await _req.json();
+      const validatedList = await SpotList.parseAsync(body);
+      const updatedList = await updateOne(
+        Number(ctx.params.id),
+        ctx.state.userId,
+        validatedList
+        // TODO TODAY... update slug
+      );
+      return Response.json(updatedList);
     } catch (error) {
       return Response.json(
         {
