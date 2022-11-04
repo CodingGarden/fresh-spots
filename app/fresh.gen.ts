@@ -17,6 +17,8 @@ import * as $10 from "./routes/dashboard/lists/create.tsx";
 import * as $11 from "./routes/dashboard/lists/edit/[id].tsx";
 import * as $12 from "./routes/index.tsx";
 import * as $13 from "./routes/logout.ts";
+import * as $14 from "./routes/view/[slug].tsx";
+import * as $15 from "./routes/view/_middleware.ts";
 import * as $$0 from "./islands/ConfirmationButtons.tsx";
 import * as $$1 from "./islands/FreshMap.tsx";
 import * as $$2 from "./islands/HydrateIsland.tsx";
@@ -24,6 +26,8 @@ import * as $$3 from "./islands/ListForm.tsx";
 import * as $$4 from "./islands/Sidebar.tsx";
 import * as $$5 from "./islands/SpotForm.tsx";
 import * as $$6 from "./islands/UserAvatarButton.tsx";
+import * as $$7 from "./islands/ViewOnlyFreshMap.tsx";
+import * as $$8 from "./islands/ViewOnlySidebar.tsx";
 
 const manifest = {
   routes: {
@@ -41,6 +45,8 @@ const manifest = {
     "./routes/dashboard/lists/edit/[id].tsx": $11,
     "./routes/index.tsx": $12,
     "./routes/logout.ts": $13,
+    "./routes/view/[slug].tsx": $14,
+    "./routes/view/_middleware.ts": $15,
   },
   islands: {
     "./islands/ConfirmationButtons.tsx": $$0,
@@ -50,6 +56,8 @@ const manifest = {
     "./islands/Sidebar.tsx": $$4,
     "./islands/SpotForm.tsx": $$5,
     "./islands/UserAvatarButton.tsx": $$6,
+    "./islands/ViewOnlyFreshMap.tsx": $$7,
+    "./islands/ViewOnlySidebar.tsx": $$8,
   },
   baseUrl: import.meta.url,
   config,

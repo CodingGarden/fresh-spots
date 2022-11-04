@@ -39,7 +39,10 @@ export default function Home({ data }: PageProps<DashboardPageProps>) {
               <div class="card-header">{list.name}</div>
               <div class="card-body">
                 <p class="card-text">{list.description}</p>
-                <div class="flex justify-end">
+                <div class="flex justify-end gap-2">
+                  <a href={`/view/${list.slug}`} class="btn btn-warning">
+                    VIEW
+                  </a>
                   <a
                     href={`/dashboard/lists/edit/${list.slug || list.id}`}
                     class="btn btn-success"
