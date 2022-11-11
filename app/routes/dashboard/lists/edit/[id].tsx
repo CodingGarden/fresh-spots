@@ -49,7 +49,7 @@ export default function Home({ data }: PageProps<ListEditProps>) {
       <Hydrate name="editingList" data={data.list} />
       {data.list ? (
         <div class="flex-grow flex">
-          <Sidebar />
+          <Sidebar baseUrl={config.base_url} />
           <FreshMap mapTileUrl={config.map_tile_url} />
         </div>
       ) : (

@@ -11,7 +11,7 @@ import {
 import ConfirmationButtons from "@/islands/ConfirmationButtons.tsx";
 import Alert from "@/components/Alert.tsx";
 
-export default function SideBar() {
+export default function SideBar({ baseUrl }: { baseUrl: string }) {
   const [isEditingList, setIsEditingList] = useState(false);
   const [deleteError, setDeleteError] = useState("");
   const deleteList = async () => {
@@ -27,6 +27,7 @@ export default function SideBar() {
       setDeleteError(response.statusText);
     }
   };
+  const listUrl = `${baseUrl}/view/${editingList.value?.slug}`;
   return (
     <div
       id="drawer-example"
@@ -62,6 +63,14 @@ export default function SideBar() {
             </div>
           </div>
         ))}
+      {editingList.value?.published && (
+        <div class="card-footer text-muted italic">
+          Share this link with others:{" "}
+          <a href={listUrl} target="_blank" rel="noopener nofollow">
+            {listUrl}
+          </a>
+        </div>
+      )}
       <hr />
       {editingSpot.value && <SpotForm />}
       <div class="mt-2">

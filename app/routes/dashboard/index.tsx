@@ -6,6 +6,7 @@ import Layout from "@/components/Layout.tsx";
 import { pageTitle } from "@/signals/index.ts";
 import SpotListTable from "@/db/tables/SpotListTable.ts";
 import { findAll } from "@/db/queries/SpotList.ts";
+import config from "@/utils/config.ts";
 
 interface DashboardPageProps {
   user?: UserWithSocialProfiles;
@@ -26,6 +27,7 @@ export const handler: Handlers<DashboardPageProps, State> = {
 
 export default function Home({ data }: PageProps<DashboardPageProps>) {
   pageTitle.value = "Dashboard";
+
   return (
     <Layout overflowHidden={false} user={data.user}>
       <div class="mt-5 w-full flex flex-col items-center container">
@@ -34,25 +36,36 @@ export default function Home({ data }: PageProps<DashboardPageProps>) {
         </a>
         {!data.lists.length && <h2>You have not created any lists!</h2>}
         <div class="mt-5 w-full">
-          {data.lists.map((list) => (
-            <div class="card border-success mb-3 w-full">
-              <div class="card-header">{list.name}</div>
-              <div class="card-body">
-                <p class="card-text">{list.description}</p>
-                <div class="flex justify-end gap-2">
-                  <a href={`/view/${list.slug}`} class="btn btn-warning">
-                    VIEW
-                  </a>
-                  <a
-                    href={`/dashboard/lists/edit/${list.slug || list.id}`}
-                    class="btn btn-success"
-                  >
-                    EDIT
-                  </a>
+          {data.lists.map((list) => {
+            const listUrl = `${config.base_url}/view/${list.slug}`;
+            return (
+              <div class="card border-success mb-3 w-full">
+                <div class="card-header">{list.name}</div>
+                <div class="card-body">
+                  <p class="card-text">{list.description}</p>
+                  <div class="flex justify-end gap-2">
+                    <a href={`/view/${list.slug}`} class="btn btn-warning">
+                      VIEW
+                    </a>
+                    <a
+                      href={`/dashboard/lists/edit/${list.slug || list.id}`}
+                      class="btn btn-success"
+                    >
+                      EDIT
+                    </a>
+                  </div>
                 </div>
+                {list.published && (
+                  <div class="card-footer text-muted italic">
+                    Share this link with others:{" "}
+                    <a href={listUrl} target="_blank" rel="noopener nofollow">
+                      {listUrl}
+                    </a>
+                  </div>
+                )}
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </Layout>
