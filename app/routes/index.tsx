@@ -1,6 +1,6 @@
 import { Handlers } from "$fresh/server.ts";
+import { asset } from "$fresh/runtime.ts";
 
-import path from "path";
 import Layout from "@/components/Layout.tsx";
 import Landing from "@/components/Landing.tsx";
 import config from "@/utils/config.ts";
@@ -18,9 +18,11 @@ export const handler: Handlers = {
     }
     const params = new URLSearchParams(req.url.split("?")[1]);
     const images = [];
-    for await (const image of Deno.readDir("./static/images/dinos")) {
+    for await (const image of Deno.readDir(
+      Deno.cwd() + "/static/images/dinos"
+    )) {
       if (image.isFile) {
-        images.push(image.name);
+        images.push(asset(`/images/dinos/${image.name}`));
       }
     }
     return ctx.render({

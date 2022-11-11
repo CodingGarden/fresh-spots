@@ -5,7 +5,7 @@ export default function Landing({ image }: { image: string }) {
       <img
         class="block m-auto"
         style={{ width: "300px" }}
-        src={`/images/dinos/${image}`}
+        src={image}
         alt="fresh-spots-deno"
       />
       <div class="text-center">
