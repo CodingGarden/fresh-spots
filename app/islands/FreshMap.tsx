@@ -126,7 +126,7 @@ export default function FreshMap({ mapTileUrl }: FreshMapProps) {
           >
             <TileLayer
               url={mapTileUrl}
-              attribution="&copy; OpenStreetMap contributors &copy; CARTO"
+              attribution={`© <a target="_blank" rel="noopener nofollow" href="https://www.mapbox.com/about/maps/">Mapbox</a> | <strong><a href="https://www.mapbox.com/map-feedback/" target="_blank" target="_blank" rel="noopener nofollow">Improve this map</a></strong>`}
               maxZoom="20"
             />
             {editingList.value?.spots.map((spot) =>
