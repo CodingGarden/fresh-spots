@@ -54,7 +54,7 @@ const NavBar: FunctionalComponent<PropsWithUser> = ({ user }) => {
               FRESH SPOTS
             </h4>
           </a>
-          {user && <UserAvatarButton user={user} />}
+          <UserAvatarButton user={user} />
         </div>
       </div>
     </nav>

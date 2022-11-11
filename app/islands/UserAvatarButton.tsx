@@ -43,7 +43,14 @@ const UserAvatarButton: FunctionComponent<PropsWithUser> = ({ user }) => {
     };
   }, []);
 
-  if (!user) return null;
+  if (!user)
+    return (
+      <div class="relative">
+        <a class="btn btn-info" href="/auth/discord">
+          Login with Discord
+        </a>
+      </div>
+    );
   const socialProfile = getSocialProfile(user);
   return (
     <div class="relative" ref={buttonRef} tabIndex={1}>
