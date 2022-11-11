@@ -18,9 +18,11 @@ export const handler: Handlers = {
     }
     const params = new URLSearchParams(req.url.split("?")[1]);
     const images = [];
-    for await (const image of Deno.readDir(
-      Deno.cwd() + "/static/images/dinos"
-    )) {
+    const imageFolder =
+      config.environment !== "development"
+        ? `${Deno.cwd()}/images/dinos`
+        : `${Deno.cwd()}/static/images/dinos`;
+    for await (const image of Deno.readDir(imageFolder)) {
       if (image.isFile) {
         images.push(asset(`/images/dinos/${image.name}`));
       }
