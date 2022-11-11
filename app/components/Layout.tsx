@@ -20,16 +20,7 @@ const Layout: FunctionalComponent<LayoutProps> = ({
     <>
       <Head>
         <title>{pageTitle.value}</title>
-        <link
-          rel="stylesheet"
-          href="/darkly.bootstrap.min.css"
-          media="screen and (prefers-color-scheme: dark)"
-        />
-        <link
-          rel="stylesheet"
-          href="/flatly.bootstrap.min.css"
-          media="screen and (prefers-color-scheme: light)"
-        />
+        <link rel="stylesheet" href="/darkly.bootstrap.min.css" />
         <link
           rel="stylesheet"
           href="https://unpkg.com/@fontsource/work-sans@4.5.12/index.css"
