@@ -24,7 +24,7 @@ The code is in the [app](/app/) directory. See the README there for setup direct
 ## Tasks and Todos
 
 * See the [DEV LOG](./DEV_LOG.md)
-* See the [Trello Board](https://trello.com/b/9KPQrneu/fresh-spots)
+* See the [Project Board](https://github.com/orgs/CodingGarden/projects/2)
 
 # AI Images
 * Created by NGriffin_uk
