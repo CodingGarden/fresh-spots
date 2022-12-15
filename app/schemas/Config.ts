@@ -17,6 +17,7 @@ export const ConfigSchema = z.object({
     1,
     getErrorMessage(EnvNames.MAP_TILE_URL),
   ),
+  port: z.number().default(8000),
   base_url: z.string().min(
     1,
     getErrorMessage(EnvNames.BASE_URL),
