@@ -13,6 +13,7 @@ import { Config, ConfigSchema } from "@/schemas/Config.ts";
 const envConfig: Config = {
   cookie_secret: Deno.env.get(EnvNames.COOKIE_SECRET) || "",
   map_tile_url: Deno.env.get(EnvNames.MAP_TILE_URL) || "",
+  port: Deno.env.get(EnvNames.PORT) || 8000,
   base_url: Deno.env.get(EnvNames.BASE_URL) || "http://localhost:8000",
   environment: Deno.env.get(EnvNames.DENO_ENV) || "",
   db: {
