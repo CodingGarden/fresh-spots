@@ -32,6 +32,12 @@ If using Docker, you can run from this directory to spin up a postgres database:
 docker-compose start
 ```
 
+After this it's important to run:
+
+```sh
+deno task migrate:up
+```
+
 ### Usage
 
 Start the project (this will install dependencies on first run):
