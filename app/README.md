@@ -18,6 +18,12 @@ Update the values accordingly (if using Docker, the values can stay as is).
 Discord client id and secret can be acquired
 [here](https://discord.com/developers/applications).
 
+Under OAuth2 a new redirect should be added pointing to:
+
+```
+http://localhost:8000/auth/discord/callback
+```
+
 ### Database
 
 If using Docker, you can run from this directory to spin up a postgres database:
